@@ -1,0 +1,9 @@
+# fil rouge : Film 
+Synthesis :
+https://hackmd.io/@nicolasraouldevweb/HJoXYxJ78
+
+@git https://github.com/SylvainSimplonGit/red-thread.git
+
+@see
+https://www.tvtime.com/
+http://www.omdbapi.com/
