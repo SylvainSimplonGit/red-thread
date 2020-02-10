@@ -43,19 +43,19 @@ Comment proposer une liste de vidéos adaptée au goût cinématographique ?
     - C'est une vidéo qui par ses infos correspond avec un degré suffisant aux critières extraits de la liste des vidéos/séries visionnées par l'utilisateur (genres, réalisateurs et acteurs des films visionnés)
 1. Qui aime quoi comme genre de film ?
      - gestion de profil utilisateur
-1. Comment trouver la liste de film d'un cinématophile ?
+1. Comment trouver la liste de film d'un cinéphile ?
     - En fonction des films déjà vus par le cinéphile et ses avis.
 1. Où trouver les infos d'un film ?
     - http://www.omdbapi.com/
 1. Peut-on poster des avis et voter pour ses films préférés ?
-    - Oui, et c'est nécessaire pour connaitre les goût du filmographe
+    - Oui, et c'est nécessaire pour connaitre les goûts du cinéphile
 1. Peut-on voir des liens vers des bandes annonces ?
     - Oui on peut retrouver les liens vers les bandes-annonces et les mettre dans les attributs de chaque film
 1. Toutes les vidéos sont elles adaptées à tout public ?
     - Les vidéos sont toutes adaptées au public pour lequel elles sont destinées (en fonction des critères de filtre).
-    - Récupérer les Infos PEGI?? sur le site IMDB
+    - Récupérer les infos MPAA film ratings sur le site OMDB
 1. Les séries font-elles partie des goûts cinématographique ?
-    - les séries font partie des choix. Ils sont définis avec les mêmes informations que les films.
+    - les séries font partie des choix. Elles sont définis avec les mêmes informations que les films.
 
 ## Explications de la démarche
 
