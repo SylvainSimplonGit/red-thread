@@ -25,4 +25,12 @@ Le thème choisi sera :
    1. Solution non informatique :
         >Créer un forum en IRL de cinéphiles pour partager son expérience des films déjà vus.
 
-1. Maquette
+1. [Users Stories](documentation/users_stories.md#liste-des-users-stories)
+
+1. Priorisation des Users Stories
+
+1. Maquettage
+
+1. Dispatching
+
+   /!\ Faire attention aux interactions entre Users Stories
