@@ -27,7 +27,7 @@ Le thème choisi sera :
 
 1. [Users Stories](documentation/users_stories.md#liste-des-users-stories)
 
-1. Priorisation des Users Stories
+1. [Priorisation des Users Stories](documentation/users_stories.md#priorisation-des-users-stories)
 
 1. Maquettage
 
