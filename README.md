@@ -29,8 +29,10 @@ Le thème choisi sera :
 
 1. [Priorisation des Users Stories](documentation/users_stories.md#priorisation-des-users-stories)
 
-1. [Maquettage](mockup/html/) 
+1. [Maquettage](mockup/html/)
 
 1. Dispatching
+
+    [Renommage de Users Stories](documentation/users_stories.md#nommage-des-users-stories)
 
    /!\ Faire attention aux interactions entre Users Stories
