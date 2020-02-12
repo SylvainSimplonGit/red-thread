@@ -61,6 +61,11 @@ Pour comprendre, voici un exemple détaillé :
     >**[US-001-06]** Film Buff Identification with Amazon
     >**[US-001-07]** Film Buff Identification with Google
     >**[US-001-08]** Delete a local account
+    >**[US-001-09]** Create a Genre Enum
+    >**[US-001-10]** Create a Rate Enum
+    >**[US-001-11]** Create a Actor Object
+    >**[US-001-12]** Create a Connection Object
+    >**[US-001-13]** Create a Opinion Object
 
 1. En tant que cinéphile, je veux pouvoir afficher une liste des films que j'ai déjà vus afin de voir l'ensemble des films que j'ai vu.
     >**[US-02-001]** Create Film Object
