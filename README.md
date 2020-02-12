@@ -31,6 +31,8 @@ Le thème choisi sera :
 
 1. [Maquettage](mockup/html/)
 
+1. [Modeles de données](documentation/model.puml)
+
 1. Dispatching
 
     [Renommage de Users Stories](documentation/users_stories.md#nommage-des-users-stories)
