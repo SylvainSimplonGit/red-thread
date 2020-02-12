@@ -54,13 +54,13 @@ Pour comprendre, voici un exemple détaillé :
 
 1. En tant que cinéphile, je veux pouvoir m'identifier afin que l'application me reconnaisse
     >**[US-001-01]** Create a Film Buff Object
-    >**[US-001-01]** Film Buff Identification with local account
-    >**[US-001-02]** Create a local account
-    >**[US-001-03]** Film Buff Identification with GitHub
-    >**[US-001-04]** Film Buff Identification with Facebook
-    >**[US-001-05]** Film Buff Identification with Amazon
-    >**[US-001-06]** Film Buff Identification with Google
-    >**[US-001-07]** Delete a local account
+    >**[US-001-02]** Film Buff Identification with local account
+    >**[US-001-03]** Create a local account
+    >**[US-001-04]** Film Buff Identification with GitHub
+    >**[US-001-05]** Film Buff Identification with Facebook
+    >**[US-001-06]** Film Buff Identification with Amazon
+    >**[US-001-07]** Film Buff Identification with Google
+    >**[US-001-08]** Delete a local account
 
 1. En tant que cinéphile, je veux pouvoir afficher une liste des films que j'ai déjà vus afin de voir l'ensemble des films que j'ai vu.
     >**[US-02-001]** Create Film Object
