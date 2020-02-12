@@ -94,14 +94,14 @@ class MovieBuff {
   idMovieBuff: Integer
   firstName: String
   lastName: String
-  connexions: Connexion[] 
+  connections: Connection[] 
   moviesSeen: Movie[]
 
   createMovieBuff()
 
 }
 
-class Connexion {
+class Connection {
   idConnexion: Integer
   provider: String
   login: String
