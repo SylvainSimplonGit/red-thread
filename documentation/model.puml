@@ -47,6 +47,7 @@ class Movie {
   title: String
   director: String
   released: Date
+  runtime: Integer
   genres: Genre[]
   actors: Actor[]
   plot: String
@@ -54,7 +55,9 @@ class Movie {
   imdbVote: integer
   rated: Rate
   opinions: Opinion[]
+
   getMovieFromOmdbById(imdbId: String)
+  getMovieFromOmdbByName(name: String)
 }
 
 enum Genre {
@@ -93,6 +96,9 @@ class MovieBuff {
   lastName: String
   connexions: Connexion[] 
   moviesSeen: Movie[]
+
+  createMovieBuff()
+
 }
 
 class Connexion {
