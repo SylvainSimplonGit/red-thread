@@ -52,23 +52,31 @@ Pour comprendre, voici un exemple détaillé :
 
 ## Nommage des Users Stories
 
+1. En tant que concepteur de l'application, je dois ajouter des films depuis OmDB afin de remplir la base local
+    >**[US-00-001]** Create a Film Buff Object
+    >**[US-00-002]** Create a Genre Enum
+    >**[US-00-003]** Create a Rate Enum
+    >**[US-00-004]** Create a Actor Object
+    >**[US-00-005]** Get a list of years since 1960
+    >**[US-00-006]** Get list of Movies from OmDB for a year
+    >**[US-00-007]** Add or Update Movie in local DB by imdbId
+    >**[US-00-008]** Get a random list of Movie in local DB
+    >**[US-00-009]** Update Movie in local DB by imdbId
+    >**[US-00-010]** Launch Update list of Movie in local DB at a set time
+    >**[US-00-011]** Launch Update Movies in local DB at a set time
+    >**[US-00-012]** Create Film Object
+
 1. En tant que cinéphile, je veux pouvoir m'identifier afin que l'application me reconnaisse
-    >**[US-001-01]** Create a Film Buff Object
-    >**[US-001-02]** Film Buff Identification with local account
-    >**[US-001-03]** Create a local account
-    >**[US-001-04]** Film Buff Identification with GitHub
-    >**[US-001-05]** Film Buff Identification with Facebook
-    >**[US-001-06]** Film Buff Identification with Amazon
-    >**[US-001-07]** Film Buff Identification with Google
-    >**[US-001-08]** Delete a local account
-    >**[US-001-09]** Create a Genre Enum
-    >**[US-001-10]** Create a Rate Enum
-    >**[US-001-11]** Create a Actor Object
-    >**[US-001-12]** Create a Connection Object
-    >**[US-001-13]** Create a Opinion Object
+    >**[US-01-001]** Film Buff Identification with local account
+    >**[US-01-002]** Create a local account
+    >**[US-01-003]** Film Buff Identification with GitHub
+    >**[US-01-004]** Film Buff Identification with Facebook
+    >**[US-01-005]** Film Buff Identification with Amazon
+    >**[US-01-006]** Film Buff Identification with Google
+    >**[US-01-007]** Delete a local account
+    >**[US-01-008]** Create a Connection Object
 
 1. En tant que cinéphile, je veux pouvoir afficher une liste des films que j'ai déjà vus afin de voir l'ensemble des films que j'ai vu.
-    >**[US-02-001]** Create Film Object
     >**[US-02-002]** Display Film Buff "already-seen" movie personal list
 
 1. En tant que cinéphile, je veux pouvoir ajouter un film déjà vu afin de garder un historique.
@@ -81,10 +89,11 @@ Pour comprendre, voici un exemple détaillé :
     >**[US-05-001]** Create watchable movie trailer link for each movie
 
 1. En tant que cinéphile, je dois noter un film afin que l'application me propose des films qui me plairait.
-    >**[US-06-001]** Create a note to a movie
-    >**[US-06-002]** Read a note of a movie
-    >**[US-06-003]** Update a note of a movie
-    >**[US-06-004]** Display a note of a movie
+    >**[US-06-001]** Create the Opinion Object
+    >**[US-06-002]** Create an opinion to a movie
+    >**[US-06-003]** Read the opinion of a movie
+    >**[US-06-004]** Update the opinion of a movie
+    >**[US-06-005]** Display the opinion of a movie
 
 1. En tant que cinéphile, je peux mettre un commentaire afin de garder une trace de mon impression.
     >**[US-07-001]** Create a comment to a movie already seen
