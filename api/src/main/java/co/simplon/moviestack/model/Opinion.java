@@ -1,6 +1,8 @@
 package co.simplon.moviestack.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Entity
 public class Opinion {
@@ -10,26 +12,31 @@ public class Opinion {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "opinion_seq_id")
     private Long idOpinion;
 
+    @Column(nullable = false)
     private Long idMovieBuff;
 
     @Column(nullable = false)
-    private Integer rating;
+    @Min(value = 0)
+    @Max(value = 10)
+    private Float rating;
 
+    @Column(nullable = true)
     private String comment;
 
-    public Long getIdOpinion() {
-        return idOpinion;
+    public Opinion() {
     }
 
-    public Long getIdMovieBuff() {
-        return idMovieBuff;
+    public Opinion(Long idMovieBuff, Float rating, String comment) {
+        this.idMovieBuff = idMovieBuff;
+        this.rating = rating;
+        this.comment = comment;
     }
 
-    public Integer getRating() {
-        return rating;
+    public Opinion(Long idOpinion, Long idMovieBuff, Float rating, String comment) {
+        this.idOpinion = idOpinion;
+        this.idMovieBuff = idMovieBuff;
+        this.rating = rating;
+        this.comment = comment;
     }
 
-    public String getComment() {
-        return comment;
-    }
 }
