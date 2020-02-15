@@ -98,14 +98,27 @@ Relié un cinéphile à une liste de films sur lesquels il aura fournit des avis
 
 ## Où trouver les infos d'un film
 
-- http://www.omdbapi.com/
+1. https://www.themoviedb.org/
+  
+   - contient des informations en plusieurs langues (FR, EN, DE, ...)
+   - API beaucoup plus complète
+   - API sans restrictions
+
+1. http://www.omdbapi.com/ 
+
+   - contient des informations que TMDB n'a pas comme :
+     - la liste des acteurs
+     - le Réalisateur
+     - le "IMDB Rating"
+     - le "IMDB votes"
+   - a une restriction sur le nombre de requête par jour (1000 req / jr)
 
 ## Peut-on poster des avis et voter pour ses films préférés
 
 - Oui, et c'est nécessaire pour connaitre les goûts du cinéphile
 
 - Un avis peut être défini par:
-  - Une note (de 0 à 5 avec les 0.5)
+  - Une note (de 0.0 à 10.0)
   - un commentaire
 
 ## Peut-on voir des liens vers des bandes annonces
