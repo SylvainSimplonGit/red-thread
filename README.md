@@ -35,6 +35,12 @@ Le thème choisi sera :
 
 1. Dispatching
 
-    [Renommage de Users Stories](documentation/users_stories.md#nommage-des-users-stories)
+   [Renommage de Users Stories](documentation/users_stories.md#nommage-des-users-stories)
 
    /!\ Faire attention aux interactions entre Users Stories
+
+1. TDD
+
+   Utilisation des workflows de GitHub pour l'automatisation des tests au push
+
+   - [Documentation](https://help.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow)
