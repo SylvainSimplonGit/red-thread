@@ -6,7 +6,7 @@ https://hackmd.io/@nicolasraouldevweb/HJoXYxJ78
 
 @see
 https://www.tvtime.com/
-https://www.themoviedb.org/documentation/api
+http://www.omdbapi.com/
 
 Top 50 Thriller Movies and TV Shows 
 https://www.imdb.com/search/title/?genres=thriller&explore=title_type,genres&ref_=tt_ov_inf
