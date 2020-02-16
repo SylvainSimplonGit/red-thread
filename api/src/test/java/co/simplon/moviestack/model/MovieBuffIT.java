@@ -6,8 +6,6 @@
 package co.simplon.moviestack.model;
 
 import java.util.List;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,17 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author utilisateur
  */
 public class MovieBuffIT {
-    
-    public MovieBuffIT() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
 
     /**
      * Test of getIdMovieBuff method, of class MovieBuff.
