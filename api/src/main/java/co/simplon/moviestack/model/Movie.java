@@ -80,4 +80,12 @@ public class Movie {
     @OneToMany(mappedBy = "opinion")
     private List<Opinion> opinions = new ArrayList<>();
 
+    public Movie() {
+    }
+
+    public Movie(Long idMovie, String title) {
+        this.idMovie = idMovie;
+        this.title = title;
+    }
+
 }
