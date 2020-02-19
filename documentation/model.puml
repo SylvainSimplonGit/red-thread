@@ -1,7 +1,7 @@
 Description :
 - un film contient un ou plusieurs acteurs
 - un film a un ou plusieurs genre
-- un film peut avoir un  ou plusieurs avis
+- un film peut avoir un ou plusieurs avis
 
 
   un cinéphile peut ajouter un film vu
@@ -34,6 +34,20 @@ MovieBuff             "1"    -- "0..n"     Movie : a vu
 
 @startuml
 title MLD
+
+note as Correspondence
+  |= Object     |= theMovieDB   |= OmDB       |
+  | idMovie     | imdb_id       | imdbID      |
+  | title       | title (fr)    | Title       |
+  | director    | ???           | Director    |
+  | released    | release_date  | Released    |
+  | runtime     | runtime       | Runtime     |
+  | genres      | genres        | Genre       |
+  | actors      | ???           | Actors      |
+  | plot        | overview (fr) | Plot (en)   |
+  | imdbRating  | ???           | imdbRating  |
+  | imdbVote    | ???           | imdbVotes   |
+end note
 
 Movie                 "0..n" -- "1..n"     Genre : a
 Movie                 "0..n" -- "1..n"     Actor : a
@@ -101,14 +115,14 @@ class MovieBuff {
 
 }
 
-class Connection {
+class Connexion {
   idConnexion: Integer
   provider: String
   login: String
 }
 
 class Opinion {
-  idOpinion: Integer
+  idOpinion: Long
   idMovieBuff: Integer
   rating: Integer
   comment: String
