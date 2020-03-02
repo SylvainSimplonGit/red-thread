@@ -34,6 +34,7 @@ package co.simplon.moviestack.model;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -43,11 +44,16 @@ import javax.persistence.*;
 public class Movie {
 
     @Id
-    private Long idMovie;
-    @SequenceGenerator(name = "movie_seq_id", allocationSize = 1)
+    @SequenceGenerator(name = "movie_seq_id", allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_seq_id")
+    private Long idMovie;
 
     @Column(nullable = false)
+    @NotNull
+    private String idImdb;
+
+    @Column(nullable = false)
+    @NotNull
     private String title;
 
     @Column()
@@ -68,23 +74,23 @@ public class Movie {
     @Column()
     private Integer imdbVote;
 
-    @Enumerated(EnumType.STRING)
-    private Rate rated;
+//    @Enumerated(EnumType.STRING)
+//    private Rate rated;
 
-    @OneToMany(mappedBy = "genre")
-    private List<Genre> genres = new ArrayList<>();
+//    @OneToMany(mappedBy = "genre")
+//    private List<Genre> genres = new ArrayList<>();
 
-    @OneToMany(mappedBy = "actor")
-    private List<Actor> actors = new ArrayList<>();
+//    @OneToMany(mappedBy = "actor")
+//    private List<Actor> actors = new ArrayList<>();
 
-    @OneToMany(mappedBy = "opinion")
-    private List<Opinion> opinions = new ArrayList<>();
+    @OneToMany(mappedBy = "movie")
+    private List<Opinion> opinions;
 
     public Movie() {
     }
 
-    public Movie(Long idMovie, String title) {
-        this.idMovie = idMovie;
+    public Movie(String idImdbMovie, String title) {
+        this.idImdb = idImdbMovie;
         this.title = title;
     }
 

@@ -12,6 +12,9 @@ public class Opinion {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "opinion_seq_id")
     private Long idOpinion;
 
+    @ManyToOne
+    private Movie movie;
+
     @Column(nullable = false)
     private Long idMovieBuff;
 
