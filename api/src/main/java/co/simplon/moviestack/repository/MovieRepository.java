@@ -3,21 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.simplon.moviestack.model;
+package co.simplon.moviestack.repository;
 
-import org.junit.jupiter.api.Test;
+import co.simplon.moviestack.model.Movie;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author a178423
  */
-public class MovieIT {
-    
-    public MovieIT() {
-    }
-
-    @Test
-    public void testSomeMethod() {
-    }
+public interface MovieRepository extends JpaRepository<Movie, Long> {
     
 }
