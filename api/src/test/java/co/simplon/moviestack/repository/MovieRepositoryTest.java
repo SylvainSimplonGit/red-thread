@@ -5,9 +5,15 @@
  */
 package co.simplon.moviestack.repository;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import co.simplon.moviestack.model.Movie;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
+import javax.validation.ConstraintViolationException;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +27,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-public class MovieReposittoryTest {
+public class MovieRepositoryTest {
 
     @Autowired
     private TestEntityManager testEntityManager;
@@ -30,10 +36,23 @@ public class MovieReposittoryTest {
     private MovieRepository movieRepository;
 
     @Test
-    public void shouldReturnNotNullWhenAddMovieValid() throws Exception {
-        Movie savedMovie = new Movie(1L, "The Film !");
+    public void shouldReturnNotNullWhenAddMovieWithIdImbdAndTitle() throws Exception {
+        Movie savedMovie = new Movie("tt7286456", "The Film !");
         this.movieRepository.save(savedMovie);
         assertThat(testEntityManager.find(Movie.class, 1L)).isNotNull();
+    }
+
+    @Test
+    @Order(1)
+    public void shouldReturnTrueWhenAddMovieIsEmpty() throws Exception {
+
+        Exception exception = assertThrows(ConstraintViolationException.class, () -> {
+            Movie savedMovie = new Movie();
+            this.movieRepository.saveAndFlush(savedMovie);
+        });
+        String expectedMessage = "javax.validation.constraints.NotNull.message";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
 }

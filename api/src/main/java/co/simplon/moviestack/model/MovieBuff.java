@@ -1,26 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- * 
-@startuml
-class MovieBuff {
-  idMovieBuff: Long
-  firstName: String
-  lastName: String
-  connections: Connection[] 
-  moviesSeen: Movie[]
-}
-@enduml
-
- */
 package co.simplon.moviestack.model;
 
 //import co.simplon.moviestack.model.Connection;
-import co.simplon.moviestack.model.Movie;
+//import co.simplon.moviestack.model.Movie;
 
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
 
 import javax.persistence.*;
 
@@ -46,8 +30,8 @@ public class MovieBuff {
 //    @OneToMany(mappedBy = "connection")
 //    private List<Connection> connections = new ArrayList<>();
 
-    @OneToMany(mappedBy = "movie")
-    private List<Movie> moviesSeen = new ArrayList<>();
+//    @OneToMany(mappedBy = "movie")
+//    private List<Movie> moviesSeen = new ArrayList<>();
 
     public MovieBuff() {
     }
@@ -84,13 +68,12 @@ public class MovieBuff {
 //        this.connections = connections;
 //    }
 
-    public List<Movie> getMoviesSeen() {
-        return moviesSeen;
-    }
+//    public List<Movie> getMoviesSeen() {
+//        return moviesSeen;
+//    }
 
-    public void setMoviesSeen(List<Movie> moviesSeen) {
-        this.moviesSeen = moviesSeen;
-    }
-
+//    public void setMoviesSeen(List<Movie> moviesSeen) {
+//        this.moviesSeen = moviesSeen;
+//    }
 
 }
