@@ -25,6 +25,7 @@ public enum Genre {
 
     Genre (String genre) {this.genre = genre;}
 
+    @Override
     public String toString(){
         return genre;
     }

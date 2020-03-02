@@ -17,6 +17,7 @@ public class Actor {
     private String lastName;
 
     public Actor() {
+        // Constructor by default
     }
 
     public Long getIdActor() {

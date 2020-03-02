@@ -13,6 +13,7 @@ public enum Rate {
         this.rate = rate;
     }
 
+    @Override
     public String toString(){
         return rate;
     }
