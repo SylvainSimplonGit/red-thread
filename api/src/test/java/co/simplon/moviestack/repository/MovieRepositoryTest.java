@@ -43,17 +43,16 @@ public class MovieRepositoryTest {
     }
 
     @Test
-//    @Order(1)
-    public void shouldReturnNullWhenAddMovieWithOut() throws Exception {
+    @Order(1)
+    public void shouldReturnTrueWhenAddMovieIsEmpty() throws Exception {
 
         Exception exception = assertThrows(ConstraintViolationException.class, () -> {
             Movie savedMovie = new Movie();
             this.movieRepository.saveAndFlush(savedMovie);
         });
-        String expectedMessageImdb = "interpolatedMessage='ne peut pas être nul', propertyPath=idImdb";
-        String expectedMessageTitle = "interpolatedMessage='ne peut pas être nul', propertyPath=title";
+        String expectedMessage = "javax.validation.constraints.NotNull.message";
         String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessageImdb) && actualMessage.contains(expectedMessageTitle));
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
 }
