@@ -84,6 +84,7 @@ public class MovieBuff {
 //        this.connections = connections;
 //    }
 
+
 //    public List<Movie> getMoviesSeen() {
 //        return moviesSeen;
 //    }
@@ -91,6 +92,5 @@ public class MovieBuff {
 //    public void setMoviesSeen(List<Movie> moviesSeen) {
 //        this.moviesSeen = moviesSeen;
 //    }
-
 
 }
