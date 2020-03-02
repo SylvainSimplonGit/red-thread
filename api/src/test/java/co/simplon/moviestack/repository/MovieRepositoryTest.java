@@ -21,7 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-public class MovieReposittoryTest {
+public class MovieRepositoryTest {
 
     @Autowired
     private TestEntityManager testEntityManager;
