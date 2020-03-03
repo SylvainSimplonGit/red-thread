@@ -39,7 +39,7 @@ public class MovieRepositoryTest {
     public void shouldReturnNotNullWhenAddMovieWithIdImbdAndTitle() throws Exception {
         Movie savedMovie = new Movie("tt7286456", "The Film !");
         this.movieRepository.saveAndFlush(savedMovie);
-        assertThat(testEntityManager.find(Movie.class, 1L)).isNotNull();
+        assertThat(this.movieRepository.getOne(1L)).isNotNull();
     }
 
     @Test
