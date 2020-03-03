@@ -29,14 +29,16 @@ public class Opinion {
     public Opinion() {
     }
 
-    public Opinion(Long idMovieBuff, Float rating, String comment) {
+    public Opinion(Movie movie, Long idMovieBuff, Float rating, String comment) {
+        this.movie = movie;
         this.idMovieBuff = idMovieBuff;
         this.rating = rating;
         this.comment = comment;
     }
 
-    public Opinion(Long idOpinion, Long idMovieBuff, Float rating, String comment) {
+    public Opinion(Long idOpinion, Movie movie, Long idMovieBuff, Float rating, String comment) {
         this.idOpinion = idOpinion;
+        this.movie = movie;
         this.idMovieBuff = idMovieBuff;
         this.rating = rating;
         this.comment = comment;

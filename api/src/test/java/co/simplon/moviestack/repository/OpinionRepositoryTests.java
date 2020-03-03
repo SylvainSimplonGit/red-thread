@@ -1,5 +1,6 @@
 package co.simplon.moviestack.repository;
 
+import co.simplon.moviestack.model.Movie;
 import co.simplon.moviestack.model.Opinion;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -21,30 +22,38 @@ public class OpinionRepositoryTests {
     @Autowired
     private OpinionRepository opinionRepository;
 
+    @Autowired
+    private MovieRepository movieRepository;
+
     @Test
     public void shouldReturnNotNullWhenAddOpinionValid() throws Exception {
-        Opinion savedOpinion = new Opinion(1L, 1L, 5.0F, "Film pas Ouf !");
+        Movie movie = new Movie("tt7286456", "The Film !");
+        Opinion savedOpinion = new Opinion(1L, movie, 1L, 5.0F, "Film pas Ouf !");
         this.opinionRepository.save(savedOpinion);
         assertThat(testEntityManager.find(Opinion.class, 1L)).isNotNull();
     }
 
     @Test
     public void shouldReturnSize1WhenAddOpinionWithoutId() throws Exception {
-        Opinion savedOpinion = new Opinion( 1L, 5.0F, "Film pas Ouf !");
+        Movie movie = new Movie("tt7286456", "The Film !");
+        this.movieRepository.save(movie);
+        Opinion savedOpinion = new Opinion( movie, 1L, 5.0F, "Film pas Ouf !");
         this.opinionRepository.save(savedOpinion);
         assertThat(opinionRepository.findAll()).hasSize(1);
     }
 
     @Test
     public void shouldReturnNullWhenAddOpinionWithTooBigRating() throws Exception {
-        Opinion savedOpinion = new Opinion(1L, 1L, 15.0F, "Film pas Ouf !");
+        Movie movie = new Movie("tt7286456", "The Film !");
+        Opinion savedOpinion = new Opinion(1L, movie, 1L, 15.0F, "Film pas Ouf !");
         this.opinionRepository.save(savedOpinion);
         assertThat(testEntityManager.find(Opinion.class, 1L)).isNull();
     }
 
     @Test
     public void shouldReturnNullWhenAddOpinionWithNegativeRating() throws Exception {
-        Opinion savedOpinion = new Opinion(1L, 1L, -5.0F, "Film pas Ouf !");
+        Movie movie = new Movie("tt7286456", "The Film !");
+        Opinion savedOpinion = new Opinion(1L, movie, 1L, -5.0F, "Film pas Ouf !");
         this.opinionRepository.save(savedOpinion);
         assertThat(testEntityManager.find(Opinion.class, 1L)).isNull();
     }
@@ -52,14 +61,17 @@ public class OpinionRepositoryTests {
     @Test
     @Order(1)
     public void shouldReturnSize1WhenAddOpinionWithoutComment() throws Exception {
-        Opinion savedOpinion = new Opinion(1L, 5.0F, null);
-        this.opinionRepository.save(savedOpinion);
+        Movie movie = new Movie("tt7286456", "The Film !");
+        this.movieRepository.save(movie);
+        Opinion savedOpinion = new Opinion(movie, 1L, 5.0F, null);
+        this.opinionRepository.saveAndFlush(savedOpinion);
         assertThat(opinionRepository.findAll()).hasSize(1);
     }
 
     @Test
     public void shouldReturnNullWhenAddOpinionWithoutIdMovieBuff() throws Exception {
-        Opinion savedOpinion = new Opinion(1L, null, 5.0F, "Film pas Ouf !");
+        Movie movie = new Movie("tt7286456", "The Film !");
+        Opinion savedOpinion = new Opinion(1L, movie, null, 5.0F, "Film pas Ouf !");
         this.opinionRepository.save(savedOpinion);
         assertThat(testEntityManager.find(Opinion.class, 1L)).isNull();
     }
