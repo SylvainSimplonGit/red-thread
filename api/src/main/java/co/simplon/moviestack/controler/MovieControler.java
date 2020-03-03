@@ -7,7 +7,11 @@ package co.simplon.moviestack.controler;
 
 import co.simplon.moviestack.model.Movie;
 import co.simplon.moviestack.service.MovieService;
+import java.util.List;
 import javax.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,13 +37,34 @@ public class MovieControler {
     }
 
     /**
+     * Get full movie
+     *
+     * @return
+     */
+    @GetMapping()
+    public List<Movie> getMovies() {
+        return movieService.getMovies();
+    }
+
+    /**
+     * Get movie with movieId
+     *
+     * @param movieId
+     * @return
+     */
+    @GetMapping("/{movieId}")
+    public Movie getMovieById(@PathVariable Long movieId) {
+        return movieService.getMovieById(movieId);
+    }
+
+    /**
      * Create a movie
      *
      * @param newMovie
      * @return
      */
     @PostMapping
-    public Movie createAliment(@RequestBody @Valid Movie newMovie) {
+    public Movie createMovie(@RequestBody @Valid Movie newMovie) {
         return movieService.createMovie(newMovie);
     }
 
