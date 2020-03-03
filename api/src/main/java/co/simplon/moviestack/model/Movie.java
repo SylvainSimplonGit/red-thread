@@ -94,4 +94,15 @@ public class Movie {
         this.title = title;
     }
 
+    public String getImdbId() {
+        return idImdb;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String newTitle) {
+        this.title = newTitle;
+    }
 }
