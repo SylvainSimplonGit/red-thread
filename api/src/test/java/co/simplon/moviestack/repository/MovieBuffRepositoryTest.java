@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -27,6 +28,7 @@ public class MovieBuffRepositoryTest {
     @Autowired
     private MovieBuffRepository movieBuffRepository;
     
+    @Test
     public void shouldReturnNotNullWhenAddMovieBuffValid() throws Exception {
         MovieBuff movieBuff = new MovieBuff(1L, "Tete", "DENOEUX");
         this.movieBuffRepository.save(movieBuff);
