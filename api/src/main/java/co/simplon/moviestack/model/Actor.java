@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Actor {
 
     @Id
-    @SequenceGenerator(name = "actor_seq_id", allocationSize = 1000, initialValue = 1)
+    @SequenceGenerator(name = "actor_seq_id", initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "actor_seq_id")
     private Long idActor;
 
@@ -18,6 +18,12 @@ public class Actor {
 
     public Actor() {
         // Constructor by default
+    }
+
+    public Actor( Long idActor, String firstName,String lastName) {
+        this.idActor = idActor;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public Long getIdActor() {
