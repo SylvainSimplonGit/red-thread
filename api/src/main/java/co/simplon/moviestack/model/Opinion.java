@@ -5,10 +5,11 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 @Entity
+@Table(name="mv_opinion")
 public class Opinion {
 
     @Id
-    @SequenceGenerator(name = "opinion_seq_id", allocationSize = 1, initialValue = 1)
+    @SequenceGenerator(name = "opinion_seq_id", sequenceName = "opinion_seq_id", allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "opinion_seq_id")
     private Long idOpinion;
 

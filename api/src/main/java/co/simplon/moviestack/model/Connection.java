@@ -4,10 +4,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name="mv_connection")
 public class Connection {
 
     @Id
-    @SequenceGenerator(name = "connection_seq_id", initialValue = 1)
+    @SequenceGenerator(name = "connection_seq_id", sequenceName = "connection_seq_id", initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "connection_seq_id")
     private Long idConnection;
 
