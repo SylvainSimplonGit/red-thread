@@ -1,0 +1,2 @@
+insert into mv_movie (id_movie, id_imdb, title) values (nextval('movie_seq_id'), 'tt999998', 'The Best FIlm !');
+insert into mv_movie (id_movie, id_imdb, title) values (nextval('movie_seq_id'), 'tt999999', 'The Greatest FIlm !');
