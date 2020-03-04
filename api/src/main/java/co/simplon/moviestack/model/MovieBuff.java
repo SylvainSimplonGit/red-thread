@@ -29,12 +29,13 @@ import javax.persistence.*;
  *
  */
 @Entity
+@Table(name="mv_moviebuff")
 public class MovieBuff {
 
     @Id
-    private Long idMovieBuff;
-    @SequenceGenerator(name = "movie_buff_seq_id", allocationSize = 1)
+    @SequenceGenerator(name = "movie_buff_seq_id", sequenceName = "movie_buff_seq_id", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_buff_seq_id")
+    private Long idMovieBuff;
 
     @Column()
     private String firstName;

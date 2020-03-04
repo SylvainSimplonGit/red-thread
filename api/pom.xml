@@ -43,10 +43,18 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+<!--        Base H2                          -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>runtime</scope>
+            <scope>test</scope>
+        </dependency>
+
+<!--        BASE POSTGRES                    -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.8</version>
         </dependency>
 
         <!-- Test -->

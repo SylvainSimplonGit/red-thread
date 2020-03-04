@@ -41,10 +41,11 @@ import javax.validation.constraints.NotNull;
  * @author Franck
  */
 @Entity
+@Table(name="mv_movie")
 public class Movie {
 
     @Id
-    @SequenceGenerator(name = "movie_seq_id", allocationSize = 1, initialValue = 1)
+    @SequenceGenerator(name = "movie_seq_id", sequenceName = "movie_seq_id", allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_seq_id")
     private Long idMovie;
 
