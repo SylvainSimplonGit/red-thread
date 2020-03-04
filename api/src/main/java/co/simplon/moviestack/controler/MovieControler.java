@@ -10,12 +10,7 @@ import co.simplon.moviestack.service.MovieService;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
@@ -63,7 +58,7 @@ public class MovieControler {
      * @param newMovie
      * @return
      */
-    @PostMapping
+    @PostMapping()
     public Movie createMovie(@RequestBody @Valid Movie newMovie) {
         return movieService.createMovie(newMovie);
     }
@@ -74,7 +69,7 @@ public class MovieControler {
      * @param updMovie
      * @return
      */
-    @PostMapping
+    @PutMapping()
     public Movie updateMovie(@RequestBody @Valid Movie updMovie) {
         return movieService.updateMovie(updMovie);
     }
