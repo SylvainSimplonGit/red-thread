@@ -2,6 +2,7 @@ package co.simplon.moviestack.repository;
 
 import co.simplon.moviestack.model.Movie;
 import co.simplon.moviestack.model.Opinion;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -59,7 +60,7 @@ public class OpinionRepositoryTests {
     }
 
     @Test
-    @Order(1)
+//    @Order(1)
     public void shouldReturnSize1WhenAddOpinionWithoutComment() throws Exception {
         Movie movie = new Movie("tt7286456", "The Film !");
         this.movieRepository.save(movie);
@@ -76,4 +77,8 @@ public class OpinionRepositoryTests {
         assertThat(testEntityManager.find(Opinion.class, 1L)).isNull();
     }
 
+    @AfterEach
+    public void clearDatas() {
+        testEntityManager.clear();
+    }
 }

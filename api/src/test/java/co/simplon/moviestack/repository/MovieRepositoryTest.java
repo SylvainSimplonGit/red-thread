@@ -13,6 +13,8 @@ import co.simplon.moviestack.model.Movie;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import javax.validation.ConstraintViolationException;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,7 +45,7 @@ public class MovieRepositoryTest {
     }
 
     @Test
-    @Order(1)
+//    @Order(1)
     public void shouldReturnTrueWhenAddMovieIsEmpty() throws Exception {
 
         Exception exception = assertThrows(ConstraintViolationException.class, () -> {
@@ -53,6 +55,11 @@ public class MovieRepositoryTest {
         String expectedMessage = "javax.validation.constraints.NotNull.message";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @AfterEach
+    public void clearDatas() {
+        testEntityManager.clear();
     }
 
 }

@@ -1,6 +1,7 @@
 package co.simplon.moviestack.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Actor {
@@ -8,6 +9,7 @@ public class Actor {
     @Id
     @SequenceGenerator(name = "actor_seq_id", initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "actor_seq_id")
+    @NotNull
     private Long idActor;
 
     @Column(nullable = false)

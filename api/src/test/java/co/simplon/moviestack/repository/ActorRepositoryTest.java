@@ -2,6 +2,7 @@ package co.simplon.moviestack.repository;
 
 import co.simplon.moviestack.model.Actor;
 import co.simplon.moviestack.model.Movie;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.persistence.EntityManager;
 import javax.validation.ConstraintViolationException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,32 +29,36 @@ public class ActorRepositoryTest {
     private ActorRepository actorRepository;
 
     @Test
-    public void shouldReturnNotNullWhenAddActorValid() throws Exception {
-        Actor savedActor = new Actor(1L, "Clint", "Eastwood");
+    public void shouldReturnNotNullWhenAddActorWithoutId() throws Exception {
+        Actor savedActor = new Actor(null, "Clint", "Eastwood");
         this.actorRepository.save(savedActor);
-        assertThat(testEntityManager.find(Actor.class, 1L)).isNotNull();
+        assertThat(actorRepository.findAll()).hasSize(1);
+    }
+
+    @Test
+    public void shouldReturnNotNullWhenAddActorValid() throws Exception {
+        Actor savedActor = new Actor(10L, "Clint", "Eastwood");
+        this.actorRepository.save(savedActor);
+        assertThat(actorRepository.findAll()).hasSize(1);
     }
 
     @Test
     public void shouldReturnNullAndErrorNotificationWhenAddActorWithoutFirstName() throws Exception {
-        Actor savedActor = new Actor(1L, null, "Eastwood");
+        Actor savedActor = new Actor(2L, null, "Eastwood");
         this.actorRepository.save(savedActor);
-        assertThat(actorRepository.findById(1L).get().getFirstName()).withFailMessage("Error - No actor firstName documented").isNull();
+        assertThat(testEntityManager.find(Actor.class, 2L)).isNull();
     }
 
     @Test
     public void shouldReturnNullAndErrorNotificationWhenAddActorWithoutLastName() throws Exception {
-        Actor savedActor = new Actor(1L, "Clint", null);
+        Actor savedActor = new Actor(3L, "Clint", null);
         this.actorRepository.save(savedActor);
-        assertThat(actorRepository.findById(1L).get().getLastName()).withFailMessage("Error - No actor LastName documented").isNull();
+        assertThat(testEntityManager.find(Actor.class, 3L)).isNull();
     }
 
-    @Test
-    public void shouldReturnSize1AndErrorNotificationWhenAddActorWithoutId() throws Exception {
-        Actor savedActor = new Actor(null, "Clint", "Eastwood");
-        this.actorRepository.save(savedActor);
-        assertThat(actorRepository.findAll()).hasSize(1).withFailMessage("Error - No idActor documented");
+    @AfterEach
+    public void clearDatas() {
+        testEntityManager.clear();
     }
-
 
 }
