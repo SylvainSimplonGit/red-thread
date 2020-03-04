@@ -2,10 +2,13 @@ package co.simplon.moviestack.service;
 
 import co.simplon.moviestack.model.Movie;
 import co.simplon.moviestack.repository.MovieRepository;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 
+@Service
 public class MovieServiceImpl implements MovieService {
 
     private MovieRepository movieRepository;
