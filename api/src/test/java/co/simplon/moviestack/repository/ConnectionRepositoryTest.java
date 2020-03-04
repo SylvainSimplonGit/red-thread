@@ -1,6 +1,7 @@
 package co.simplon.moviestack.repository;
 
 import co.simplon.moviestack.model.Connection;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,33 +22,35 @@ public class ConnectionRepositoryTest {
     private ConnectionRepository connectionRepository;
 
     @Test
+    @Order(1)
     public void shouldReturnNotNullWhenAddConnectionValid() throws Exception {
-        Connection savedConnection = new Connection(1L, "Facebook", "login");
+        Connection savedConnection = new Connection("Facebook", "login");
         this.connectionRepository.save(savedConnection);
-        assertThat(testEntityManager.find(Connection.class, 1L)).isNotNull();
+        assertThat(connectionRepository.findByprovider("Facebook").get().getLogin()).isNotNull();
+        assertThat(connectionRepository.findBylogin("login").get().getProvider()).isNotNull();
     }
 
     @Test
-    public void shouldReturnNullAndErrorNotificationWhenAddConnectionWithoutProvider() throws Exception {
-        Connection savedConnection = new Connection(1L, null, "login");
-        this.connectionRepository.save(savedConnection);
-        assertThat(testEntityManager.find(Connection.class, 1L)).withFailMessage("Error - No Connection provider documented").isNull();
+    @Order(3)
+    public void shouldReturnNullWhenAddConnectionWithoutProvider() throws Exception {
+        Connection savedConnection2 = new Connection(3L, null, "login2");
+        this.connectionRepository.save(savedConnection2);
+        assertThat(connectionRepository.findById(3L).get().getProvider()).isNull();
     }
 
     @Test
-    public void shouldReturnNullAndErrorNotificationWhenAddConnectionWithoutLogin() throws Exception {
-        Connection savedConnection = new Connection(1L, "Facebook", null);
-        this.connectionRepository.save(savedConnection);
-        assertThat(connectionRepository.findById(1L).get().getLogin()).withFailMessage("Error - No Connection login documented").isNull();
+    @Order(2)
+    public void shouldReturnNullWhenAddConnectionWithoutLogin() throws Exception {
+        Connection savedConnection3 = new Connection(2L,"Google", null);
+        this.connectionRepository.save(savedConnection3);
+        assertThat(connectionRepository.findById(2L).get().getLogin()).isNull();
     }
 
     @Test
-    public void shouldReturnSize1AndErrorNotificationWhenAddConnectionWithoutId() throws Exception {
-        Connection savedConnection = new Connection(null, "Facebook", "login");
-        this.connectionRepository.save(savedConnection);
-        assertThat(connectionRepository.findAll()).hasSize(1).withFailMessage("Error - No idConnection documented");
+    @Order(4)
+    public void shouldReturnIsEmptyWhenAddConnectionWithoutId() throws Exception {
+        Connection savedConnection4 = new Connection("Amazon", "login3");
+        this.connectionRepository.save(savedConnection4);
+        assertThat(connectionRepository.findAll()).hasSize(1);
     }
-
-
-
 }

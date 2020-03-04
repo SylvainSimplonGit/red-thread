@@ -1,6 +1,7 @@
 package co.simplon.moviestack.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Connection {
@@ -11,15 +12,22 @@ public class Connection {
     private Long idConnection;
 
     @Column(nullable = false)
+    @NotNull
     private String provider;
 
     @Column(nullable = false)
+    @NotNull
     private String login;
 
     public Connection() {}
 
     public Connection (Long idConnection, String provider, String login) {
         this.idConnection = idConnection;
+        this.provider = provider;
+        this.login = login;
+    }
+
+    public Connection (String provider, String login) {
         this.provider = provider;
         this.login = login;
     }
