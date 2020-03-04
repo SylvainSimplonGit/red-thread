@@ -45,8 +45,8 @@ public class MovieBuff {
 
 //    @OneToMany(mappedBy = "connection")
 //    private List<Connection> connections = new ArrayList<>();
-//    @OneToMany(mappedBy = "movie")
-//    private List<Movie> moviesSeen = new ArrayList<>();
+    @OneToMany(mappedBy = "movie")
+    private List<Movie> moviesSeen = new ArrayList<>();
 
     public MovieBuff() {
     }
@@ -87,12 +87,13 @@ public class MovieBuff {
 //    public void setConnections(List<Connection> connections) {
 //        this.connections = connections;
 //    }
-//    public List<Movie> getMoviesSeen() {
-//        return moviesSeen;
-//    }
+    
+    public List<Movie> getMoviesSeen() {
+        return moviesSeen;
+    }
 
-//    public void setMoviesSeen(List<Movie> moviesSeen) {
-//        this.moviesSeen = moviesSeen;
-//    }
+    public void setMoviesSeen(List<Movie> moviesSeen) {
+        this.moviesSeen = moviesSeen;
+    }
 
 }
