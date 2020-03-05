@@ -1,7 +1,34 @@
 app-top-bar div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   height: 60px;
   width: auto;
-  background-color: rgba(0, 0, 255, 0.64);
+  background-color: rgba(0, 15, 255, 0.4);
+}
+
+app-top-bar div div .clap_cinema {
+  height: 50px;
+}
+
+app-top-bar div div {
+  height: 35px;
+  font-size: large;
+}
+
+app-top-bar div div .button_connexion {
+  height: 35px;
+  font-size: large;
+  padding-right: 15px;
+  padding-left: 15px;
+  border-color: rgba(0, 15, 255, 0.03);
+  background-color: rgba(0, 15, 255, 0.09);
+ }
+
+app-top-bar div div {
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 footer div {
@@ -11,7 +38,6 @@ footer div {
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-
 }
 
 footer div .logo_renault {
@@ -20,4 +46,8 @@ footer div .logo_renault {
 
 footer div .logo_simplon {
   height: 40px;
+}
+
+app-welcome-page {
+  width: auto;
 }
