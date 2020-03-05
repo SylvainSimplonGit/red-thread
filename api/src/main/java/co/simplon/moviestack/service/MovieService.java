@@ -11,7 +11,7 @@ public interface MovieService {
 
     Movie updateMovie(Movie updateMovie);
     
-    Movie getMovieById(Long id);
+    Movie getMovieById(String id);
     
     List<Movie> getMovies();
 }

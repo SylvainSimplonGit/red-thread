@@ -31,11 +31,9 @@
  */
 package co.simplon.moviestack.model;
 
-//import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 

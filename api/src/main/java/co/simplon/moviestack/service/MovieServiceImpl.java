@@ -28,7 +28,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Movie getMovieById(Long id) throws EntityNotFoundException {
+    public Movie getMovieById(String id) throws EntityNotFoundException {
         Optional<Movie> dbMovie = movieRepository.findById(id);
         if(dbMovie.isPresent()){
             return dbMovie.get();
