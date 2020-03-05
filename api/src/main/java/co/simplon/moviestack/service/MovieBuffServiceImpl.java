@@ -5,6 +5,7 @@
  */
 package co.simplon.moviestack.service;
 
+import co.simplon.moviestack.exception.InvalidMovieBuffException;
 import co.simplon.moviestack.model.Movie;
 import co.simplon.moviestack.model.MovieBuff;
 import co.simplon.moviestack.repository.MovieBuffRepository;
@@ -38,8 +39,8 @@ public class MovieBuffServiceImpl implements MovieBuffService {
             return movieBuff.get();
         } else {
             // Extension de RuntimeException
-//            throw new InvalidMovieBuffException();
-            throw new RuntimeException();
+            throw new InvalidMovieBuffException();
+//            throw new RuntimeException();
         }
     }
     
