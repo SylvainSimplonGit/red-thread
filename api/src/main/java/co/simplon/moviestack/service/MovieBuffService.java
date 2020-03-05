@@ -7,6 +7,8 @@ package co.simplon.moviestack.service;
 
 import co.simplon.moviestack.model.Movie;
 import java.util.List;
+
+import co.simplon.moviestack.model.MovieBuff;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,5 +17,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface MovieBuffService {
-    List<Movie> getMoviesSeen();
+
+    List<MovieBuff> getMovieBuffs();
+
+    MovieBuff getMovieBuffById(Long IdMovieBuff);
 }

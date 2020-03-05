@@ -16,10 +16,11 @@ class MovieBuff {
 package co.simplon.moviestack.model;
 
 //import co.simplon.moviestack.model.Connection;
-import co.simplon.moviestack.model.Movie;
+//import co.simplon.moviestack.model.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -45,8 +46,9 @@ public class MovieBuff {
 
 //    @OneToMany(mappedBy = "connection")
 //    private List<Connection> connections = new ArrayList<>();
-    @OneToMany(mappedBy = "movie")
-    private List<Movie> moviesSeen = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "movieBuffs")
+    private List<Movie> moviesSeen;
 
     public MovieBuff() {
     }

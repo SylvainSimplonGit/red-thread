@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface MovieBuffRepository extends JpaRepository<MovieBuff, Long> {
-    @Query("SELECT * FROM Movie WHERE id IN (SELECT id FROM movie_buff")
-    List<Movie> getMoviesSeen();
+//    @Query("SELECT * FROM Movie WHERE id IN (SELECT id FROM movie_buff")
+//    List<Movie> getMoviesSeen();
 }

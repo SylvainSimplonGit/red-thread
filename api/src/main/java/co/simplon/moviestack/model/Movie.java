@@ -31,8 +31,9 @@
  */
 package co.simplon.moviestack.model;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -86,6 +87,9 @@ public class Movie {
 
     @OneToMany(mappedBy = "movie")
     private List<Opinion> opinions;
+
+    @ManyToMany
+    private List<MovieBuff> movieBuffs;
 
     public Movie() {
     }
