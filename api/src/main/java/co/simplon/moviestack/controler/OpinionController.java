@@ -8,7 +8,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/movies")
+@RequestMapping("api/movies/opinion")
 public class OpinionController {
 
     private OpinionService opinionService;
@@ -25,7 +25,7 @@ public class OpinionController {
      *
      * @return
      */
-    @GetMapping("/opinion")
+    @GetMapping
     public List<Opinion> getOpinions() {
         return opinionService.getOpinions();
     }
@@ -47,7 +47,7 @@ public class OpinionController {
      * @param newOpinion
      * @return
      */
-    @PostMapping("/opinion")
+    @PostMapping
     public Opinion createOpinion(@RequestBody @Valid Opinion newOpinion) {
         return opinionService.createOpinion(newOpinion);
     }
@@ -58,7 +58,7 @@ public class OpinionController {
      * @param updateOpinion
      * @return
      */
-    @PutMapping("/opinion")
+    @PutMapping
     public Opinion updateOpinion(@RequestBody @Valid Opinion updateOpinion) {
         return opinionService.updateOpinion(updateOpinion);
     }
@@ -68,7 +68,7 @@ public class OpinionController {
      *
      * @param deleteOpinion
      */
-    @DeleteMapping("/opinion")
+    @DeleteMapping
     public void deleteOpinion(@RequestBody @Valid Opinion deleteOpinion) {
         opinionService.deleteOpinion(deleteOpinion);
     }
