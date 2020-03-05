@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+app-top-bar div {
+  height: 60px;
+  width: auto;
+  background-color: rgba(0, 0, 255, 0.64);
+}
+
+footer div {
+  height: 60px;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+
+}
+
+footer div .logo_renault {
+  height: 40px;
+}
+
+footer div .logo_simplon {
+  height: 40px;
+}
