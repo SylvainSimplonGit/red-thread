@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "MovieStack_Font";
+  src: url('/assets/Action Comics.ttf');
+  font-style: normal;
+}
+
 app-top-bar div {
   display: flex;
   flex-direction: row;
