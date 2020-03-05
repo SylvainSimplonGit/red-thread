@@ -45,4 +45,43 @@ public class Opinion {
         this.comment = comment;
     }
 
+    public Long getIdOpinion() {
+        return idOpinion;
+    }
+
+    public void setIdOpinion(Long idOpinion) {
+        this.idOpinion = idOpinion;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public Long getIdMovieBuff() {
+        return idMovieBuff;
+    }
+
+    public void setIdMovieBuff(Long idMovieBuff) {
+        this.idMovieBuff = idMovieBuff;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 }
