@@ -13,7 +13,7 @@
                 
                 
                 
-                <exec.args>-DPOSTGRES_DB=moviestack -DPOSTGRES_LOGIN=postgres -DPOSTGRES_PASS=admin -classpath %classpath ${packageClassName}</exec.args>
+                <exec.args>-DPOSTGRES_DB=moviestack -DPOSTGRES_LOGIN=postgres -DPOSTGRES_PASS=admin -DPOSTGRES_PORT=5432 -classpath %classpath ${packageClassName}</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
@@ -27,7 +27,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.5.0:exec</goal>
             </goals>
             <properties>
-                <exec.args>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address} -DPOSTGRES_DB=moviestack -DPOSTGRES_LOGIN=postgres -DPOSTGRES_PASS=admin -classpath %classpath ${packageClassName}</exec.args>
+                <exec.args>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address} -DPOSTGRES_DB=moviestack -DPOSTGRES_LOGIN=postgres -DPOSTGRES_PASS=admin -DPOSTGRES_PORT=5432 -classpath %classpath ${packageClassName}</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
             </properties>
@@ -42,7 +42,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.5.0:exec</goal>
             </goals>
             <properties>
-                <exec.args>-DPOSTGRES_DB=moviestack -DPOSTGRES_LOGIN=postgres -DPOSTGRES_PASS=admin -classpath %classpath ${packageClassName}</exec.args>
+                <exec.args>-DPOSTGRES_DB=moviestack -DPOSTGRES_LOGIN=postgres -DPOSTGRES_PASS=admin -DPOSTGRES_PORT=5432 -classpath %classpath ${packageClassName}</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
