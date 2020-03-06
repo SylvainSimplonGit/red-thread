@@ -54,14 +54,13 @@ INSERT INTO mv_movie (director, id_imdb, imdb_rating, imdb_vote, plot, released,
 )
 ;
 
-
 INSERT INTO mv_moviebuff (id_movie_buff, first_name, last_name) VALUES
     (nextval('movie_buff_seq_id'), 'Tête', 'Denoeud'),
     (nextval('movie_buff_seq_id'), 'Gérard', 'Menltant'),
     (nextval('movie_buff_seq_id'), 'Al', 'Kollyck'),
     (nextval('movie_buff_seq_id'), 'Corine', 'Titgoute');
 
-INSERT INTO mv_movie_movie_buffs (movies_seen_id_imdb, movie_buffs_id_movie_buff) VALUES
+INSERT INTO mv_movie_movie_buff (movies_seen_id_imdb, movie_buffs_id_movie_buff) VALUES
 ('tt0078907',1),
 ('tt0109440',1);
 
