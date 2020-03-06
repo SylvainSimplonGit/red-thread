@@ -75,8 +75,8 @@ public class Movie {
 //    @Enumerated(EnumType.STRING)
 //    private Rate rated;
 
-//    @OneToMany(mappedBy = "movie")
-//    private List<Genre> genres;
+    @OneToMany
+    private List<Genre> genres;
 
     @JsonIgnore
     // TODO Ajouter une @Query dans le MovieRepository
@@ -123,14 +123,6 @@ public class Movie {
     public void setMovieBuffs(List<MovieBuff> movieBuffs) {
         this.movieBuffs = movieBuffs;
     }
-
-//    public Long getIdMovie() {
-//        return idMovie;
-//    }
-//
-//    public void setIdMovie(Long idMovie) {
-//        this.idMovie = idMovie;
-//    }
 
     public String getDirector() {
         return director;
@@ -196,11 +188,11 @@ public class Movie {
         this.actors = actors;
     }
 
-//    public List<Genre> getGenres() {
-//        return genres;
-//    }
-//
-//    public void setGenres(List<Genre> genres) {
-//        this.genres = genres;
-//    }
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
 }
