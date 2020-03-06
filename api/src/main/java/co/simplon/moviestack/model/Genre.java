@@ -1,7 +1,10 @@
 package co.simplon.moviestack.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name="mv_genre")
@@ -15,6 +18,10 @@ public class Genre {
     @Column(nullable = false)
     @NotNull
     private String name;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "genres")
+    private List<Movie> movies;
 
     public Genre() {
     }
@@ -40,4 +47,11 @@ public class Genre {
         this.name = name;
     }
 
+    public List<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
+    }
 }

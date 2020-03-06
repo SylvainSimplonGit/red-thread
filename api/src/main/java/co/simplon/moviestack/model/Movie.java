@@ -75,7 +75,13 @@ public class Movie {
 //    @Enumerated(EnumType.STRING)
 //    private Rate rated;
 
-    @OneToMany
+    @ManyToMany
+    @JoinTable(
+        name = "mv_actor_genres",
+        joinColumns =
+        @JoinColumn (name = "movies_id_imdb"),
+        inverseJoinColumns = @JoinColumn (name = "genres_id_genre")
+    )
     private List<Genre> genres;
 
     @JsonIgnore
@@ -89,10 +95,10 @@ public class Movie {
 
     @ManyToMany
     @JoinTable(
-            name = "mv_actor_movies",
-            joinColumns =
-            @JoinColumn (name = "movies_id_imdb"),
-            inverseJoinColumns = @JoinColumn ( name = "actors_id_actor")
+        name = "mv_actor_movies",
+        joinColumns =
+        @JoinColumn (name = "movies_id_imdb"),
+        inverseJoinColumns = @JoinColumn ( name = "actors_id_actor")
     )
     private List<Actor> actors;
 
