@@ -45,11 +45,6 @@ import javax.validation.constraints.NotNull;
 @Table(name="mv_movie")
 public class Movie {
 
-//    @Id
-//    @SequenceGenerator(name = "movie_seq_id", sequenceName = "movie_seq_id", allocationSize = 1, initialValue = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_seq_id")
-//    private Long idMovie;
-
     @Id
     @Column(nullable = false)
     @NotNull
@@ -80,11 +75,14 @@ public class Movie {
 //    @Enumerated(EnumType.STRING)
 //    private Rate rated;
 
-//    @OneToMany(mappedBy = "genre")
-//    private List<Genre> genres = new ArrayList<>();
-
-//    @OneToMany(mappedBy = "actor")
-//    private List<Actor> actors = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+        name = "mv_actor_genres",
+        joinColumns =
+        @JoinColumn (name = "movies_id_imdb"),
+        inverseJoinColumns = @JoinColumn (name = "genres_id_genre")
+    )
+    private List<Genre> genres;
 
     @JsonIgnore
     // TODO Ajouter une @Query dans le MovieRepository
@@ -92,15 +90,15 @@ public class Movie {
     private List<Opinion> opinions;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(mappedBy = "moviesSeen")
     private List<MovieBuff> movieBuffs;
 
     @ManyToMany
     @JoinTable(
-            name = "mv_actor_movies",
-            joinColumns =
-            @JoinColumn (name = "movies_id_imdb"),
-            inverseJoinColumns = @JoinColumn ( name = "actors_id_actor")
+        name = "mv_actor_movies",
+        joinColumns =
+        @JoinColumn (name = "movies_id_imdb"),
+        inverseJoinColumns = @JoinColumn ( name = "actors_id_actor")
     )
     private List<Actor> actors;
 
@@ -131,14 +129,6 @@ public class Movie {
     public void setMovieBuffs(List<MovieBuff> movieBuffs) {
         this.movieBuffs = movieBuffs;
     }
-
-//    public Long getIdMovie() {
-//        return idMovie;
-//    }
-//
-//    public void setIdMovie(Long idMovie) {
-//        this.idMovie = idMovie;
-//    }
 
     public String getDirector() {
         return director;
@@ -202,5 +192,13 @@ public class Movie {
 
     public void setActors(List<Actor> actors) {
         this.actors = actors;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
     }
 }

@@ -1,40 +1,57 @@
 package co.simplon.moviestack.model;
 
-public enum Genre {
-    ACTION("Action"),
-    AVENTURE("Adventure"),
-    ANIME("Animation"),
-    COMEDIE("Comedy"),
-    CRIME("Crime"),
-    DOCU("Documentary"),
-    DRAME("Drama"),
-    FAMILLE("Family"),
-    FANTASTIQUE("Fantasy"),
-    HISTOIRE("History"),
-    HORREUR("Horror"),
-    MUSIQUE("Music"),
-    MYSTERE("Mystery"),
-    ROMANCE("Romance"),
-    SCIENCE_FICTION("Sci-Fi"),
-    THRILLER("Thriller"),
-    WAR("War"),
-    WESTERN("Western");
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
-    private String genre;
+@Entity
+@Table(name="mv_genre")
+public class Genre {
 
-    Genre (String genre) {this.genre = genre;}
+    @Id
+    @Column(nullable = false)
+    @NotNull
+    private Long idGenre;
 
-    @Override
-    public String toString(){
-        return genre;
+    @Column(nullable = false)
+    @NotNull
+    private String name;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "genres")
+    private List<Movie> movies;
+
+    public Genre() {
     }
 
+    public Genre(Long id, String name) {
+        this.idGenre = id;
+        this.name = name;
+    }
 
+    public Long getIdGenre() {
+        return idGenre;
+    }
 
+    public void setIdGenre(Long idGenre) {
+        this.idGenre = idGenre;
+    }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public List<Movie> getMovies() {
+        return movies;
+    }
 
-
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
+    }
 }

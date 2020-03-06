@@ -1,8 +1,10 @@
 package co.simplon.moviestack.service;
 
 import co.simplon.moviestack.model.Actor;
+import co.simplon.moviestack.model.Genre;
 import co.simplon.moviestack.model.Movie;
 import co.simplon.moviestack.repository.ActorRepository;
+import co.simplon.moviestack.repository.GenreRepository;
 import co.simplon.moviestack.repository.MovieRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -25,17 +27,20 @@ public class MovieServiceImpl implements MovieService {
 
     private MovieRepository movieRepository;
     private ActorRepository actorRepository;
+    private GenreRepository genreRepository;
 
     private final RestTemplate restTemplate;
 
     public MovieServiceImpl(
             MovieRepository movieRepository,
             ActorRepository actorRepository,
+            GenreRepository genreRepository,
             RestTemplateBuilder restTemplateBuilder
     ) {
         this.movieRepository = movieRepository;
-        this.restTemplate = restTemplateBuilder.build();
         this.actorRepository = actorRepository;
+        this.genreRepository = genreRepository;
+        this.restTemplate = restTemplateBuilder.build();
     }
 
     @Override
@@ -85,7 +90,18 @@ public class MovieServiceImpl implements MovieService {
         newMovie.setReleased(jsonMovie.get("release_date").asText());
         newMovie.setPlot(jsonMovie.get("overview").asText());
 
+        List<Genre> genres = new ArrayList<>();
+
+        for (Object genreObj : jsonMovie.get("genres")) {
+            ObjectMapper mapperGenre = new ObjectMapper();
+            JsonNode jsonGenre = mapperGenre.readTree(genreObj.toString());
+            Genre genre = new Genre(jsonGenre.get("id").asLong(), jsonGenre.get("name").asText());
+            genres.add(genre);
+            this.genreRepository.save(genre);
+        }
+
         newMovie.setActors(this.getActorFromTMDBByImdbID(imdbId));
+        newMovie.setGenres(genres);
 
         movieRepository.save(newMovie);
 

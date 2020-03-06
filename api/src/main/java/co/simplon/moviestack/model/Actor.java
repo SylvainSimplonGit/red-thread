@@ -11,8 +11,6 @@ import java.util.List;
 public class Actor {
 
     @Id
-//    @SequenceGenerator(name = "actor_seq_id", sequenceName = "actor_seq_id", allocationSize = 1, initialValue = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "actor_seq_id")
     @NotNull
     private Long idActor;
 
