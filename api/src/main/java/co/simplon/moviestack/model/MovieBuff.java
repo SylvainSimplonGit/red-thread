@@ -42,7 +42,13 @@ public class MovieBuff {
 //    @OneToMany(mappedBy = "connection")
 //    private List<Connection> connections = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "movieBuffs")
+    @ManyToMany
+    @JoinTable(
+            name = "mv_movie_movie_buff",
+            joinColumns =
+            @JoinColumn (name = "movie_buffs_id_movie_buff"),
+            inverseJoinColumns = @JoinColumn ( name = "movies_seen_id_imdb")
+    )
     private List<Movie> moviesSeen;
 
     public MovieBuff() {

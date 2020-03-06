@@ -45,11 +45,6 @@ import javax.validation.constraints.NotNull;
 @Table(name="mv_movie")
 public class Movie {
 
-//    @Id
-//    @SequenceGenerator(name = "movie_seq_id", sequenceName = "movie_seq_id", allocationSize = 1, initialValue = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_seq_id")
-//    private Long idMovie;
-
     @Id
     @Column(nullable = false)
     @NotNull
@@ -80,11 +75,8 @@ public class Movie {
 //    @Enumerated(EnumType.STRING)
 //    private Rate rated;
 
-//    @OneToMany(mappedBy = "genre")
-//    private List<Genre> genres = new ArrayList<>();
-
-//    @OneToMany(mappedBy = "actor")
-//    private List<Actor> actors = new ArrayList<>();
+//    @OneToMany(mappedBy = "movie")
+//    private List<Genre> genres;
 
     @JsonIgnore
     // TODO Ajouter une @Query dans le MovieRepository
@@ -92,7 +84,7 @@ public class Movie {
     private List<Opinion> opinions;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(mappedBy = "moviesSeen")
     private List<MovieBuff> movieBuffs;
 
     @ManyToMany
@@ -203,4 +195,12 @@ public class Movie {
     public void setActors(List<Actor> actors) {
         this.actors = actors;
     }
+
+//    public List<Genre> getGenres() {
+//        return genres;
+//    }
+//
+//    public void setGenres(List<Genre> genres) {
+//        this.genres = genres;
+//    }
 }
