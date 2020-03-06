@@ -11,8 +11,8 @@ import java.util.List;
 public class Actor {
 
     @Id
-    @SequenceGenerator(name = "actor_seq_id", sequenceName = "actor_seq_id", allocationSize = 1, initialValue = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "actor_seq_id")
+//    @SequenceGenerator(name = "actor_seq_id", sequenceName = "actor_seq_id", allocationSize = 1, initialValue = 1)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "actor_seq_id")
     @NotNull
     private Long idActor;
 
@@ -20,7 +20,7 @@ public class Actor {
     private String name;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(mappedBy = "actors")
     private List<Movie> movies;
 
     public Actor() {
