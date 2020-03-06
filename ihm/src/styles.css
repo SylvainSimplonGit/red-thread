@@ -63,3 +63,25 @@ footer div .logo_simplon {
 app-welcome-page {
   width: auto;
 }
+
+app-welcome-page div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+app-welcome-page div .Title h1 span{
+   font-family: MovieStack_Font;
+ }
+
+app-welcome-page div .Title {
+  padding: 100px 0px 100px 0px;
+}
+
+app-welcome-page div .What_for {
+  padding: 0px 0px 50px 0px;
+}
+
+app-welcome-page div .What_for h2 span{
+  font-family: MovieStack_Font;
+}
