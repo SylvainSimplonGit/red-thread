@@ -31,9 +31,9 @@
  */
 package co.simplon.moviestack.model;
 
-//import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -45,11 +45,12 @@ import javax.validation.constraints.NotNull;
 @Table(name="mv_movie")
 public class Movie {
 
-    @Id
-    @SequenceGenerator(name = "movie_seq_id", sequenceName = "movie_seq_id", allocationSize = 1, initialValue = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_seq_id")
-    private Long idMovie;
+//    @Id
+//    @SequenceGenerator(name = "movie_seq_id", sequenceName = "movie_seq_id", allocationSize = 1, initialValue = 1)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_seq_id")
+//    private Long idMovie;
 
+    @Id
     @Column(nullable = false)
     @NotNull
     private String idImdb;
@@ -67,7 +68,7 @@ public class Movie {
     @Column()
     private Integer runtime;
 
-    @Column()
+    @Column(length = 700)
     private String plot;
 
     @Column()
@@ -85,11 +86,17 @@ public class Movie {
 //    @OneToMany(mappedBy = "actor")
 //    private List<Actor> actors = new ArrayList<>();
 
+    @JsonIgnore
+    // TODO Ajouter une @Query dans le MovieRepository
     @OneToMany(mappedBy = "movie")
     private List<Opinion> opinions;
 
+    @JsonIgnore
     @ManyToMany
     private List<MovieBuff> movieBuffs;
+
+    @ManyToMany(mappedBy = "movies")
+    private List<Actor> actors;
 
     public Movie() {
     }
@@ -99,7 +106,7 @@ public class Movie {
         this.title = title;
     }
 
-    public String getImdbId() {
+    public String getIdImdb() {
         return idImdb;
     }
 
@@ -109,5 +116,85 @@ public class Movie {
 
     public void setTitle(String newTitle) {
         this.title = newTitle;
+    }
+
+    public List<MovieBuff> getMovieBuffs() {
+        return movieBuffs;
+    }
+
+    public void setMovieBuffs(List<MovieBuff> movieBuffs) {
+        this.movieBuffs = movieBuffs;
+    }
+
+//    public Long getIdMovie() {
+//        return idMovie;
+//    }
+//
+//    public void setIdMovie(Long idMovie) {
+//        this.idMovie = idMovie;
+//    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getReleased() {
+        return released;
+    }
+
+    public void setReleased(String released) {
+        this.released = released;
+    }
+
+    public Integer getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(Integer runtime) {
+        this.runtime = runtime;
+    }
+
+    public String getPlot() {
+        return plot;
+    }
+
+    public void setPlot(String plot) {
+        this.plot = plot;
+    }
+
+    public Float getImdbRating() {
+        return imdbRating;
+    }
+
+    public void setImdbRating(Float imdbRating) {
+        this.imdbRating = imdbRating;
+    }
+
+    public Integer getImdbVote() {
+        return imdbVote;
+    }
+
+    public void setImdbVote(Integer imdbVote) {
+        this.imdbVote = imdbVote;
+    }
+
+    public List<Opinion> getOpinions() {
+        return opinions;
+    }
+
+    public void setOpinions(List<Opinion> opinions) {
+        this.opinions = opinions;
+    }
+
+    public List<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
     }
 }

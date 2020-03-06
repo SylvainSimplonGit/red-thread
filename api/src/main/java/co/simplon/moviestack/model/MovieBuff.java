@@ -15,12 +15,7 @@ class MovieBuff {
  */
 package co.simplon.moviestack.model;
 
-//import co.simplon.moviestack.model.Connection;
-//import co.simplon.moviestack.model.Movie;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.*;
 

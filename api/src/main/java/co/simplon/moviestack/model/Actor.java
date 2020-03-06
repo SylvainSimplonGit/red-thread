@@ -1,32 +1,35 @@
 package co.simplon.moviestack.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name="mv_actor")
 public class Actor {
 
     @Id
-    @SequenceGenerator(name = "actor_seq_id", sequenceName = "actor_seq_id", initialValue = 1)
+    @SequenceGenerator(name = "actor_seq_id", sequenceName = "actor_seq_id", allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "actor_seq_id")
     @NotNull
     private Long idActor;
 
     @Column(nullable = false)
-    private String firstName;
+    private String name;
 
-    @Column(nullable = false)
-    private String lastName;
+    @JsonIgnore
+    @ManyToMany
+    private List<Movie> movies;
 
     public Actor() {
         // Constructor by default
     }
 
-    public Actor( Long idActor, String firstName,String lastName) {
+    public Actor( Long idActor, String name) {
         this.idActor = idActor;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
     }
 
     public Long getIdActor() {
@@ -37,19 +40,19 @@ public class Actor {
         this.idActor = idActor;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public List<Movie> getMovies() {
+        return movies;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
     }
 }

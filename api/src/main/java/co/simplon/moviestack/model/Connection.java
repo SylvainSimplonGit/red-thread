@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 public class Connection {
 
     @Id
-    @SequenceGenerator(name = "connection_seq_id", sequenceName = "connection_seq_id", initialValue = 1)
+    @SequenceGenerator(name = "connection_seq_id", sequenceName = "connection_seq_id", allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "connection_seq_id")
     private Long idConnection;
 

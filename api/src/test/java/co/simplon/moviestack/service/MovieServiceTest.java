@@ -31,7 +31,7 @@ public class MovieServiceTest {
         given(movieRepository.save(movieMock)).willReturn(new Movie("tt000000", "The Test Film"));
 
         Movie savedMovie = movieService.createMovie(movieMock);
-        assertThat(savedMovie.getImdbId()).isEqualTo("tt000000");
+        assertThat(savedMovie.getIdImdb()).isEqualTo("tt000000");
         assertThat(savedMovie.getTitle()).isEqualTo("The Test Film");
     }
 

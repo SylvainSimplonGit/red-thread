@@ -35,7 +35,7 @@ public class OpinionServiceImpl implements OpinionService {
 
     @Override
     public Opinion getOpinionById(Long id) throws EntityNotFoundException {
-        Optional<Opinion> dbOpinion = opinionRepository.findById(id);
+        Optional<Opinion> dbOpinion = this.opinionRepository.findById(id);
         if(dbOpinion.isPresent()){
             return dbOpinion.get();
         } else {

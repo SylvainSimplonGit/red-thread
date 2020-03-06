@@ -48,7 +48,7 @@ public class MovieControler {
      * @return
      */
     @GetMapping("/{movieId}")
-    public Movie getMovieById(@PathVariable Long movieId) {
+    public Movie getMovieById(@PathVariable String movieId) {
         return movieService.getMovieById(movieId);
     }
 
