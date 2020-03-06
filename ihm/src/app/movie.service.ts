@@ -8,16 +8,16 @@ export class MovieService {
 
   private movies = [
   {
-    idImdb: "tt0000001",
-    title: "Vingt ans sur le pot, la vie d'un constipé",
-    director: "Kevin Lachass",
+    idImdb: 'tt0000001',
+    title: 'Vingt ans sur le pot, la vie d\'un constipé',
+    director: 'Kevin Lachass',
     actors: [{ name: 'Paul Javel' }],
     genres: [{ genre: 'Art et essai' }]
   }];
 
   constructor() {  }
 
-  getMovies(){
+  getMovies() {
     return this.movies;
   }
 }

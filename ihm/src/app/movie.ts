@@ -6,6 +6,6 @@ export class Movie {
     title: string;
     // runtime: number;
     director: string;
-    actors:Actor[];
-    genres:Genre[];
+    actors: Actor[];
+    genres: Genre[];
 }
