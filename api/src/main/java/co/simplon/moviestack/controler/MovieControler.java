@@ -9,6 +9,8 @@ import co.simplon.moviestack.model.Movie;
 import co.simplon.moviestack.service.MovieService;
 import java.util.List;
 import javax.validation.Valid;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,6 +52,17 @@ public class MovieControler {
     @GetMapping("/{movieId}")
     public Movie getMovieById(@PathVariable String movieId) {
         return movieService.getMovieById(movieId);
+    }
+
+    /**
+     * Get movie from TheMovieDB with IMDB Id
+     *
+     * @param movieId
+     * @return
+     */
+    @GetMapping("/{movieId}/tmdb")
+    public Movie getMovieFromTmdbByImdbId(@PathVariable String movieId) throws JsonProcessingException {
+        return movieService.getMovieFromTMDBByImdbID(movieId);
     }
 
     /**

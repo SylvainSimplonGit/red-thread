@@ -95,7 +95,13 @@ public class Movie {
     @ManyToMany
     private List<MovieBuff> movieBuffs;
 
-    @ManyToMany(mappedBy = "movies")
+    @ManyToMany
+    @JoinTable(
+            name = "mv_actor_movies",
+            joinColumns =
+            @JoinColumn (name = "movies_id_imdb"),
+            inverseJoinColumns = @JoinColumn ( name = "actors_id_actor")
+    )
     private List<Actor> actors;
 
     public Movie() {
