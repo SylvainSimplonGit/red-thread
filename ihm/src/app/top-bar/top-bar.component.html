@@ -1,11 +1,13 @@
 <div>
   <div>
-    <img class="clap_cinema" src="/assets/Clap_cinema.svg" alt="clap de cinema">
+    <button [routerLink]="['']">
+      <img class="clap_cinema" src="/assets/Clap_cinema.svg" alt="clap de cinema">
+    </button>
   </div>
   <div>
     <h1>MOVIESTACK</h1>
   </div>
   <div>
-    <button class="button_connexion">Connexion</button>
+    <button class="button_connexion" [routerLink]="['/movies']">Connexion</button>
   </div>
 </div>
