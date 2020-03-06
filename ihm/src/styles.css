@@ -85,3 +85,32 @@ app-welcome-page div .What_for {
 app-welcome-page div .What_for h2 span{
   font-family: MovieStack_Font;
 }
+
+#table-view {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 5px;
+}
+
+/* Hyperlink */
+
+a {
+    cursor: pointer;
+    color: #1976d2;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    opacity: 0.8;
+  }
