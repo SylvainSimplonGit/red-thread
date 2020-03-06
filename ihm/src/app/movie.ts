@@ -1,5 +1,5 @@
-import { Actor } from './Actor';
-import { Genre } from './Genre';
+import { Actor } from './actor';
+import { Genre } from './genre';
 
 export class Movie {
     idImdb: string;
