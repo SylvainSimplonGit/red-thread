@@ -19,8 +19,17 @@ app-top-bar div div h1 {
   font-size: larger;
 }
 
+app-top-bar div div button a {
+
+}
+
 app-top-bar div div .clap_cinema {
   height: 50px;
+}
+
+app-top-bar div div .welcome_Page_button {
+  background: none;
+  border-color: rgba(0, 15, 255, 0.03);
 }
 
 app-top-bar div div {
