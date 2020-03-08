@@ -1,1 +1,21 @@
-<p>movie-sheet works!</p>
+<h2>movie-sheet works!</h2>
+<div>
+  <label for="title">Titre : </label>
+  <input type="text" id="title" formControlName="title" required>
+</div>
+<div>
+  <label for="director">Réalisateur : </label>
+  <input type="text" id="director" formControlName="director">
+</div>
+<div>
+  <label for="actors">Acteurs : </label>
+  <input type="text" id="actors" formControlName="actors">
+</div>
+<div>
+  <label for="genres">Genres : </label>
+  <input type="text" id="genres" formControlName="genres">
+</div>
+
+<div>
+  <button class="button" type="submit" [routerLink]="['/movies']">Retour</button>
+</div>

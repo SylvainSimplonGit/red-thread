@@ -1,4 +1,5 @@
 mockup/resources
 *.epgz
  api/nbproject/
- 
+ api/nbactions.xml
+api/nbactions.xml

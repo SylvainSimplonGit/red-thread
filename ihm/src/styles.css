@@ -94,6 +94,20 @@ app-welcome-page div .What_for {
 app-welcome-page div .What_for h2 span{
   font-family: MovieStack_Font;
 }
+   
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: center;
+  width: 90%;
+  margin: auto;
+  font-family: 'Roboto', sans-serif;
+}
+
+div{
+  padding: 5px;
+}
 
 #table-view {
   display: flex;
