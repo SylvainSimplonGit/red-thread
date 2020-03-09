@@ -46,7 +46,7 @@ import javax.validation.constraints.NotNull;
 public class Movie {
 
     @Id
-    @Column(nullable = false)
+    @Column(nullable = false, length = 10)
     @NotNull
     private String idImdb;
 
@@ -77,7 +77,7 @@ public class Movie {
 
     @ManyToMany
     @JoinTable(
-        name = "mv_actor_genres",
+        name = "mv_movies_genres",
         joinColumns =
         @JoinColumn (name = "movies_id_imdb"),
         inverseJoinColumns = @JoinColumn (name = "genres_id_genre")
