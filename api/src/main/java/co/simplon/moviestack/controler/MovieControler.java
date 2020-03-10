@@ -6,6 +6,7 @@
 package co.simplon.moviestack.controler;
 
 import co.simplon.moviestack.model.Movie;
+import co.simplon.moviestack.model.Opinion;
 import co.simplon.moviestack.service.MovieService;
 import java.util.List;
 import javax.validation.Valid;
@@ -63,6 +64,17 @@ public class MovieControler {
     @GetMapping("/{movieId}/tmdb")
     public Movie getMovieFromTmdbByImdbId(@PathVariable String movieId) throws JsonProcessingException {
         return movieService.getMovieFromTMDBByImdbID(movieId);
+    }
+
+    /**
+     * Get movie from TheMovieDB with IMDB Id
+     *
+     * @param movieId
+     * @return
+     */
+    @GetMapping("/{movieId}/opinions")
+    public List<Opinion> getOpinionsByImdbId(@PathVariable String movieId) {
+        return movieService.getOpinionsByImdbID(movieId);
     }
 
     /**

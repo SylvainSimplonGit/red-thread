@@ -3,6 +3,7 @@ package co.simplon.moviestack.service;
 import co.simplon.moviestack.model.Actor;
 import co.simplon.moviestack.model.Genre;
 import co.simplon.moviestack.model.Movie;
+import co.simplon.moviestack.model.Opinion;
 import co.simplon.moviestack.repository.ActorRepository;
 import co.simplon.moviestack.repository.GenreRepository;
 import co.simplon.moviestack.repository.MovieRepository;
@@ -139,5 +140,10 @@ public class MovieServiceImpl implements MovieService {
         }
 
         return actors;
+    }
+
+    @Override
+    public List<Opinion> getOpinionsByImdbID(String imdbId) {
+        return movieRepository.getListOfOpinionsByMovie(imdbId);
     }
 }

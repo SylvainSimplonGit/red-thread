@@ -18,6 +18,8 @@ import java.util.List;
  * @author a178423
  */
 public interface MovieRepository extends JpaRepository<Movie, String> {
-//    @Query()
-//    public List<Opinion> getListOfOpinionsByMovie(@Param("idPlayer") Long idPlayer);
+
+    @Query("select mo from Opinion mo join mo.movie mm where mm.idImdb = :idImdb")
+    List<Opinion> getListOfOpinionsByMovie(@Param("idImdb") String idImdb);
+
 }
