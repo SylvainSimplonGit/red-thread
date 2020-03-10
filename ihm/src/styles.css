@@ -94,7 +94,7 @@ app-welcome-page div .What_for {
 app-welcome-page div .What_for h2 span{
   font-family: MovieStack_Font;
 }
-   
+
 .container {
   display: flex;
   flex-direction: column;
@@ -133,7 +133,13 @@ a {
     color: #1976d2;
     text-decoration: none;
   }
-  
+
+button a {
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+}
+
   a:hover {
     opacity: 0.8;
   }
