@@ -11,15 +11,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.*;
 import javax.persistence.EntityNotFoundException;
 
@@ -105,6 +99,8 @@ public class MovieServiceImpl implements MovieService {
         newMovie.setActors(this.getActorFromTMDBByImdbID(imdbId));
         newMovie.setDirector(this.getDirectorFromTMDBByImdbID(imdbId));
 
+        newMovie.setDirector(this.getDirectorFromTMDBByImdbID(imdbId));
+
         movieRepository.save(newMovie);
 
         System.out.println("Ajout du film (" + newMovie.getIdImdb() + ") : " + newMovie.getTitle());
@@ -113,11 +109,10 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Actor> getActorFromTMDBByImdbID(String imdbId) throws JsonProcessingException {
+    public List<Actor> getActorsFromTMDBByImdbID(String imdbId) throws JsonProcessingException {
         Map<String, String> args = new HashMap<>();
         args.put("Id", imdbId);
         args.put("key", "09f9524466812ccf78760c6ef7807fd5");
-        args.put("lang", "fr-FR");
 
         String movieImdb =  this.restTemplate.getForObject(
                 "https://api.themoviedb.org/3/movie/{Id}/credits?api_key={key}",
@@ -148,7 +143,6 @@ public class MovieServiceImpl implements MovieService {
         Map<String, String> args = new HashMap<>();
         args.put("Id", imdbId);
         args.put("key", "09f9524466812ccf78760c6ef7807fd5");
-        args.put("lang", "fr-FR");
 
         String movieImdb =  this.restTemplate.getForObject(
                 "https://api.themoviedb.org/3/movie/{Id}/credits?api_key={key}",
@@ -159,17 +153,16 @@ public class MovieServiceImpl implements MovieService {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonMovie = mapper.readTree(movieImdb);
 
-        String director = "";
-
         for (Object crew : jsonMovie.get("crew")) {
             ObjectMapper mapperCrew = new ObjectMapper();
-            JsonNode jsonDirector = mapperCrew.readTree(crew.toString());
-            if (jsonDirector.get("job").asText().equals("Director")) {
-                director = jsonDirector.get("name").asText();
+            JsonNode jsonCrew = mapperCrew.readTree(crew.toString());
+
+            if (jsonCrew.has("job") && jsonCrew.get("job").asText().equals("Director")) {
+                System.out.println("Ajout du réalisateur (" + jsonCrew.get("name").asText() + ")");
+                return jsonCrew.get("name").asText();
             }
         }
-
-        return director;
+        return null;
     }
 
     @Override

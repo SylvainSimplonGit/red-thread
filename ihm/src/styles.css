@@ -1,8 +1,31 @@
+/*----------------CSS POLICES CUSTOMISEES----------------*/
+/*-------------------------------------------------------*/
+
 @font-face {
   font-family: "MovieStack_Font";
   src: url('/assets/Action Comics.ttf');
   font-style: normal;
 }
+/*-------------------------------------------------------*/
+/*-------------------------------------------------------*/
+
+
+
+/*----------------CSS DE L'APP-ROOT----------------*/
+/*-------------------------------------------------*/
+
+app-root {
+  flex: 1 0 auto;
+  position: relative;
+  flex-direction: column;
+}
+/*-------------------------------------------------*/
+/*-------------------------------------------------*/
+
+
+
+/*----------------CSS DE LA TOP-BAR----------------*/
+/*-------------------------------------------------*/
 
 app-top-bar div {
   display: flex;
@@ -11,7 +34,7 @@ app-top-bar div {
   justify-content: space-between;
   height: 60px;
   width: auto;
-  background-color: rgba(0, 15, 255, 0.4);
+  background-color: rgb(159, 163, 255);
 }
 
 app-top-bar div div h1 {
@@ -19,8 +42,9 @@ app-top-bar div div h1 {
   font-size: larger;
 }
 
-app-top-bar div div button a {
-
+app-top-bar {
+  position: sticky;
+  flex: 1;
 }
 
 app-top-bar div div .clap_cinema {
@@ -29,7 +53,7 @@ app-top-bar div div .clap_cinema {
 
 app-top-bar div div .welcome_Page_button {
   background: none;
-  border-color: rgba(0, 15, 255, 0.03);
+  border-color: rgb(159, 163, 255);
 }
 
 app-top-bar div div {
@@ -43,13 +67,28 @@ app-top-bar .button_connexion {
   font-size: large;
   padding-right: 15px;
   padding-left: 15px;
-  border-color: rgba(0, 15, 255, 0.03);
-  background-color: rgba(0, 15, 255, 0.25);
+  border-color: rgb(159, 163, 255);
+  background-color: rgb(126, 123, 255);
  }
 
 app-top-bar div div {
   margin-right: 10px;
   margin-left: 10px;
+}
+/*-------------------------------------------------*/
+/*-------------------------------------------------*/
+
+
+
+/*----------------CSS DU FOOTER----------------*/
+/*---------------------------------------------*/
+
+footer {
+  flex-shrink: 0;
+  position: fixed;
+  bottom: 0;
+  width: 99%;
+  background-color: white;
 }
 
 footer div {
@@ -68,6 +107,13 @@ footer div .logo_renault {
 footer div .logo_simplon {
   height: 40px;
 }
+/*---------------------------------------------*/
+/*---------------------------------------------*/
+
+
+
+/*----------------CSS DE LA PAGE D'ACCUEIL----------------*/
+/*--------------------------------------------------------*/
 
 app-welcome-page {
   width: auto;
@@ -94,13 +140,17 @@ app-welcome-page div .What_for {
 app-welcome-page div .What_for h2 span{
   font-family: MovieStack_Font;
 }
-   
+/*--------------------------------------------------------*/
+/*--------------------------------------------------------*/
+
+
+
 .container {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   text-align: center;
-  width: 90%;
+  width: 99%;
   margin: auto;
   font-family: 'Roboto', sans-serif;
 }
@@ -133,7 +183,29 @@ a {
     color: #1976d2;
     text-decoration: none;
   }
-  
-  a:hover {
-    opacity: 0.8;
-  }
+
+button a {
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+ul li {
+  text-align: justify;
+}
+
+html, body {
+  height: 99%;
+  background: url('/assets/wallPaper.jpg') center no-repeat;  /*LIGNES QUI PEUVENT ETRE DESACTIVEES SI L'IMAGE DE FOND GENE*/
+  background-size: contain                                    /*LIGNES QUI PEUVENT ETRE DESACTIVEES SI L'IMAGE DE FOND GENE*/;
+}
+
+body {
+  display: flex;
+}
+
+
