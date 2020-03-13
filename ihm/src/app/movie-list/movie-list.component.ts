@@ -11,7 +11,9 @@ import { Movie } from '../movie';
 export class MovieListComponent implements OnInit {
 
   movies;
+  // Number of Actor displayed in the list
   private maxActor = 5;
+  // Number of Genre displayed in the list
   private maxGenre = 3;
 
   constructor(private movieService: MovieService) { }
