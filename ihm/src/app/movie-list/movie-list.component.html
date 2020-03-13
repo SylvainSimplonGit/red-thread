@@ -9,11 +9,52 @@
                 <th>Genres</th>
             </tr>
         </thead>
-        <tr *ngFor="let item of movies; let i = index">
-            <td><a [routerLink]="['/movie', item.idImdb]">{{item.title}}</a></td>
-            <td><a [routerLink]="['/director', 1]">{{item.director}}</a></td>
-            <td>{{item.actors}}</td>
-            <td>{{item.genres}}</td>
+<!--      A activer si vous utiliser l'API-->
+        <tr *ngFor="let item of movies | async">
+<!--      A activer si vous utiliser les données locales-->
+<!--        <tr *ngFor="let item of movies">-->
+            <td><a [routerLink]="['/movie', item.idImdb]">{{ item.title }}</a></td>
+            <td><a [routerLink]="['/director', 1]">{{ item.director }}</a></td>
+            <td>
+              <span *ngFor="let actor of item.actors; let i=index">
+                <span *ngIf="(item.actors)?.length <= maxActor; else elseGreaterThan">
+                  <span *ngIf="i < (item.actors)?.length - 1; else elseIf">
+                    {{ actor.name }},
+                  </span>
+                  <ng-template #elseIf>
+                    {{ actor.name }}
+                  </ng-template>
+                </span>
+                <ng-template #elseGreaterThan>
+                  <span *ngIf="i < (maxActor - 1)">
+                    {{ actor.name }},
+                  </span>
+                  <span *ngIf="i == (maxActor - 1)">
+                    {{ actor.name }}...
+                  </span>
+                </ng-template>
+              </span>
+            </td>
+            <td>
+              <span *ngFor="let genre of item.genres; let i=index">
+                <span *ngIf="(item.genres)?.length <= maxGenre; else elseGreaterThan">
+                  <span *ngIf="i < (item.genres)?.length - 1; else elseIf">
+                    {{ genre.name }},
+                  </span>
+                  <ng-template #elseIf>
+                    {{ genre.name }}
+                  </ng-template>
+                </span>
+                <ng-template #elseGreaterThan>
+                  <span *ngIf="i < (maxGenre - 1)">
+                    {{ genre.name }},
+                  </span>
+                  <span *ngIf="i == (maxGenre - 1)">
+                    {{ genre.name }}...
+                  </span>
+                </ng-template>
+              </span>
+            </td>
         </tr>
     </table>
 </section>

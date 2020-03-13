@@ -27,7 +27,7 @@ import { DirectorSheetComponent } from './director-sheet/director-sheet.componen
   ],
   imports: [
     BrowserModule,
-    // HttpClientModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: WelcomePageComponent },
       { path: 'movies', component: MovieListComponent },

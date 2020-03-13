@@ -23,6 +23,8 @@ public interface MovieService {
 
     List<Actor> getActorFromTMDBByImdbID(String imdbId) throws JsonProcessingException;
 
+    String getDirectorFromTMDBByImdbID(String imdbId) throws JsonProcessingException;
+
     List<Opinion> getOpinionsByImdbID(String imdbId);
 
 }

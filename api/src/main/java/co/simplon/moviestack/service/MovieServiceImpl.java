@@ -101,8 +101,9 @@ public class MovieServiceImpl implements MovieService {
             this.genreRepository.save(genre);
         }
 
-        newMovie.setActors(this.getActorFromTMDBByImdbID(imdbId));
         newMovie.setGenres(genres);
+        newMovie.setActors(this.getActorFromTMDBByImdbID(imdbId));
+        newMovie.setDirector(this.getDirectorFromTMDBByImdbID(imdbId));
 
         movieRepository.save(newMovie);
 
@@ -140,6 +141,35 @@ public class MovieServiceImpl implements MovieService {
         }
 
         return actors;
+    }
+
+    @Override
+    public String getDirectorFromTMDBByImdbID(String imdbId) throws JsonProcessingException {
+        Map<String, String> args = new HashMap<>();
+        args.put("Id", imdbId);
+        args.put("key", "09f9524466812ccf78760c6ef7807fd5");
+        args.put("lang", "fr-FR");
+
+        String movieImdb =  this.restTemplate.getForObject(
+                "https://api.themoviedb.org/3/movie/{Id}/credits?api_key={key}",
+                String.class,
+                args
+        );
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonMovie = mapper.readTree(movieImdb);
+
+        String director = "";
+
+        for (Object crew : jsonMovie.get("crew")) {
+            ObjectMapper mapperCrew = new ObjectMapper();
+            JsonNode jsonDirector = mapperCrew.readTree(crew.toString());
+            if (jsonDirector.get("job").asText().equals("Director")) {
+                director = jsonDirector.get("name").asText();
+            }
+        }
+
+        return director;
     }
 
     @Override

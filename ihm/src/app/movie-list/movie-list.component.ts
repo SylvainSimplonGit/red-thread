@@ -11,11 +11,14 @@ import { Movie } from '../movie';
 export class MovieListComponent implements OnInit {
 
   movies;
+  private maxActor = 5;
+  private maxGenre = 3;
 
   constructor(private movieService: MovieService) { }
 
   ngOnInit() {
     this.movies = this.movieService.getMovies();
+    console.log(this.movies);
   }
 
 }
