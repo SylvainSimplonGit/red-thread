@@ -95,8 +95,9 @@ public class MovieServiceImpl implements MovieService {
             this.genreRepository.save(genre);
         }
 
-        newMovie.setActors(this.getActorsFromTMDBByImdbID(imdbId));
         newMovie.setGenres(genres);
+        newMovie.setActors(this.getActorFromTMDBByImdbID(imdbId));
+        newMovie.setDirector(this.getDirectorFromTMDBByImdbID(imdbId));
 
         newMovie.setDirector(this.getDirectorFromTMDBByImdbID(imdbId));
 

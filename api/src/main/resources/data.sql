@@ -224,3 +224,26 @@ INSERT INTO public.mv_actor_movies (movies_id_imdb, actors_id_actor) VALUES
     ('tt0078907', 1662202),
     ('tt0078907', 100721)
 ;
+
+INSERT INTO public.mv_genre (id_genre,name) VALUES
+    (18,'Drame'),
+    (80,'Crime'),
+    (53,'Thriller'),
+    (35,'Comédie'),
+    (12,'Aventure'),
+    (28,'Action')
+;
+
+INSERT INTO public.mv_movies_genres (movies_id_imdb,genres_id_genre) VALUES
+    ('tt0137523',18),
+    ('tt0114814',18),
+    ('tt0114814',80),
+    ('tt0114814',53),
+    ('tt0109440',35),
+    ('tt0093409',12),
+    ('tt0093409',28),
+    ('tt0093409',35),
+    ('tt0093409',53),
+    ('tt0093409',80),
+    ('tt0078907',35)
+;

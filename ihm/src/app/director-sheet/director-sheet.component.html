@@ -5,13 +5,13 @@
 </div>
 
 <section id="table-view">
-    <table>
+    <table aria-describedby="Liste des réalisateurs">
         <thead>
             <tr>
-                <th>Titre</th>
-                <th>Réalisateur</th>
-                <th>Acteurs</th>
-                <th>Genres</th>
+                <th scope="col">Titre</th>
+                <th scope="col">Réalisateur</th>
+                <th scope="col">Acteurs</th>
+                <th scope="col">Genres</th>
             </tr>
         </thead>
         <tr *ngFor="let item of movies; let i = index">
