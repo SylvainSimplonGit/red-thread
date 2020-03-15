@@ -15,11 +15,14 @@ export class MovieListComponent implements OnInit {
   private maxActor = 5;
   // Number of Genre displayed in the list
   private maxGenre = 3;
+  private displayedColumns: string[];
 
   constructor(private movieService: MovieService) { }
 
   ngOnInit() {
     this.movies = this.movieService.getMovies();
+    this.displayedColumns = ['title', 'director', 'actors', 'genres'];
+    // dataSource = this.movies;
     console.log(this.movies);
   }
 

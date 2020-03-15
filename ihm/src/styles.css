@@ -9,180 +9,65 @@
 /*-------------------------------------------------------*/
 /*-------------------------------------------------------*/
 
+body {
+  margin: 80px 0px 0px 0px;
+  /*margin-top: 80px;*/
+  /* Location of the image */
+  background-image: url('/assets/wallPaper.jpg');
+  /* Background image is centered vertically and horizontally at all times */
+  background-position: center 100px;
+  /* Background image doesn't tile */
+  background-repeat: no-repeat;
+  /* Background image is fixed in the viewport so that it doesn't move when
+     the content's height is greater than the image's height */
+  background-attachment: fixed;
+  /* This is what makes the background image rescale based
+     on the container's size */
+  background-size: contain;
+}
 
 
 /*----------------CSS DE L'APP-ROOT----------------*/
 /*-------------------------------------------------*/
 
 app-root {
-  flex: 1 0 auto;
-  position: relative;
-  flex-direction: column;
 }
-/*-------------------------------------------------*/
-/*-------------------------------------------------*/
-
-
-
-/*----------------CSS DE LA TOP-BAR----------------*/
-/*-------------------------------------------------*/
-
-app-top-bar div {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  height: 60px;
-  width: auto;
-  background-color: rgb(159, 163, 255);
-}
-
-app-top-bar div div h1 {
-  font-family: MovieStack_Font;
-  font-size: larger;
-}
-
-app-top-bar {
-  position: sticky;
-  flex: 1;
-}
-
-app-top-bar div div .clap_cinema {
-  height: 50px;
-}
-
-app-top-bar div div .welcome_Page_button {
-  background: none;
-  border-color: rgb(159, 163, 255);
-}
-
-app-top-bar div div {
-  height: 35px;
-  font-size: large;
-  background: none;
-}
-
-app-top-bar .button_connexion {
-  height: 35px;
-  font-size: large;
-  padding-right: 15px;
-  padding-left: 15px;
-  border-color: rgb(159, 163, 255);
-  background-color: rgb(126, 123, 255);
- }
-
-app-top-bar div div {
-  margin-right: 10px;
-  margin-left: 10px;
-}
-/*-------------------------------------------------*/
-/*-------------------------------------------------*/
-
-
-
-/*----------------CSS DU FOOTER----------------*/
-/*---------------------------------------------*/
-
-footer {
-  flex-shrink: 0;
-  position: fixed;
-  bottom: 0;
-  width: 99%;
-  background-color: white;
-}
-
-footer div {
-  height: 60px;
-  width: auto;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
-footer div .logo_renault {
-  height: 40px;
-}
-
-footer div .logo_simplon {
-  height: 40px;
-}
-/*---------------------------------------------*/
-/*---------------------------------------------*/
-
-
-
-/*----------------CSS DE LA PAGE D'ACCUEIL----------------*/
-/*--------------------------------------------------------*/
-
-app-welcome-page {
-  width: auto;
-}
-
-app-welcome-page div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-app-welcome-page div .Title h1 span{
-   font-family: MovieStack_Font;
- }
-
-app-welcome-page div .Title {
-  padding: 100px 0px 100px 0px;
-}
-
-app-welcome-page div .What_for {
-  padding: 0px 0px 50px 0px;
-}
-
-app-welcome-page div .What_for h2 span{
-  font-family: MovieStack_Font;
-}
-/*--------------------------------------------------------*/
-/*--------------------------------------------------------*/
-
-
 
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  /*justify-content: space-evenly;*/
   text-align: center;
   width: 99%;
   margin: auto;
   font-family: 'Roboto', sans-serif;
 }
 
-div{
-  padding: 5px;
+/*----------------CSS DE LA TOP-BAR----------------*/
+/*-------------------------------------------------*/
+
+app-top-bar {
+  overflow: hidden;
+  position: fixed;          /* Set the navbar to fixed position */
+  top: 0;                   /* Position the navbar at the top of the page */
+  width: 100%;              /* Full width */
 }
 
-#table-view {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+/*----------------CSS DE LA PAGE D'ACCUEIL----------------*/
+/*--------------------------------------------------------*/
+
+app-welcome-page {
 }
 
-table,
-th,
-td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 5px;
-}
-
+/*----------------CSS COMMUNS-----------------------------*/
+/*--------------------------------------------------------*/
 /* Hyperlink */
 
 a {
-    cursor: pointer;
-    color: #1976d2;
-    text-decoration: none;
-  }
+  cursor: pointer;
+  color: #1976d2;
+  text-decoration: none;
+}
 
 button a {
   cursor: pointer;
@@ -194,18 +79,23 @@ a:hover {
   opacity: 0.8;
 }
 
-ul li {
-  text-align: justify;
+
+/*----------------MEDIA QUERY----------------------*/
+/*-------------------------------------------------*/
+
+
+@media screen and (max-width: 768px) {
+  body {
+    /* Background image is centered vertically and horizontally at all times */
+    background-position: center 110px;
+  }
+
 }
 
-html, body {
-  height: 99%;
-  background: url('/assets/wallPaper.jpg') center no-repeat;  /*LIGNES QUI PEUVENT ETRE DESACTIVEES SI L'IMAGE DE FOND GENE*/
-  background-size: contain                                    /*LIGNES QUI PEUVENT ETRE DESACTIVEES SI L'IMAGE DE FOND GENE*/;
+@media screen and (max-width: 375px) {
+  body {
+    /* Background image is centered vertically and horizontally at all times */
+    background-position: center 100px;
+  }
+
 }
-
-body {
-  display: flex;
-}
-
-

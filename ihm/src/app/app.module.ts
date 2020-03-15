@@ -13,6 +13,9 @@ import { MovieSheetComponent } from './movie-sheet/movie-sheet.component';
 import { MovieSuggestionComponent } from './movie-suggestion/movie-suggestion.component';
 import { GenreSuggestionComponent } from './genre-suggestion/genre-suggestion.component';
 import { DirectorSheetComponent } from './director-sheet/director-sheet.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatTableModule} from "@angular/material/table";
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -23,17 +26,20 @@ import { DirectorSheetComponent } from './director-sheet/director-sheet.componen
     MovieSheetComponent,
     MovieSuggestionComponent,
     GenreSuggestionComponent,
-    DirectorSheetComponent
+    DirectorSheetComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot([
-      { path: '', component: WelcomePageComponent },
-      { path: 'movies', component: MovieListComponent },
-      { path: 'movie/:movieId', component: MovieSheetComponent },
-      { path: 'director/:directorId', component: DirectorSheetComponent },
-    ])
+      {path: '', component: WelcomePageComponent},
+      {path: 'movies', component: MovieListComponent},
+      {path: 'movie/:movieId', component: MovieSheetComponent},
+      {path: 'director/:directorId', component: DirectorSheetComponent},
+    ]),
+    BrowserAnimationsModule,
+    MatTableModule
   ],
   providers: [MovieService, DirectorService],
   bootstrap: [AppComponent]

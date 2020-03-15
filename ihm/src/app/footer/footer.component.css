@@ -1,0 +1,49 @@
+/*----------------CSS DU FOOTER----------------*/
+/*---------------------------------------------*/
+
+footer {
+  flex-shrink: 0;
+  position: fixed;
+  bottom: 0;
+  width: 99%;
+  background-color: white;
+}
+
+#footer {
+  /*height: 10%;*/
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#logo_renault {
+  height: 40px;
+}
+
+#logo_simplon {
+  height: 40px;
+}
+/*---------------------------------------------*/
+/*---------------------------------------------*/
+
+@media screen and (max-width: 425px) {
+  #logo_renault {
+    height: 30px;
+  }
+
+  #logo_simplon {
+    height: 30px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  #logo_renault {
+    height: 20px;
+  }
+
+  #logo_simplon {
+    height: 20px;
+  }
+}

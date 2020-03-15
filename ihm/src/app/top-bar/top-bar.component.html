@@ -1,11 +1,22 @@
-<div>
-  <div>
-    <button class="welcome_Page_button" type="submit"><a style="text-decoration:none" [routerLink]="['']"><img class="clap_cinema" src="/assets/Clap_cinema.svg" alt="clap de cinema"></a></button>
+<div id="top-bar">
+  <div id="top-bar-left">
+    <button id="welcome_Page_button" type="submit">
+      <a [routerLink]="['']">
+        <img
+          id="clap_cinema"
+          src="/assets/Clap_cinema.svg"
+          alt="clap de cinema">
+      </a>
+    </button>
   </div>
-  <div>
+  <div id="top-bar-center">
     <h1>MOVIESTACK</h1>
   </div>
-  <div>
-    <button class="button_connexion" type="submit"><a style="text-decoration:none" [routerLink]="['/movies']">Ma Liste</a></button>
+  <div id="top-bar-right">
+    <button id="button_connexion" type="submit">
+      <a [routerLink]="['/movies']">
+        Ma Liste
+      </a>
+    </button>
   </div>
 </div>

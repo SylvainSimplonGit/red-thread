@@ -1,1 +1,91 @@
+/*----------------CSS POLICES CUSTOMISEES----------------*/
+/*-------------------------------------------------------*/
+
+@font-face {
+  font-family: "MovieStack_Font";
+  src: url('../../assets/Action Comics.ttf');
+  font-style: normal;
+}
+/*----------------CSS DE LA TOP-BAR----------------*/
+/*-------------------------------------------------*/
+
+#top-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  /*height: 60px;*/
+  width: auto;
+  padding: 5px 20px;
+  background-color: rgb(159, 163, 255);
+}
+
+#top-bar-center h1 {
+  font-family: MovieStack_Font, serif;
+  font-size: larger;
+}
+
+/*app-top-bar {*/
+/*  position: sticky;*/
+/*  flex: 1;*/
+/*}*/
+
+#clap_cinema {
+  height: 50px;
+}
+
+#welcome_Page_button {
+  background: none;
+  border-color: rgb(159, 163, 255);
+}
+
+#top-bar-right {
+  /*height: 35px;*/
+  /*font-size: large;*/
+  /*background: none;*/
+}
+
+#button_connexion {
+  height: 35px;
+  font-size: large;
+  padding-right: 15px;
+  padding-left: 15px;
+  border-color: rgb(159, 163, 255);
+  background-color: rgb(126, 123, 255);
+}
+
+/*div div {*/
+/*  margin-right: 10px;*/
+/*  margin-left: 10px;*/
+/*}*/
+
+@media screen and (max-width: 425px) {
+  #top-bar {
+    padding: 5px 10px;
+  }
+
+  #top-bar-center h1 {
+    font-size: smaller;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  #top-bar {
+    padding: 2%;
+  }
+
+  #top-bar-center h1 {
+    font-size: x-small;
+  }
+
+  #clap_cinema {
+    height: 40px;
+  }
+
+  #button_connexion {
+    font-size: smaller;
+  }
+}
+/*-------------------------------------------------*/
+/*-------------------------------------------------*/
 
