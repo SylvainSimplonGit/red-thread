@@ -55,6 +55,9 @@ public class Movie {
     private String title;
 
     @Column()
+    private String posterUrl;
+
+    @Column()
     private String director;
 
     @Column()
@@ -114,12 +117,24 @@ public class Movie {
         return idImdb;
     }
 
+    public void setIdImdb(String idImdb) {
+        this.idImdb = idImdb;
+    }
+
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String newTitle) {
         this.title = newTitle;
+    }
+
+    public String getPosterUrl() {
+        return posterUrl;
+    }
+
+    public void setPosterUrl(String posterUrl) {
+        this.posterUrl = posterUrl;
     }
 
     public List<MovieBuff> getMovieBuffs() {
