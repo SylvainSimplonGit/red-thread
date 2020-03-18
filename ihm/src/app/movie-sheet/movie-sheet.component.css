@@ -28,6 +28,7 @@ padding: 0;
 
 #poster {
   max-width: 29vw;
+  margin: 5px;
 }
 
 .poster {
@@ -65,6 +66,10 @@ padding: 0;
   border-radius: 5px;
 }
 
+.center {
+  text-align: center;
+}
+
 .col-10 {
   width: 9vw;
 }
@@ -99,10 +104,6 @@ padding: 0;
 
 .col-90 {
   width: 89vw;
-}
-
-.col-last {
-  flex: 1;
 }
 
 .row-last {

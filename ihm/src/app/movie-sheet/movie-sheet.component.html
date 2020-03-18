@@ -37,7 +37,7 @@
 
       <div class="row">
         <div class="label col-20">Acteurs</div>
-        <div class="data col-last">
+        <div class="data col-50">
           <span *ngFor="let actor of movie.actors ; let i=index">
             <span *ngIf="(movie.actors)?.length <= maxActor; else elseGreaterThan">
               <span *ngIf="i < (movie.actors)?.length - 1; else elseIf">
@@ -61,8 +61,8 @@
 
       <div class="row">
         <div class="label col-20">Synopsis</div>
-        <div class="data  col-last">
-          {{ movie.plot }} ...
+        <div class="data  col-50">
+          {{ movie.plot | slice: 0: 260}} ...
         </div>
       </div>
 
