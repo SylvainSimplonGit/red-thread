@@ -18,14 +18,14 @@
         <div class="label col-20">Titre</div>
         <div class="data col-30">{{ movie.title }}</div>
         <div class="label col-10">Note</div>
-        <div class="data col-10 center">7.6</div>
+        <div class="data col-10 center">{{ movie.imdbRating }}</div>
       </div>
 
       <div class="row">
         <div class="label col-20">Date de sortie</div>
         <div class="data col-30 center">{{ movie.released | date:'dd/MM/yyyy':'fr-FR'}}</div>
         <div class="label col-10">Votants</div>
-        <div class="data col-10 center">225088</div>
+        <div class="data col-10 center">{{ movie.imdbVote }}</div>
       </div>
 
       <div class="row">
@@ -33,6 +33,13 @@
         <div class="data col-30">{{ movie.director }}</div>
         <div class="label col-10">id IMDB</div>
         <div class="data col-10 center">{{ movie.idImdb }}</div>
+      </div>
+
+      <div class="row">
+        <div class="label col-20">Genres</div>
+        <div class="data col-30"></div>
+        <div class="label col-10">Durée</div>
+        <div class="data col-10 center">{{ movie.runtime }} min</div>
       </div>
 
       <div class="row">

@@ -27,6 +27,10 @@ public interface MovieService {
 
     String getPosterFromTMDBByImdbID(String imdbId) throws JsonProcessingException;
 
+    Float getImdbRatingFromOMDBByImdbID(String imdbId) throws JsonProcessingException;
+
+    Integer getImdbVotesFromOMDBByImdbID(String imdbId) throws JsonProcessingException;
+
     List<Opinion> getOpinionsByImdbID(String imdbId);
 
 }
