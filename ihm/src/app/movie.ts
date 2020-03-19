@@ -4,8 +4,13 @@ import { Genre } from './genre';
 export class Movie {
     idImdb: string;
     title: string;
-    // runtime: number;
-    director: string;
-    actors: Actor[];
-    genres: Genre[];
+    posterUrl?: string;
+    runtime?: number;
+    released?: string;
+    director?: string;
+    actors?: Actor[];
+    genres?: Genre[];
+    plot?: string;
+    imdbRating?: number;
+    imdbVote?: number;
 }
