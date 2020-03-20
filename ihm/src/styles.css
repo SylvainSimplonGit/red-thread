@@ -155,9 +155,9 @@ app-welcome-page div .What_for h2 span{
   font-family: 'Roboto', sans-serif;
 }
 
-div{
-  padding: 5px;
-}
+/*div {*/
+/*  padding: 5px;*/
+/*}*/
 
 #table-view {
   display: flex;

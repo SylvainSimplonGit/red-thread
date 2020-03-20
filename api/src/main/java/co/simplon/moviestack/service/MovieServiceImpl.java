@@ -96,6 +96,7 @@ public class MovieServiceImpl implements MovieService {
         }
 
         newMovie.setGenres(genres);
+        newMovie.setPosterUrl(this.getPosterFromTMDBByImdbID(imdbId));
         newMovie.setActors(this.getActorsFromTMDBByImdbID(imdbId));
         newMovie.setDirector(this.getDirectorFromTMDBByImdbID(imdbId));
 
@@ -216,10 +217,42 @@ public class MovieServiceImpl implements MovieService {
         }
 
         return null;
+    }  
+  
+    @Override
+    public String getPosterFromTMDBByImdbID(String imdbId) throws JsonProcessingException {
+
+        String urlImage = "http://image.tmdb.org/t/p/original";
+
+        Map<String, String> args = new HashMap<>();
+        args.put("Id", imdbId);
+        args.put("key", "09f9524466812ccf78760c6ef7807fd5");
+
+        String movieImdb =  this.restTemplate.getForObject(
+                "https://api.themoviedb.org/3/movie/{Id}/images?api_key={key}",
+                String.class,
+                args
+        );
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonMovie = mapper.readTree(movieImdb);
+
+        if (jsonMovie.has("posters")) {
+            ObjectMapper mapperPosters = new ObjectMapper();
+            for (Object poster : jsonMovie.get("posters")) {
+                ObjectMapper mapperPoster = new ObjectMapper();
+                JsonNode jsonPoster = mapperPoster.readTree(poster.toString());
+                if ( jsonPoster.has("aspect_ratio") &&
+                     jsonPoster.has("file_path") &&
+                     jsonPoster.get("aspect_ratio").asDouble() == 0.6666666666666666) {
+                    System.out.println("Ajout du Poster : " + urlImage + jsonPoster.get("file_path").asText());
+                    return urlImage + jsonPoster.get("file_path").asText();
+                }
+            }
+        }
+        return null;
     }
-
-
-
+    
     @Override
     public List<Opinion> getOpinionsByImdbID(String imdbId) {
         return movieRepository.getListOfOpinionsByMovie(imdbId);
