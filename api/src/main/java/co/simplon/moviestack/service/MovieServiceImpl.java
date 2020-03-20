@@ -100,7 +100,8 @@ public class MovieServiceImpl implements MovieService {
         newMovie.setActors(this.getActorsFromTMDBByImdbID(imdbId));
         newMovie.setDirector(this.getDirectorFromTMDBByImdbID(imdbId));
 
-        newMovie.setDirector(this.getDirectorFromTMDBByImdbID(imdbId));
+        newMovie.setImdbRating(this.getImdbRatingFromOMDBByImdbID(imdbId));
+        newMovie.setImdbVote(this.getImdbVotesFromOMDBByImdbID(imdbId));
 
         movieRepository.save(newMovie);
 
@@ -167,6 +168,58 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public Float getImdbRatingFromOMDBByImdbID(String imdbId) throws JsonProcessingException {
+        Map<String, String> args = new HashMap<>();
+        args.put("Id", imdbId);
+        args.put("key", "3c7d9cd");
+
+        String movieImdb =  this.restTemplate.getForObject(
+                "http://www.omdbapi.com/?i={Id}&apikey={key}",
+                String.class,
+                args
+        );
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonMovie = mapper.readTree(movieImdb);
+
+        if (jsonMovie.has("imdbRating")) {
+            try {
+                return Float.parseFloat(jsonMovie.get("imdbRating").asText());
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public Integer getImdbVotesFromOMDBByImdbID(String imdbId) throws JsonProcessingException {
+        Map<String, String> args = new HashMap<>();
+        args.put("Id", imdbId);
+        args.put("key", "3c7d9cd");
+
+        String movieImdb =  this.restTemplate.getForObject(
+                "http://www.omdbapi.com/?i={Id}&apikey={key}",
+                String.class,
+                args
+        );
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonMovie = mapper.readTree(movieImdb);
+
+        if (jsonMovie.has("imdbVotes")) {
+            try {
+                return Integer.parseInt(jsonMovie.get("imdbVotes").asText().replace(",", ""));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+    }  
+  
+    @Override
     public String getPosterFromTMDBByImdbID(String imdbId) throws JsonProcessingException {
 
         String urlImage = "http://image.tmdb.org/t/p/original";
@@ -199,7 +252,7 @@ public class MovieServiceImpl implements MovieService {
         }
         return null;
     }
-
+    
     @Override
     public List<Opinion> getOpinionsByImdbID(String imdbId) {
         return movieRepository.getListOfOpinionsByMovie(imdbId);
