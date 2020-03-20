@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Movie } from './movie';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
 
-  private pathRootApi = 'http://localhost:8080/';
+  private pathRootApi = 'http://localhost:8080/api/';
 
   // Decommenter pour avoir les données depuis l'array movies du service
   // private movies = [
@@ -25,10 +26,16 @@ export class MovieService {
 
   getMovies() {
     // Decommenter pour avoir les données depuis la base PostgreSQL
-    const urlApi = this.pathRootApi + 'api/movies';
-    return this.httpClient.get(urlApi);
+    const urlApi = this.pathRootApi + 'movies';
+    return this.httpClient.get<Movie[]>(urlApi);
 
     // Decommenter pour avoir les données depuis l'array movies du service
     // return this.movies;
   }
+
+  getMovieById(idImdb: string): Observable<Movie> {
+    const urlApi = this.pathRootApi + 'movies/' + idImdb;
+    return this.httpClient.get<Movie>(urlApi);
+  }
+
 }
