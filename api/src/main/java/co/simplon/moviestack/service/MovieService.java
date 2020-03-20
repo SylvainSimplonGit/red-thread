@@ -25,8 +25,6 @@ public interface MovieService {
 
     String getDirectorFromTMDBByImdbID(String imdbId) throws JsonProcessingException;
 
-    String getDirectorFromTMDBByImdbID(String imdbId) throws JsonProcessingException;
-
     List<Opinion> getOpinionsByImdbID(String imdbId);
 
 }

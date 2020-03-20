@@ -96,7 +96,7 @@ public class MovieServiceImpl implements MovieService {
         }
 
         newMovie.setGenres(genres);
-        newMovie.setActors(this.getActorFromTMDBByImdbID(imdbId));
+        newMovie.setActors(this.getActorsFromTMDBByImdbID(imdbId));
         newMovie.setDirector(this.getDirectorFromTMDBByImdbID(imdbId));
 
         newMovie.setDirector(this.getDirectorFromTMDBByImdbID(imdbId));

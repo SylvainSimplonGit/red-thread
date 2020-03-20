@@ -1,0 +1,74 @@
+@font-face {
+  font-family: "MovieStack_Font";
+  src: url('../../assets/Action Comics.ttf');
+  font-style: normal;
+}
+
+div {
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*align-items: center;*/
+}
+
+#title {
+  font-size: large;
+  /*padding: 0px 0px 100px 0px;*/
+}
+
+#what_for {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  margin-top: 120px;
+  font-size: large;
+  /*background-color: white;*/
+}
+
+ul li {
+  text-align: justify;
+}
+
+.font-moviestack {
+  font-family: MovieStack_Font, serif;
+}
+
+@media screen and (max-width: 2560px) {
+  #what_for {
+    margin-top: 190px;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  #what_for {
+    margin-top: 150px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #what_for {
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  #title {
+    font-size: smaller;
+  }
+
+  #what_for {
+    margin-top: 230px;
+    font-size: smaller;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  #title {
+    font-size: x-small;
+  }
+
+  #what_for {
+    margin-top: 190px;
+    font-size: smaller;
+  }
+}
