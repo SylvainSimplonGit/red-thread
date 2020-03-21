@@ -14,6 +14,7 @@ export class MovieSheetComponent implements OnInit {
 
   private movie: Movie = new Movie();
   private maxActor = 8;
+  private maxGenre = 3;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,7 +40,7 @@ export class MovieSheetComponent implements OnInit {
         this.movie = movieServer;
         console.log('Refresh : ' + idImdb);
       }
-    )
+    );
 
   }
 
