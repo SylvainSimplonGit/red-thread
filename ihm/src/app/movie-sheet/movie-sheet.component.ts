@@ -33,4 +33,12 @@ export class MovieSheetComponent implements OnInit {
     );
   }
 
+  refreshMovieInfo(idImdb: string) {
+    this.movieService.getMovieFromTMDBById(idImdb).subscribe(
+      movieServer => {
+        this.movie = movieServer;
+        console.log('Refresh : ' + idImdb);
+      }
+    );
+  }
 }
