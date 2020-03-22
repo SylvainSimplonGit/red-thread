@@ -12,8 +12,8 @@ import { Movie } from '../movie';
 })
 export class MovieSheetComponent implements OnInit {
 
-  private movie: Movie = new Movie();
-  private maxActor = 8;
+  public movie: Movie = new Movie();
+  public maxActor = 8;
 
   constructor(
     private route: ActivatedRoute,

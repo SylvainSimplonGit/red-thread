@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { MovieService } from '../movie.service';
 import { Movie } from '../movie';
 
@@ -12,9 +12,9 @@ export class MovieListComponent implements OnInit {
 
   movies;
   // Number of Actor displayed in the list
-  private maxActor = 5;
+  public maxActor = 5;
   // Number of Genre displayed in the list
-  private maxGenre = 3;
+  public maxGenre = 3;
 
   constructor(private movieService: MovieService) { }
 
