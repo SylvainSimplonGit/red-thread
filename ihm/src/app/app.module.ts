@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
 
 import { AppComponent } from './app.component';
 import { MovieService } from './movie.service';
@@ -15,6 +19,7 @@ import { MovieSuggestionComponent } from './movie-suggestion/movie-suggestion.co
 import { GenreSuggestionComponent } from './genre-suggestion/genre-suggestion.component';
 import { DirectorSheetComponent } from './director-sheet/director-sheet.component';
 import { StarRatingComponent } from './component/star-rating/star-rating.component';
+import { OpinionListComponent } from './component/opinion-list/opinion-list.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +31,8 @@ import { StarRatingComponent } from './component/star-rating/star-rating.compone
     MovieSuggestionComponent,
     GenreSuggestionComponent,
     DirectorSheetComponent,
-    StarRatingComponent
+    StarRatingComponent,
+    OpinionListComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +43,14 @@ import { StarRatingComponent } from './component/star-rating/star-rating.compone
       { path: 'movie/:movieId', component: MovieSheetComponent },
       { path: 'director/:directorId', component: DirectorSheetComponent },
     ]),
-    MatIconModule
+    MatIconModule,
+    MatDialogModule,
+    MatButtonModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+  ],
+  entryComponents: [
+    OpinionListComponent
   ],
   providers: [MovieService, DirectorService],
   bootstrap: [AppComponent]

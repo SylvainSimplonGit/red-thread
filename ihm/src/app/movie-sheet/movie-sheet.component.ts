@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogConfig  } from '@angular/material/dialog';
 
 import { MovieService } from '../movie.service';
 import { Movie } from '../movie';
+import { OpinionListComponent } from '../component/opinion-list/opinion-list.component';
 
 
 @Component({
@@ -13,6 +15,7 @@ import { Movie } from '../movie';
 export class MovieSheetComponent implements OnInit {
 
   public movie: Movie = new Movie();
+  private opinionsOfMovie = [];
 
   public localRating = 0.0;
   public maxActor = 8;
@@ -21,6 +24,7 @@ export class MovieSheetComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private dialog: MatDialog,
     private movieService: MovieService
   ) {
   }
@@ -29,7 +33,6 @@ export class MovieSheetComponent implements OnInit {
     this.route.paramMap.subscribe(params =>
       this.movieService.getMovieById(params.get('movieId')).subscribe(
         movieServer => {
-          this.movie = movieServer;
           console.log('Init');
           this.calculateRatingMovie(movieServer);
         }
@@ -44,6 +47,28 @@ export class MovieSheetComponent implements OnInit {
       if (values.length > 0) {
         values.forEach( (value) => {
           total += value.rating;
+
+          // RAZ object
+          const valueOp = {
+            idOpinion: 0,
+            // movieBuff: {
+            //   idMovieBuff: 0,
+            //   firstName: '',
+            //   lastName: ''
+            // },
+            movieBuffName: '',
+            rating: 0,
+            comment: ''
+          };
+          // Copying part of the Opinion object to avoid copying the Movie object
+          valueOp.idOpinion = value.idOpinion;
+          // valueOp.movieBuff.idMovieBuff = value.movieBuff.idMovieBuff;
+          // valueOp.movieBuff.firstName = value.movieBuff.firstName;
+          // valueOp.movieBuff.lastName = value.movieBuff.lastName;
+          valueOp.movieBuffName = value.movieBuff.firstName + ' ' + value.movieBuff.lastName;
+          valueOp.rating = value.rating;
+          valueOp.comment = value.comment;
+          this.opinionsOfMovie.push(valueOp);
         });
       }
 
@@ -56,8 +81,23 @@ export class MovieSheetComponent implements OnInit {
       this.movie = movie;
       this.localRating = Math.round(total / 2);
       // console.log('Movie : ' + JSON.stringify(this.movie));
+      console.log('this.opinionsOfMovie : ' + JSON.stringify(this.opinionsOfMovie));
       console.log('localRating : ' + this.localRating);
     });
   }
 
+  displayOpinionList(): void {
+    const dialogConfig = new MatDialogConfig();
+    // dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    // dialogConfig.height = '400px';
+    dialogConfig.width = '600px';
+    dialogConfig.data = {
+      id: 1,
+      title: this.movie.title,
+      opinionList: this.opinionsOfMovie
+    };
+
+    this.dialog.open(OpinionListComponent, dialogConfig);
+  }
 }
