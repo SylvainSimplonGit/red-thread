@@ -64,7 +64,12 @@ public class MovieControler {
      */
     @GetMapping("/{movieId}/tmdb")
     public Movie getMovieFromTmdbByImdbId(@PathVariable String movieId) throws JsonProcessingException {
-        return movieService.getMovieFromTMDBByImdbID(movieId);
+        try {
+            return movieService.getMovieFromTMDBByImdbID(Integer.parseInt(movieId), true);
+        } catch (NumberFormatException e) {
+            return movieService.getMovieFromTMDBByImdbID(movieId, true);
+        }
+//        return movieService.getMovieFromTMDBByImdbID(movieId);
     }
 
     /**
@@ -76,6 +81,17 @@ public class MovieControler {
     @GetMapping("/{movieId}/opinions")
     public List<Opinion> getOpinionsByImdbId(@PathVariable String movieId) {
         return movieService.getOpinionsByImdbID(movieId);
+    }
+
+    /**
+     * Search movie from TheMovieDB with keyword
+     *
+     * @param keyword
+     * @return
+     */
+    @GetMapping("/search/{keyword}")
+    public List<Movie> searchMoviesFromTMDBByKeyword(@PathVariable String keyword) throws JsonProcessingException {
+        return movieService.searchMoviesFromTMDBByKeyword(keyword);
     }
 
     /**

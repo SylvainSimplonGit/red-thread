@@ -64,7 +64,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Movie getMovieFromTMDBByImdbID(String imdbId) throws JsonProcessingException {
+    public Movie getMovieFromTMDBByImdbID(String imdbId, Boolean save) throws JsonProcessingException {
 
         Map<String, String> args = new HashMap<>();
         args.put("Id", imdbId);
@@ -80,34 +80,108 @@ public class MovieServiceImpl implements MovieService {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonMovie = mapper.readTree(movieImdb);
 
-        Movie newMovie = new Movie(imdbId, jsonMovie.get("title").asText());
-        newMovie.setRuntime(jsonMovie.get("runtime").asInt());
-        newMovie.setReleased(jsonMovie.get("release_date").asText());
-        newMovie.setPlot(jsonMovie.get("overview").asText());
+        if (
+                jsonMovie.has("imdb_id") && !jsonMovie.get("imdb_id").isNull() && !jsonMovie.get("imdb_id").asText().equals("") &&
+                jsonMovie.has("title") && !jsonMovie.get("title").isNull() && !jsonMovie.get("title").asText().equals("")
+        ) {
+            Movie newMovie = new Movie(imdbId, jsonMovie.get("title").asText());
 
-        List<Genre> genres = new ArrayList<>();
+            if (jsonMovie.has("runtime")) { newMovie.setRuntime(jsonMovie.get("runtime").asInt()); }
+            if (jsonMovie.has("released_date")) { newMovie.setReleased(jsonMovie.get("release_date").asText()); }
+            if (jsonMovie.has("overview")) { newMovie.setPlot(jsonMovie.get("overview").asText()); }
 
-        for (Object genreObj : jsonMovie.get("genres")) {
-            ObjectMapper mapperGenre = new ObjectMapper();
-            JsonNode jsonGenre = mapperGenre.readTree(genreObj.toString());
-            Genre genre = new Genre(jsonGenre.get("id").asLong(), jsonGenre.get("name").asText());
-            genres.add(genre);
-            this.genreRepository.save(genre);
+            if (jsonMovie.has("genres")) {
+                List<Genre> genres = new ArrayList<>();
+
+                for (Object genreObj : jsonMovie.get("genres")) {
+                    ObjectMapper mapperGenre = new ObjectMapper();
+                    JsonNode jsonGenre = mapperGenre.readTree(genreObj.toString());
+                    Genre genre = new Genre(jsonGenre.get("id").asLong(), jsonGenre.get("name").asText());
+                    genres.add(genre);
+                    this.genreRepository.save(genre);
+                }
+
+                newMovie.setGenres(genres);
+            }
+
+            newMovie.setPosterUrl(this.getPosterFromTMDBByImdbID(imdbId));
+            newMovie.setActors(this.getActorsFromTMDBByImdbID(imdbId));
+            newMovie.setDirector(this.getDirectorFromTMDBByImdbID(imdbId));
+
+            newMovie.setImdbRating(this.getImdbRatingFromOMDBByImdbID(imdbId));
+            newMovie.setImdbVote(this.getImdbVotesFromOMDBByImdbID(imdbId));
+
+            if (save) { movieRepository.save(newMovie); }
+
+            System.out.println("Ajout du film (" + newMovie.getIdImdb() + ") : " + newMovie.getTitle());
+
+            return newMovie;
+        } else {
+            return null;
         }
 
-        newMovie.setGenres(genres);
-        newMovie.setPosterUrl(this.getPosterFromTMDBByImdbID(imdbId));
-        newMovie.setActors(this.getActorsFromTMDBByImdbID(imdbId));
-        newMovie.setDirector(this.getDirectorFromTMDBByImdbID(imdbId));
+    }
 
-        newMovie.setImdbRating(this.getImdbRatingFromOMDBByImdbID(imdbId));
-        newMovie.setImdbVote(this.getImdbVotesFromOMDBByImdbID(imdbId));
+    @Override
+    public Movie getMovieFromTMDBByImdbID(Integer tmdbId, Boolean save) throws JsonProcessingException {
 
-        movieRepository.save(newMovie);
+        Map<String, String> args = new HashMap<>();
+        args.put("Id", tmdbId.toString());
+        args.put("key", "09f9524466812ccf78760c6ef7807fd5");
+        args.put("lang", "fr-FR");
 
-        System.out.println("Ajout du film (" + newMovie.getIdImdb() + ") : " + newMovie.getTitle());
+        String movieImdb =  this.restTemplate.getForObject(
+                "https://api.themoviedb.org/3/movie/{Id}?api_key={key}&language={lang}",
+                String.class,
+                args
+        );
 
-        return newMovie;
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonMovie = mapper.readTree(movieImdb);
+
+        String imdbId = jsonMovie.get("imdb_id").asText();
+
+        if (
+                jsonMovie.has("imdb_id") && !jsonMovie.get("imdb_id").isNull() && !jsonMovie.get("imdb_id").asText().equals("") &&
+                jsonMovie.has("title") && !jsonMovie.get("title").isNull() && !jsonMovie.get("title").asText().equals("")
+        ) {
+            Movie newMovie = new Movie(imdbId, jsonMovie.get("title").asText());
+
+            if (jsonMovie.has("runtime")) { newMovie.setRuntime(jsonMovie.get("runtime").asInt()); }
+            if (jsonMovie.has("released_date")) { newMovie.setReleased(jsonMovie.get("release_date").asText()); }
+            if (jsonMovie.has("overview")) { newMovie.setPlot(jsonMovie.get("overview").asText()); }
+
+            if (jsonMovie.has("genres")) {
+                List<Genre> genres = new ArrayList<>();
+
+                for (Object genreObj : jsonMovie.get("genres")) {
+                    ObjectMapper mapperGenre = new ObjectMapper();
+                    JsonNode jsonGenre = mapperGenre.readTree(genreObj.toString());
+                    Genre genre = new Genre(jsonGenre.get("id").asLong(), jsonGenre.get("name").asText());
+                    genres.add(genre);
+                    this.genreRepository.save(genre);
+                }
+
+                newMovie.setGenres(genres);
+            }
+
+            newMovie.setPosterUrl(this.getPosterFromTMDBByImdbID(imdbId));
+            newMovie.setActors(this.getActorsFromTMDBByImdbID(imdbId));
+            newMovie.setDirector(this.getDirectorFromTMDBByImdbID(imdbId));
+
+            newMovie.setImdbRating(this.getImdbRatingFromOMDBByImdbID(imdbId));
+            newMovie.setImdbVote(this.getImdbVotesFromOMDBByImdbID(imdbId));
+
+            if (save) { movieRepository.save(newMovie); }
+
+            System.out.println("Ajout du film (" + newMovie.getIdImdb() + ") : " + newMovie.getTitle());
+
+            return newMovie;
+        } else {
+            return null;
+        }
+
+
     }
 
     @Override
@@ -182,7 +256,10 @@ public class MovieServiceImpl implements MovieService {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonMovie = mapper.readTree(movieImdb);
 
-        if (jsonMovie.has("imdbRating")) {
+        if (
+                jsonMovie.has("imdbRating") &&
+                !jsonMovie.get("imdbRating").asText().equals("N/A")
+        ) {
             try {
                 return Float.parseFloat(jsonMovie.get("imdbRating").asText());
             } catch (NumberFormatException e) {
@@ -208,7 +285,10 @@ public class MovieServiceImpl implements MovieService {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonMovie = mapper.readTree(movieImdb);
 
-        if (jsonMovie.has("imdbVotes")) {
+        if (
+                jsonMovie.has("imdbVotes") &&
+                !jsonMovie.get("imdbVotes").asText().equals("N/A")
+        ) {
             try {
                 return Integer.parseInt(jsonMovie.get("imdbVotes").asText().replace(",", ""));
             } catch (NumberFormatException e) {
@@ -256,5 +336,68 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<Opinion> getOpinionsByImdbID(String imdbId) {
         return movieRepository.getListOfOpinionsByMovie(imdbId);
+    }
+
+    @Override
+    public List<Movie> searchMoviesFromTMDBByKeyword(String keyword) throws JsonProcessingException {
+        Map<String, String> args = new HashMap<>();
+        args.put("keyword", keyword);
+        args.put("key", "09f9524466812ccf78760c6ef7807fd5");
+        args.put("lang", "fr-FR");
+
+        String movieImdb =  this.restTemplate.getForObject(
+                "https://api.themoviedb.org/3/search/movie?query={keyword}&language={lang}&api_key={key}",
+                String.class,
+                args
+        );
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonMovie = mapper.readTree(movieImdb);
+
+        List<Movie> moviesSearch = new ArrayList<>();
+
+        Integer maxSearch = 5;
+
+        while (maxSearch > 0) {
+            for (Object returns : jsonMovie.get("results")) {
+                ObjectMapper mapperReturns = new ObjectMapper();
+                JsonNode jsonMovieSearch = mapperReturns.readTree(returns.toString());
+
+                Movie movieSearch = this.getMovieFromTMDBByImdbID(jsonMovieSearch.get("id").asInt(), false);
+                if (moviesSearch != null) { moviesSearch.add(movieSearch); }
+                maxSearch--;
+            }
+        }
+
+
+//        {
+//            "page": 1,
+//                "total_results": 151,
+//                "total_pages": 8,
+//                "results": [
+//                {
+//                    "popularity": 36.605,
+//                    "vote_count": 14281,
+//                    "video": false,
+//                    "poster_path": "/q8pF6s9b9veTQvxTqMDIQf9nJKi.jpg",
+//                    "id": 10195,
+//                    "adult": false,
+//                    "backdrop_path": "/LvmmDZxkTDqp0DX7mUo621ahdX.jpg",
+//                    "original_language": "en",
+//                    "original_title": "Thor",
+//                    "genre_ids": [
+//                        28,
+//                        12,
+//                        14
+//                    ],
+//                    "title": "Thor",
+//                    "vote_average": 6.7,
+//                    "overview": "Thor, le héros du nouveau film issu de l'univers Marvel, est un guerrier tout-puissant et arrogant dont les actes téméraires font renaître de nos jours un conflit ancestral. À cause de cela, il est banni du Royaume mythique d’Asgard et est condamné à vivre parmi les humains. Mais lorsque les forces du Mal d’Asgard s’apprêtent à envahir la Terre, Thor découvre enfin ce que signifie \"être un héros\".",
+//                    "release_date": "2011-04-21"
+//                },
+
+//        System.out.println(jsonMovie.toString());
+
+        return moviesSearch;
     }
 }
