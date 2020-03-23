@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ihm"
+    }
+  },
+  "defaultProject": "ihm",
+  "cli": {
+    "analytics": "08e4723f-66d9-4aaa-a4c9-fe8c6e7bdd80"
+  }
 }
