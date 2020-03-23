@@ -1,0 +1,15 @@
+.center {
+  text-align: center;
+}
+
+.mat-column-movieBuff {
+  flex: 2;
+}
+
+.mat-column-rating {
+  flex: 1;
+}
+
+.mat-column-comment {
+  flex: 4;
+}
