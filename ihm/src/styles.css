@@ -135,7 +135,7 @@ app-welcome-page .What_for {
 }
 
 app-welcome-page .What_for span{
-  font-family: MovieStack_Font;
+  font-family: MovieStack_Font, serif;
 }
 /*--------------------------------------------------------*/
 /*--------------------------------------------------------*/
