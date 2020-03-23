@@ -31,7 +31,7 @@
       <div class="row">
         <div class="label col-20">Réalisateur</div>
         <div class="data col-30">{{ movie.director }}</div>
-        <div class="label col-10">id IMDB</div>
+        <div class="label col-10" (click)="refreshMovieInfo(movie.idImdb)">id IMDB</div>
         <div class="data col-10 center">{{ movie.idImdb }}</div>
       </div>
 
