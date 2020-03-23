@@ -38,4 +38,9 @@ export class MovieService {
     return this.httpClient.get<Movie>(urlApi);
   }
 
+  getMovieFromTMDBById(idImdb: string): Observable<Movie> {
+    const urlApi = this.pathRootApi + 'movies/' + idImdb + '/tmdb';
+    return this.httpClient.get<Movie>(urlApi);
+  }
+
 }
