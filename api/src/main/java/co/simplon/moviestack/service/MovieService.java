@@ -19,9 +19,9 @@ public interface MovieService {
     
     List<Movie> getMovies();
 
-    Movie getMovieFromTMDBByImdbID(String imdbId, Boolean save) throws JsonProcessingException;
+    Movie getMovieFromTMDBByImdbID(String imdbId, boolean save) throws JsonProcessingException;
 
-    Movie getMovieFromTMDBByImdbID(Integer tmdbId, Boolean save) throws JsonProcessingException;
+    Movie getMovieFromTMDBByImdbID(Integer tmdbId, boolean save) throws JsonProcessingException;
 
     List<Actor> getActorsFromTMDBByImdbID(String imdbId) throws JsonProcessingException;
 
