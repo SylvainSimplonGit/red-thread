@@ -19,7 +19,9 @@ public interface MovieService {
     
     List<Movie> getMovies();
 
-    Movie getMovieFromTMDBByImdbID(String imdbId) throws JsonProcessingException;
+    Movie getMovieFromTMDBByImdbID(String imdbId, Boolean save) throws JsonProcessingException;
+
+    Movie getMovieFromTMDBByImdbID(Integer tmdbId, Boolean save) throws JsonProcessingException;
 
     List<Actor> getActorsFromTMDBByImdbID(String imdbId) throws JsonProcessingException;
 
@@ -32,5 +34,7 @@ public interface MovieService {
     String getPosterFromTMDBByImdbID(String imdbId) throws JsonProcessingException;
 
     List<Opinion> getOpinionsByImdbID(String imdbId);
+
+    List<Movie> searchMoviesFromTMDBByKeyword(String keyword) throws JsonProcessingException;
 
 }
