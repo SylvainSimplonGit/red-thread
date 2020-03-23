@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogConfig  } from '@angular/material/dialog';
 
-import { MovieService } from '../movie.service';
-import { Movie } from '../movie';
-import { OpinionListComponent } from '../component/opinion-list/opinion-list.component';
+import { MovieService } from '../../service/movie.service';
+import { Movie } from '../../model/movie';
+import { OpinionListComponent } from '../opinion-list/opinion-list.component';
 
 
 @Component({
@@ -19,6 +19,7 @@ export class MovieSheetComponent implements OnInit {
 
   public localRating = 0.0;
   public maxActor = 8;
+  public maxGenre = 3;
 
   public starCount = 5;
 
@@ -100,4 +101,14 @@ export class MovieSheetComponent implements OnInit {
 
     this.dialog.open(OpinionListComponent, dialogConfig);
   }
+
+  refreshMovieInfo(idImdb: string) {
+    this.movieService.getMovieFromTMDBById(idImdb).subscribe(
+      movieServer => {
+        this.movie = movieServer;
+        console.log('Refresh : ' + idImdb);
+      }
+    );
+  }
+
 }

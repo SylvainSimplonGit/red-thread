@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DirectorService } from '../director.service';
-import { Movie } from '../movie';
+import { DirectorService } from '../../service/director.service';
+import { Movie } from '../../model/movie';
 
 @Component({
   selector: 'app-director-sheet',

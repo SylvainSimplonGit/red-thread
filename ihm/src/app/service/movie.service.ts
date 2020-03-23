@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Movie } from './movie';
+import { Movie } from '../model/movie';
 import { Observable } from 'rxjs';
 import { Opinion } from './Opinion';
 
@@ -42,6 +42,11 @@ export class MovieService {
   getOpinionsMovieById(idImdb: string): Observable<Opinion[]> {
     const urlApi = this.pathRootApi + 'movies/' + idImdb + '/opinions';
     return this.httpClient.get<Opinion[]>(urlApi);
+  }
+
+  getMovieFromTMDBById(idImdb: string): Observable<Movie> {
+    const urlApi = this.pathRootApi + 'movies/' + idImdb + '/tmdb';
+    return this.httpClient.get<Movie>(urlApi);
   }
 
 }
