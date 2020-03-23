@@ -62,8 +62,7 @@ app-top-bar div div {
   height: 35px;
   font-size: large;
   background: none;
-  margin-right: 10px;
-  margin-left: 10px;
+  margin: 0 10px;
 }
 
 app-top-bar .button_connexion {
