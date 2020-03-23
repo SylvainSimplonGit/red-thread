@@ -39,8 +39,8 @@ app-top-bar div {
   background-color: rgb(159, 163, 255);
 }
 
-app-top-bar div div h1 {
-  font-family: MovieStack_Font, serif;
+app-top-bar h1 {
+  font-family: MovieStack_Font;
   font-size: larger;
 }
 
@@ -49,11 +49,11 @@ app-top-bar {
   flex: 1;
 }
 
-app-top-bar div div .clap_cinema {
+app-top-bar .clap_cinema {
   height: 50px;
 }
 
-app-top-bar div div .welcome_Page_button {
+app-top-bar .welcome_Page_button {
   background: none;
   border-color: rgb(159, 163, 255);
 }
@@ -62,6 +62,8 @@ app-top-bar div div {
   height: 35px;
   font-size: large;
   background: none;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 app-top-bar .button_connexion {
@@ -71,11 +73,6 @@ app-top-bar .button_connexion {
   padding-left: 15px;
   border-color: rgb(159, 163, 255);
   background-color: rgb(126, 123, 255);
- }
-
-app-top-bar div div {
-  margin-right: 10px;
-  margin-left: 10px;
 }
 /*-------------------------------------------------*/
 /*-------------------------------------------------*/
@@ -102,11 +99,11 @@ footer div {
   justify-content: space-evenly;
 }
 
-footer div .logo_renault {
+footer #logo_renault {
   height: 40px;
 }
 
-footer div .logo_simplon {
+footer #logo_simplon {
   height: 40px;
 }
 /*---------------------------------------------*/
@@ -127,23 +124,112 @@ app-welcome-page div {
   align-items: center;
 }
 
-app-welcome-page div .Title h1 span{
-  font-family: MovieStack_Font, serif;
- }
-
-app-welcome-page div .Title {
-  padding: 100px 0 100px 0;
+app-welcome-page .Title span{
+  font-family: MovieStack_Font;
 }
 
-app-welcome-page div .What_for {
-  padding: 0 0 50px 0;
+app-welcome-page .Title {
+  padding: 100px 0px 100px 0px;
 }
 
-app-welcome-page div .What_for h2 span{
-  font-family: MovieStack_Font, serif;
+app-welcome-page .What_for {
+  padding: 0px 0px 50px 0px;
+}
+
+app-welcome-page .What_for span{
+  font-family: MovieStack_Font;
 }
 /*--------------------------------------------------------*/
 /*--------------------------------------------------------*/
+
+
+
+/*----------------CSS DE LA PAGE D'AJOUT D'UN FILM----------------*/
+/*----------------------------------------------------------------*/
+
+app-add-amovie-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+app-add-amovie-page section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+app-add-amovie-page table {
+  width: 1400px;
+}
+
+app-add-amovie-page .addMovieForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+app-add-amovie-page .addMovieForm form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+app-add-amovie-page section h1 {
+  background-color: grey;
+  color: white;
+  width: 650px;
+  height: 30px;
+}
+
+app-add-amovie-page .addMovieForm form div div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+app-add-amovie-page .addMovieForm label {
+  width: 400px;
+  padding: 0 25px 0 25px;
+}
+
+app-add-amovie-page .addMovieForm .title h2 {
+  background-color: grey;
+  color: white;
+  height: 30px;
+  margin: 5px 0 5px 0;
+}
+
+app-add-amovie-page .addMovieForm .released h2 {
+  background-color: grey;
+  color: white;
+  margin: 5px 0 5px 0;
+}
+
+app-add-amovie-page .addMovieForm input {
+  width: 300px;
+  height: 28px;
+  margin: 0 25px 0 0;
+  border-radius: 5px;
+}
+
+app-add-amovie-page .addMovieForm input::placeholder {
+  padding: 0 0 0 15px;
+}
+
+app-add-amovie-page .addMovieForm button {
+  height: 80px;
+  width: 140px;
+  font-size: larger;
+  font-weight: bolder;
+  color: white;
+  border-radius: 5px;
+  background-color: #33801d;
+}
+/*----------------------------------------------------------------*/
+/*----------------------------------------------------------------*/
 
 
 
@@ -202,8 +288,8 @@ ul li {
 
 html, body {
   height: 99%;
-  background: url('/assets/wallPaper.jpg') center no-repeat;  /*LIGNES QUI PEUVENT ETRE DESACTIVEES SI L'IMAGE DE FOND GENE*/
-  background-size: contain                                    /*LIGNES QUI PEUVENT ETRE DESACTIVEES SI L'IMAGE DE FOND GENE*/;
+  /*background: url('/assets/wallPaper.jpg') center no-repeat;  !*LIGNES QUI PEUVENT ETRE DESACTIVEES SI L'IMAGE DE FOND GENE*!*/
+  /*background-size: contain                                    !*LIGNES QUI PEUVENT ETRE DESACTIVEES SI L'IMAGE DE FOND GENE*!;*/
 }
 
 body {

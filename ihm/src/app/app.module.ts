@@ -20,6 +20,8 @@ import { GenreSuggestionComponent } from './component/genre-suggestion/genre-sug
 import { DirectorSheetComponent } from './component/director-sheet/director-sheet.component';
 import { StarRatingComponent } from './component/star-rating/star-rating.component';
 import { OpinionListComponent } from './component/opinion-list/opinion-list.component';
+import { AddAMoviePageComponent } from './component/add-amovie-page/add-amovie-page.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,22 +34,25 @@ import { OpinionListComponent } from './component/opinion-list/opinion-list.comp
     GenreSuggestionComponent,
     DirectorSheetComponent,
     StarRatingComponent,
-    OpinionListComponent
+    OpinionListComponent,
+    AddAMoviePageComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot([
-      { path: '', component: WelcomePageComponent },
-      { path: 'movies', component: MovieListComponent },
-      { path: 'movie/:movieId', component: MovieSheetComponent },
-      { path: 'director/:directorId', component: DirectorSheetComponent },
+      {path: '', component: WelcomePageComponent},
+      {path: 'movies', component: MovieListComponent},
+      {path: 'movie/:movieId', component: MovieSheetComponent},
+      {path: 'director/:directorId', component: DirectorSheetComponent},
+      {path: 'addamovie', component: AddAMoviePageComponent}
     ]),
     MatIconModule,
     MatDialogModule,
     MatButtonModule,
     BrowserAnimationsModule,
     MatTableModule,
+    ReactiveFormsModule,
   ],
   entryComponents: [
     OpinionListComponent
