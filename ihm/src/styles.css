@@ -125,7 +125,7 @@ app-welcome-page div {
 }
 
 app-welcome-page .Title span{
-  font-family: MovieStack_Font;
+  font-family: MovieStack_Font, serif;
 }
 
 app-welcome-page .Title {
