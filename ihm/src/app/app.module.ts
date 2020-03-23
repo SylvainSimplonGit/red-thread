@@ -21,7 +21,7 @@ import { DirectorSheetComponent } from './component/director-sheet/director-shee
 import { StarRatingComponent } from './component/star-rating/star-rating.component';
 import { OpinionListComponent } from './component/opinion-list/opinion-list.component';
 import { AddAMoviePageComponent } from './component/add-amovie-page/add-amovie-page.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -41,11 +41,11 @@ import {ReactiveFormsModule} from '@angular/forms';
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot([
-      {path: '', component: WelcomePageComponent},
-      {path: 'movies', component: MovieListComponent},
-      {path: 'movie/:movieId', component: MovieSheetComponent},
-      {path: 'director/:directorId', component: DirectorSheetComponent},
-      {path: 'addamovie', component: AddAMoviePageComponent}
+      { path: '', component: WelcomePageComponent },
+      { path: 'movies', component: MovieListComponent },
+      { path: 'movie/:movieId', component: MovieSheetComponent },
+      { path: 'director/:directorId', component: DirectorSheetComponent },
+      { path: 'addamovie', component: AddAMoviePageComponent }
     ]),
     MatIconModule,
     MatDialogModule,
