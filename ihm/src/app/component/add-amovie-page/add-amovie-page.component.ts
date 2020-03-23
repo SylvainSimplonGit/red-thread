@@ -14,7 +14,6 @@ export class AddAMoviePageComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
   ) {
-    // @ts-ignore
     this.addAMovieForm = this.formBuilder.group({
       movie_title: '',
       movie_released: '',
