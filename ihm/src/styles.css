@@ -68,8 +68,7 @@ app-top-bar div div {
 app-top-bar .button_connexion {
   height: 35px;
   font-size: large;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding: 0 15px;
   border-color: rgb(159, 163, 255);
   background-color: rgb(126, 123, 255);
 }
@@ -128,7 +127,7 @@ app-welcome-page .Title span{
 }
 
 app-welcome-page .Title {
-  padding: 100px 0px 100px 0px;
+  padding: 100px 0;
 }
 
 app-welcome-page .What_for {
@@ -191,20 +190,20 @@ app-add-amovie-page .addMovieForm form div div {
 
 app-add-amovie-page .addMovieForm label {
   width: 400px;
-  padding: 0 25px 0 25px;
+  padding: 0 25px;
 }
 
 app-add-amovie-page .addMovieForm .title h2 {
   background-color: grey;
   color: white;
   height: 30px;
-  margin: 5px 0 5px 0;
+  margin: 5px 0;
 }
 
 app-add-amovie-page .addMovieForm .released h2 {
   background-color: grey;
   color: white;
-  margin: 5px 0 5px 0;
+  margin: 5px 0;
 }
 
 app-add-amovie-page .addMovieForm input {
