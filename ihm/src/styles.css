@@ -133,7 +133,7 @@ app-welcome-page .Title {
 }
 
 app-welcome-page .What_for {
-  padding: 0px 0px 50px 0px;
+  padding: 0 0 50px 0;
 }
 
 app-welcome-page .What_for span{
