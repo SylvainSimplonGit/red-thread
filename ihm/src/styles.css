@@ -40,7 +40,7 @@ app-top-bar div {
 }
 
 app-top-bar h1 {
-  font-family: MovieStack_Font;
+  font-family: MovieStack_Font, serif;
   font-size: larger;
 }
 
