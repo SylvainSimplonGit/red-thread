@@ -16,8 +16,10 @@ public class Opinion {
     @ManyToOne
     private Movie movie;
 
-    @Column(nullable = false)
-    private Long idMovieBuff;
+//    @Column(nullable = false)
+//    private Long idMovieBuff;
+    @ManyToOne
+    private MovieBuff movieBuff;
 
     @Column(nullable = false)
     @Min(value = 0)
@@ -30,17 +32,32 @@ public class Opinion {
     public Opinion() {
     }
 
-    public Opinion(Movie movie, Long idMovieBuff, Float rating, String comment) {
+//    public Opinion(Movie movie, Long idMovieBuff, Float rating, String comment) {
+//        this.movie = movie;
+//        this.idMovieBuff = idMovieBuff;
+//        this.rating = rating;
+//        this.comment = comment;
+//    }
+
+    public Opinion(Movie movie, MovieBuff movieBuff, Float rating, String comment) {
         this.movie = movie;
-        this.idMovieBuff = idMovieBuff;
+        this.movieBuff = movieBuff;
         this.rating = rating;
         this.comment = comment;
     }
 
-    public Opinion(Long idOpinion, Movie movie, Long idMovieBuff, Float rating, String comment) {
+//    public Opinion(Long idOpinion, Movie movie, Long idMovieBuff, Float rating, String comment) {
+//        this.idOpinion = idOpinion;
+//        this.movie = movie;
+//        this.idMovieBuff = idMovieBuff;
+//        this.rating = rating;
+//        this.comment = comment;
+//    }
+
+    public Opinion(Long idOpinion, Movie movie, MovieBuff movieBuff, Float rating, String comment) {
         this.idOpinion = idOpinion;
         this.movie = movie;
-        this.idMovieBuff = idMovieBuff;
+        this.movieBuff = movieBuff;
         this.rating = rating;
         this.comment = comment;
     }
@@ -61,13 +78,13 @@ public class Opinion {
         this.movie = movie;
     }
 
-    public Long getIdMovieBuff() {
-        return idMovieBuff;
-    }
-
-    public void setIdMovieBuff(Long idMovieBuff) {
-        this.idMovieBuff = idMovieBuff;
-    }
+//    public Long getIdMovieBuff() {
+//        return idMovieBuff;
+//    }
+//
+//    public void setIdMovieBuff(Long idMovieBuff) {
+//        this.idMovieBuff = idMovieBuff;
+//    }
 
     public Float getRating() {
         return rating;
@@ -84,4 +101,13 @@ public class Opinion {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    public MovieBuff getMovieBuff() {
+        return movieBuff;
+    }
+
+    public void setMovieBuff(MovieBuff movieBuff) {
+        this.movieBuff = movieBuff;
+    }
+
 }

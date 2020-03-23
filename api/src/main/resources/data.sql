@@ -21,9 +21,10 @@ INSERT INTO public.mv_movie_movie_buff (movie_buffs_id_movie_buff, movies_seen_i
     (1, 'tt0109440');
 
 -- INSERT Opinions
-INSERT INTO public.mv_opinion (id_opinion, comment, id_movie_buff, rating, movie_id_imdb) VALUES
-    (nextval('opinion_seq_id'), 'Surpris !', 1, 0.5, 'tt0137523'),
-    (nextval('opinion_seq_id'), 'Film culte !', 1, 10, 'tt0078907')
+INSERT INTO public.mv_opinion (id_opinion, comment, movie_buff_id_movie_buff, rating, movie_id_imdb) VALUES
+    (nextval('opinion_seq_id'), 'Surpris !', 1, 0.5, 'tt0137523')
+   ,(nextval('opinion_seq_id'), 'Film culte !', 1, 10, 'tt0078907')
+   ,(nextval('opinion_seq_id'), 'A mourir de rire !', 2, 7.3, 'tt0078907')
 ;
 
 -- INSERT Actors

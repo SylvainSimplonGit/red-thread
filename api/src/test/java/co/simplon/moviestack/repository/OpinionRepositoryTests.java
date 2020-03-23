@@ -1,6 +1,7 @@
 package co.simplon.moviestack.repository;
 
 import co.simplon.moviestack.model.Movie;
+import co.simplon.moviestack.model.MovieBuff;
 import co.simplon.moviestack.model.Opinion;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Order;
@@ -28,11 +29,16 @@ public class OpinionRepositoryTests {
     @Autowired
     private MovieRepository movieRepository;
 
+    @Autowired
+    private MovieBuffRepository movieBuffRepository;
+
     @Test
     public void shouldReturnNotNullWhenAddOpinionValid() throws Exception {
         Movie movie = new Movie("tt0000001", "The Film !");
         this.movieRepository.save(movie);
-        Opinion savedOpinion = new Opinion(1L, movie, 1L, 5.0F, "Film pas Ouf !");
+        MovieBuff movieBuff = new MovieBuff(10L, "The", "Test");
+        this.movieBuffRepository.save(movieBuff);
+        Opinion savedOpinion = new Opinion(1L, movie, movieBuff, 5.0F, "Film pas Ouf !");
         this.opinionRepository.save(savedOpinion);
         assertThat(testEntityManager.find(Opinion.class, 1L)).isNotNull();
     }

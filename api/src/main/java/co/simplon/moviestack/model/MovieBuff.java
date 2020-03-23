@@ -15,6 +15,8 @@ class MovieBuff {
  */
 package co.simplon.moviestack.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 import javax.persistence.*;
@@ -50,6 +52,11 @@ public class MovieBuff {
             inverseJoinColumns = @JoinColumn ( name = "movies_seen_id_imdb")
     )
     private List<Movie> moviesSeen;
+
+    @JsonIgnore
+    // TODO Ajouter une @Query dans le MovieRepository
+    @OneToMany(mappedBy = "movieBuff")
+    private List<Opinion> opinions;
 
     public MovieBuff() {
     }

@@ -5,6 +5,11 @@ drop table if exists mv_moviebuff cascade;
 drop table if exists mv_opinion cascade;
 drop table if exists mv_genre cascade;
 drop table if exists mv_movie_movie_buff cascade;
+drop table if exists mv_actor_genres cascade;
+drop table if exists mv_genre_actors cascade;
+drop table if exists mv_genre_movies cascade;
+drop table if exists mv_movie_genres cascade;
+drop table if exists mv_movies_genres cascade;
 
 drop table if exists mv_actor_movies cascade;
 drop table if exists mv_movie_actors cascade;
