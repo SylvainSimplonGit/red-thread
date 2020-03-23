@@ -1,0 +1,9 @@
+<div class="starColumn">
+  <div class="starRow">
+    <div *ngFor="let ratingId of ratingArr; index as i">
+      <mat-icon class="starIcon">
+        {{ showIcon(i) }}
+      </mat-icon>
+    </div>
+  </div>
+</div>

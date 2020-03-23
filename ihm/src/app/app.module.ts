@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppComponent } from './app.component';
 import { MovieService } from './service/movie.service';
@@ -13,6 +14,7 @@ import { MovieSheetComponent } from './component/movie-sheet/movie-sheet.compone
 import { MovieSuggestionComponent } from './component/movie-suggestion/movie-suggestion.component';
 import { GenreSuggestionComponent } from './component/genre-suggestion/genre-suggestion.component';
 import { DirectorSheetComponent } from './component/director-sheet/director-sheet.component';
+import { StarRatingComponent } from './component/star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { DirectorSheetComponent } from './component/director-sheet/director-shee
     MovieSheetComponent,
     MovieSuggestionComponent,
     GenreSuggestionComponent,
-    DirectorSheetComponent
+    DirectorSheetComponent,
+    StarRatingComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { DirectorSheetComponent } from './component/director-sheet/director-shee
       { path: 'movies', component: MovieListComponent },
       { path: 'movie/:movieId', component: MovieSheetComponent },
       { path: 'director/:directorId', component: DirectorSheetComponent },
-    ])
+    ]),
+    MatIconModule
   ],
   providers: [MovieService, DirectorService],
   bootstrap: [AppComponent]
