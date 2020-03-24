@@ -1,5 +1,6 @@
 package co.simplon.moviestack.service;
 
+import co.simplon.moviestack.exception.InvalidMovieTMDBException;
 import co.simplon.moviestack.model.Actor;
 import co.simplon.moviestack.model.Genre;
 import co.simplon.moviestack.model.Movie;
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
@@ -28,7 +30,9 @@ public class MovieServiceImpl implements MovieService {
     static final String ERROR_PARSE = "{} | Erreur de Parsing JSON : {}";
     static final String ERROR_ACCESS = "{} | Erreur d'accès' : {}";
     static final String ERROR_TIMEOUT = "Timeout of TMDB !";
+    static final String ERROR_HTTP = "{} | Erreur de requête : {}";
     static final String ERROR_FORMAT = "{} | Erreur Format : {}";
+    static final String ERROR_OTHER = "{} | Erreur : {}";
 
     static final String TMDB_FIELD_ID = "id";
     static final String TMDB_FIELD_IDIMDB = "imdb_id";
@@ -98,21 +102,27 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movie> getMovies() {
-        return movieRepository.findAll();
+        List<Movie> dbMovies = movieRepository.findAll();
+        if (!dbMovies.isEmpty()) {
+            return dbMovies;
+        } else {
+            throw new EntityNotFoundException("No movie in DB Movie");
+        }
     }
 
     @Override
-    public Movie getMovieFromTMDBByImdbID (String imdbId, boolean save) {
+    public Movie getMovieFromTMDBByImdbID (String imdbId, boolean save) throws InvalidMovieTMDBException {
         return this.getMovieFormTMDB(imdbId, save);
     }
 
     @Override
-    public Movie getMovieFromTMDBByImdbID (Integer tmdbId, boolean save) {
-        return this.getMovieFormTMDB(tmdbId.toString(), save);
+    public Movie getMovieFromTMDBByImdbID (Integer tmdbId, boolean save) throws InvalidMovieTMDBException {
+        String imdbId = tmdbId.toString();
+        return this.getMovieFormTMDB(imdbId, save);
     }
 
     @Override
-    public List<Actor> getActorsFromTMDBByImdbID (String imdbId) {
+    public List<Actor> getActorsFromTMDBByImdbID (String imdbId) throws InvalidMovieTMDBException {
         this.args.put("Id", imdbId);
 
         List<Actor> actors = new ArrayList<>();
@@ -129,20 +139,14 @@ public class MovieServiceImpl implements MovieService {
                 JsonNode jsonMovie = mapper.readTree(movieImdb);
                 actors = this.addActors(jsonMovie);
             }
-        } catch (ResourceAccessException r) {
-            if (r.getCause() instanceof ConnectException) {
-                LOGGER.error(ERROR_ACCESS, methodName(), ERROR_TIMEOUT);
-            } else {
-                LOGGER.error(ERROR_ACCESS, methodName(), r.getMessage());
-            }
-        } catch (JsonProcessingException j) {
-            LOGGER.error(ERROR_PARSE, methodName(), j.getMessage());
+        } catch (Exception e) {
+            this.errorManagement(e, methodName());
         }
         return actors;
     }
 
     @Override
-    public String getDirectorFromTMDBByImdbID (String imdbId) {
+    public String getDirectorFromTMDBByImdbID (String imdbId) throws InvalidMovieTMDBException {
         this.args.put("Id", imdbId);
 
         try {
@@ -170,21 +174,15 @@ public class MovieServiceImpl implements MovieService {
                     }
                 }
             }
-        } catch (ResourceAccessException r) {
-            if (r.getCause() instanceof ConnectException) {
-                LOGGER.error(ERROR_ACCESS, methodName(), ERROR_TIMEOUT);
-            } else {
-                LOGGER.error(ERROR_ACCESS, methodName(), r.getMessage());
-            }
-        } catch (JsonProcessingException j) {
-            LOGGER.error(ERROR_PARSE, methodName(), j.getMessage());
+        } catch (Exception e) {
+            this.errorManagement(e, methodName());
         }
 
         return null;
     }
 
     @Override
-    public Float getImdbRatingFromOMDBByImdbID(String imdbId) {
+    public Float getImdbRatingFromOMDBByImdbID(String imdbId) throws InvalidMovieTMDBException {
         argsOmdb.put("Id", imdbId);
 
         try {
@@ -206,23 +204,15 @@ public class MovieServiceImpl implements MovieService {
                 }
             }
 
-        } catch (ResourceAccessException r) {
-            if (r.getCause() instanceof ConnectException) {
-                LOGGER.error(ERROR_ACCESS, methodName(), ERROR_TIMEOUT);
-            } else {
-                LOGGER.error(ERROR_ACCESS, methodName(), r.getMessage());
-            }
-        } catch (JsonProcessingException j) {
-            LOGGER.error(ERROR_PARSE, methodName(), j.getMessage());
-        } catch (NumberFormatException n) {
-            LOGGER.error(ERROR_FORMAT, methodName(), n.getMessage());
+        } catch (Exception e) {
+            this.errorManagement(e, methodName());
         }
 
         return null;
     }
 
     @Override
-    public Integer getImdbVotesFromOMDBByImdbID(String imdbId) {
+    public Integer getImdbVotesFromOMDBByImdbID(String imdbId) throws InvalidMovieTMDBException {
         argsOmdb.put("Id", imdbId);
 
         try {
@@ -244,23 +234,15 @@ public class MovieServiceImpl implements MovieService {
                 }
             }
 
-        } catch (ResourceAccessException r) {
-            if (r.getCause() instanceof ConnectException) {
-                LOGGER.error(ERROR_ACCESS, methodName(), ERROR_TIMEOUT);
-            } else {
-                LOGGER.error(ERROR_ACCESS, methodName(), r.getMessage());
-            }
-        } catch (JsonProcessingException j) {
-            LOGGER.error(ERROR_PARSE, methodName(), j.getMessage());
-        } catch (NumberFormatException n) {
-            LOGGER.error(ERROR_FORMAT, methodName(), n.getMessage());
+        } catch (Exception e) {
+            this.errorManagement(e, methodName());
         }
 
         return null;
     }  
   
     @Override
-    public String getPosterFromTMDBByImdbID(String imdbId) {
+    public String getPosterFromTMDBByImdbID(String imdbId) throws InvalidMovieTMDBException {
 
         this.args.put("Id", imdbId);
 
@@ -279,14 +261,8 @@ public class MovieServiceImpl implements MovieService {
                     return this.searchPosterWithRatio(jsonMovie);
                 }
             }
-        } catch (ResourceAccessException r) {
-            if (r.getCause() instanceof ConnectException) {
-                LOGGER.error(ERROR_ACCESS, methodName(), ERROR_TIMEOUT);
-            } else {
-                LOGGER.error(ERROR_ACCESS, methodName(), r.getMessage());
-            }
-        } catch (JsonProcessingException j) {
-            LOGGER.error(ERROR_PARSE, methodName(), j.getMessage());
+        } catch (Exception e) {
+            this.errorManagement(e, methodName());
         }
 
         return null;
@@ -298,7 +274,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Movie> searchMoviesFromTMDBByKeyword(String keyword) {
+    public List<Movie> searchMoviesFromTMDBByKeyword(String keyword) throws InvalidMovieTMDBException {
         this.args.put("keyword", keyword);
 
         List<Movie> moviesSearch = new ArrayList<>();
@@ -322,32 +298,24 @@ public class MovieServiceImpl implements MovieService {
                             JsonNode jsonMovieSearch = mapperReturns.readTree(returns.toString());
 
                             Movie movieSearch = this.getMovieFromTMDBByImdbID(jsonMovieSearch.get(TMDB_FIELD_ID).asInt(), false);
-//                            if (moviesSearch != null) {
-                                moviesSearch.add(movieSearch);
-//                            }
+                            moviesSearch.add(movieSearch);
                             maxSearch--;
                         }
                     }
                 }
             }
-        } catch (ResourceAccessException r) {
-            if (r.getCause() instanceof ConnectException) {
-                LOGGER.error(ERROR_ACCESS, methodName(), ERROR_TIMEOUT);
-            } else {
-                LOGGER.error(ERROR_ACCESS, methodName(), r.getMessage());
-            }
-        } catch (JsonProcessingException j) {
-            LOGGER.error(ERROR_PARSE, methodName(), j.getMessage());
+        } catch (Exception e) {
+            this.errorManagement(e, methodName());
         }
 
         return moviesSearch;
     }
 
-    private Movie getMovieFormTMDB(String imdbId, boolean save) {
+    private Movie getMovieFormTMDB(String imdbId, boolean save) throws InvalidMovieTMDBException {
         this.args.put("Id", imdbId);
 
         try {
-            String movieImdb =  this.restTemplate.getForObject(
+            String movieImdb = this.restTemplate.getForObject(
                     "https://api.themoviedb.org/3/movie/{Id}?api_key={key}&language={lang}",
                     String.class,
                     this.args
@@ -370,7 +338,9 @@ public class MovieServiceImpl implements MovieService {
                     newMovie.setImdbRating(this.getImdbRatingFromOMDBByImdbID(imdbId));
                     newMovie.setImdbVote(this.getImdbVotesFromOMDBByImdbID(imdbId));
 
-                    if (save) { movieRepository.save(newMovie); }
+                    if (save) {
+                        movieRepository.save(newMovie);
+                    }
 
                     LOGGER.info("Ajout du film ({}) : {}", newMovie.getIdImdb(), newMovie.getTitle());
 
@@ -379,16 +349,35 @@ public class MovieServiceImpl implements MovieService {
                     return null;
                 }
             }
-        } catch (ResourceAccessException r) {
-            if (r.getCause() instanceof ConnectException) {
-                LOGGER.error(ERROR_ACCESS, methodName(), ERROR_TIMEOUT);
-            } else {
-                LOGGER.error(ERROR_ACCESS, methodName(), r.getMessage());
-            }
-        } catch (JsonProcessingException j) {
-            LOGGER.error(ERROR_PARSE, methodName(), j.getMessage());
+        } catch (Exception e) {
+            this.errorManagement(e, methodName());
         }
         return null;
+    }
+
+    private void errorManagement(Exception e, String method) throws InvalidMovieTMDBException {
+        if (e instanceof ResourceAccessException) {
+            if (e.getCause() instanceof ConnectException) {
+                LOGGER.error(ERROR_ACCESS, method, ERROR_TIMEOUT);
+            } else {
+                LOGGER.error(ERROR_ACCESS, method, e.getMessage());
+            }
+        }
+        else if (e instanceof JsonProcessingException) {
+            LOGGER.error(ERROR_PARSE, method, e.getMessage());
+        }
+        else if (e instanceof HttpClientErrorException) {
+            LOGGER.error(ERROR_HTTP, method, e.getMessage());
+            if (e.getMessage().contains("404")) {
+                throw new InvalidMovieTMDBException("The resource you requested could not be found.");
+            }
+        }
+        else if (e instanceof NumberFormatException) {
+            LOGGER.error(ERROR_FORMAT, method, e.getMessage());
+        }
+        else {
+            LOGGER.error(ERROR_OTHER, method, e.getMessage());
+        }
     }
 
     private boolean checkNode (JsonNode jsonNode, String nodeText) {
@@ -435,7 +424,7 @@ public class MovieServiceImpl implements MovieService {
         }
     }
 
-    private List<Genre> addGenres (JsonNode jsonNode) {
+    private List<Genre> addGenres (JsonNode jsonNode) throws InvalidMovieTMDBException {
         List<Genre> genres = new ArrayList<>();
 
         if (checkNode(jsonNode, TMDB_FIELD_GENRES)) {
@@ -448,8 +437,8 @@ public class MovieServiceImpl implements MovieService {
                     genres.add(genre);
                     LOGGER.info("Ajout du genre ({}) : {}", genre.getIdGenre(), genre.getName());
                     this.genreRepository.save(genre);
-                } catch (JsonProcessingException j) {
-                    LOGGER.error(ERROR_PARSE, methodName(), j.getMessage());
+                } catch (Exception e) {
+                    this.errorManagement(e, methodName());
                 }
             }
         } else {
@@ -458,7 +447,7 @@ public class MovieServiceImpl implements MovieService {
         return genres;
     }
 
-    private List<Actor> addActors (JsonNode jsonNode) {
+    private List<Actor> addActors (JsonNode jsonNode) throws InvalidMovieTMDBException {
         List<Actor> actors = new ArrayList<>();
 
         if (checkNode(jsonNode, TMDB_FIELD_CAST)) {
@@ -470,15 +459,15 @@ public class MovieServiceImpl implements MovieService {
                     actorRepository.save(actor);
                     actors.add(actor);
                     LOGGER.info("Ajout de l'acteur ({}) : {}", actor.getIdActor(), actor.getName());
-                } catch (JsonProcessingException j) {
-                    LOGGER.error(ERROR_PARSE, methodName(), j.getMessage());
+                } catch (Exception e) {
+                    this.errorManagement(e, methodName());
                 }
             }
         }
         return actors;
     }
 
-    private String searchPosterWithRatio(JsonNode jsonNode) {
+    private String searchPosterWithRatio(JsonNode jsonNode) throws InvalidMovieTMDBException {
         String urlImage = "http://image.tmdb.org/t/p/original";
 
         try {
@@ -494,8 +483,8 @@ public class MovieServiceImpl implements MovieService {
                     return urlImage + jsonPoster.get(TMDB_FIELD_PATH).asText();
                 }
             }
-        } catch (JsonProcessingException j) {
-            LOGGER.error(ERROR_PARSE, methodName(), j.getMessage());
+        } catch (Exception e) {
+            this.errorManagement(e, methodName());
         }
 
         return null;

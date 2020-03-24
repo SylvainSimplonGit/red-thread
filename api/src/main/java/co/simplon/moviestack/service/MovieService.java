@@ -1,5 +1,6 @@
 package co.simplon.moviestack.service;
 
+import co.simplon.moviestack.exception.InvalidMovieTMDBException;
 import co.simplon.moviestack.model.Actor;
 import co.simplon.moviestack.model.Movie;
 import java.util.List;
@@ -19,22 +20,22 @@ public interface MovieService {
     
     List<Movie> getMovies();
 
-    Movie getMovieFromTMDBByImdbID(String imdbId, boolean save) throws JsonProcessingException;
+    Movie getMovieFromTMDBByImdbID(String imdbId, boolean save) throws JsonProcessingException, InvalidMovieTMDBException;
 
-    Movie getMovieFromTMDBByImdbID(Integer tmdbId, boolean save) throws JsonProcessingException;
+    Movie getMovieFromTMDBByImdbID(Integer tmdbId, boolean save) throws JsonProcessingException, InvalidMovieTMDBException;
 
-    List<Actor> getActorsFromTMDBByImdbID(String imdbId) throws JsonProcessingException;
+    List<Actor> getActorsFromTMDBByImdbID(String imdbId) throws JsonProcessingException, InvalidMovieTMDBException;
 
-    String getDirectorFromTMDBByImdbID(String imdbId) throws JsonProcessingException;
+    String getDirectorFromTMDBByImdbID(String imdbId) throws JsonProcessingException, InvalidMovieTMDBException;
 
-  	Float getImdbRatingFromOMDBByImdbID(String imdbId) throws JsonProcessingException;
+  	Float getImdbRatingFromOMDBByImdbID(String imdbId) throws JsonProcessingException, InvalidMovieTMDBException;
 
-    Integer getImdbVotesFromOMDBByImdbID(String imdbId) throws JsonProcessingException;
+    Integer getImdbVotesFromOMDBByImdbID(String imdbId) throws JsonProcessingException, InvalidMovieTMDBException;
 
-    String getPosterFromTMDBByImdbID(String imdbId) throws JsonProcessingException;
+    String getPosterFromTMDBByImdbID(String imdbId) throws JsonProcessingException, InvalidMovieTMDBException;
 
     List<Opinion> getOpinionsByImdbID(String imdbId);
 
-    List<Movie> searchMoviesFromTMDBByKeyword(String keyword) throws JsonProcessingException;
+    List<Movie> searchMoviesFromTMDBByKeyword(String keyword) throws JsonProcessingException, InvalidMovieTMDBException;
 
 }
