@@ -167,17 +167,6 @@ app-welcome-page div .What_for h2 span{
   justify-content: space-evenly;
 }
 
-table,
-th,
-td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 5px;
-}
-
 /* Hyperlink */
 
 a {
