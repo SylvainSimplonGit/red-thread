@@ -1,17 +1,15 @@
 package co.simplon.moviestack.controler;
 
 import co.simplon.moviestack.model.MovieBuff;
-import co.simplon.moviestack.model.Opinion;
 import co.simplon.moviestack.service.MovieBuffService;
-import co.simplon.moviestack.service.OpinionService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/movies/movie_buff")
+@CrossOrigin("*")
 public class MovieBuffController {
 
     private MovieBuffService movieBuffService;
@@ -27,7 +25,7 @@ public class MovieBuffController {
 
 
     /**
-     * Get the complete movie Buff list
+     * Get the complete movie buff list
      *
      * @return
      */
@@ -36,5 +34,19 @@ public class MovieBuffController {
         return movieBuffService.getMovieBuffs();
     }
 
+    /**
+     * Get movie buff with moviebuffId
+     *
+     * @param movieBuffId
+     * @return
+     */
+    @GetMapping("/{movieBuffId}")
+    public Object getMovieById(@PathVariable Long movieBuffId) {
+        try {
+            return movieBuffService.getMovieBuffById(movieBuffId);
+        } catch (EntityNotFoundException e) {
+            return e.getMessage();
+        }
 
+    }
 }

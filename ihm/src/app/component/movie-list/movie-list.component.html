@@ -9,10 +9,7 @@
                 <th scope="col">Genres</th>
             </tr>
         </thead>
-<!--      Décommenter la ligne suivante si vous utiliser l'API-->
         <tr *ngFor="let item of movies | async">
-<!--      Décommenter la ligne suivante si vous utiliser les données locales-->
-<!--        <tr *ngFor="let item of movies">-->
             <td><a [routerLink]="['/movie', item.idImdb]">{{ item.title }}</a></td>
             <td><a [routerLink]="['/director', 1]">{{ item.director }}</a></td>
             <td>

@@ -10,6 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 
 import { AppComponent } from './app.component';
 import { MovieService } from './service/movie.service';
+import { MovieBuffService } from './service/movieBuff.service';
 import { DirectorService } from './service/director.service';
 import { TopBarComponent } from './component/top-bar/top-bar.component';
 import { WelcomePageComponent } from './component/welcome-page/welcome-page.component';
@@ -52,7 +53,7 @@ import { OpinionListComponent } from './component/opinion-list/opinion-list.comp
   entryComponents: [
     OpinionListComponent
   ],
-  providers: [MovieService, DirectorService],
+  providers: [MovieService, MovieBuffService, DirectorService],
   bootstrap: [AppComponent]
 })
 

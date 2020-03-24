@@ -12,7 +12,11 @@ import co.simplon.moviestack.repository.MovieBuffRepository;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
 
 /**
  *
@@ -20,6 +24,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class MovieBuffServiceImpl implements MovieBuffService {
+
+    static final Logger LOGGER = LoggerFactory.getLogger(MovieBuffServiceImpl.class);
 
     private MovieBuffRepository movieBuffRepository;
 
@@ -39,8 +45,7 @@ public class MovieBuffServiceImpl implements MovieBuffService {
             return movieBuff.get();
         } else {
             // Extension de RuntimeException
-            throw new InvalidMovieBuffException();
-//            throw new RuntimeException();
+            throw new EntityNotFoundException("The movieBuff with ID: " + idMovieBuff + " cannot be found in DB Movie");
         }
     }
     
