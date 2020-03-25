@@ -2,7 +2,9 @@
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
 </mat-form-field> -->
-
+<div>
+  <mat-icon [routerLink]="['/addamovie']">playlist_add</mat-icon>
+</div>
 <mat-table [dataSource]="dataSource" matSort aria-describedby="Liste des films">
 
   <!-- Title -->
