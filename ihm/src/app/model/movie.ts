@@ -5,13 +5,12 @@ export class Movie {
     idImdb: string;
     title: string;
     posterUrl?: string;
-    director?: string;
-    released?: string;
     runtime?: number;
+    released?: string;
+    director?: string;
+    actors?: Actor[];
+    genres?: Genre[];
     plot?: string;
     imdbRating?: number;
     imdbVote?: number;
-    genres?: Genre[];
-    actors?: Actor[];
-
 }
