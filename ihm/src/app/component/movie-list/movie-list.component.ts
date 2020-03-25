@@ -13,7 +13,7 @@ import { Movie } from '../../model/movie';
 })
 export class MovieListComponent implements OnInit {
 
-  moviesColumns = ['Titre', 'Réalisateur', 'Acteurs', 'Genres'];//
+  moviesColumns = ['title', 'director', 'actors', 'genres'];//
   dataSource = new MatTableDataSource<Movie>();
 
   // Number of Actor displayed in the list
