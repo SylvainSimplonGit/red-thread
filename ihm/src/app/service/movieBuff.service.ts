@@ -10,7 +10,7 @@ export class MovieBuffService {
 
   private pathRootApi = 'http://localhost:8080/api/';
 
-  private idCurrentMovieBuff = 2;
+  private idCurrentMovieBuff = 1;
 
   public currentMovieBuff: Observable<MovieBuff>;
 
@@ -42,7 +42,7 @@ export class MovieBuffService {
     this.currentMovieBuff = this.getMovieBuffById(id);
   }
 
-  public getCurrentMovieBuff() {
+  public getCurrentMovieBuff(): Observable<MovieBuff> {
     return this.currentMovieBuff;
   }
 

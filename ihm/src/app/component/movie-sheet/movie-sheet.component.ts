@@ -6,8 +6,9 @@ import { MovieService } from '../../service/movie.service';
 import { MovieBuffService } from '../../service/movieBuff.service';
 
 import { Movie } from '../../model/movie';
-import { OpinionListComponent } from '../opinion-list/opinion-list.component';
+import { MovieBuff } from '../../model/moviebuff';
 
+import { OpinionListComponent } from '../opinion-list/opinion-list.component';
 
 @Component({
   selector: 'app-movie-sheet',
@@ -16,7 +17,7 @@ import { OpinionListComponent } from '../opinion-list/opinion-list.component';
 })
 export class MovieSheetComponent implements OnInit {
 
-  // public currentMovieBuff: MovieBuff = new MovieBuff();
+  public currentMovieBuff: MovieBuff;
   public movie: Movie = new Movie();
   private opinionsOfMovie = [];
 
@@ -46,6 +47,7 @@ export class MovieSheetComponent implements OnInit {
 
     this.movieBuffService.getCurrentMovieBuff().subscribe(
       movieBuff => {
+        this.currentMovieBuff = movieBuff;
         console.log('Vous êtes : ' + movieBuff.firstName + ' ' + movieBuff.lastName);
       }
     );
@@ -94,6 +96,7 @@ export class MovieSheetComponent implements OnInit {
       // console.log('Movie : ' + JSON.stringify(this.movie));
       console.log('this.opinionsOfMovie : ' + JSON.stringify(this.opinionsOfMovie));
       console.log('localRating : ' + this.localRating);
+      console.log('Mon nom : ' + this.currentMovieBuff.lastName);
     });
   }
 
