@@ -1,5 +1,6 @@
 package co.simplon.moviestack.service;
 
+import co.simplon.moviestack.exception.InvalidMovieTMDBException;
 import co.simplon.moviestack.model.Actor;
 import co.simplon.moviestack.model.Genre;
 import co.simplon.moviestack.model.Movie;
@@ -10,21 +11,55 @@ import co.simplon.moviestack.repository.MovieRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
 import javax.persistence.EntityNotFoundException;
+import java.net.ConnectException;
+import java.util.*;
 
 @Service
 public class MovieServiceImpl implements MovieService {
+
+    static final Logger LOGGER = LoggerFactory.getLogger(MovieServiceImpl.class);
+    static final String ERROR_PARSE = "{} | Erreur de Parsing JSON : {}";
+    static final String ERROR_ACCESS = "{} | Erreur d'accès' : {}";
+    static final String ERROR_TIMEOUT = "Timeout of TMDB !";
+    static final String ERROR_HTTP = "{} | Erreur de requête : {}";
+    static final String ERROR_FORMAT = "{} | Erreur Format : {}";
+    static final String ERROR_OTHER = "{} | Erreur : {}";
+
+    static final String TMDB_FIELD_ID = "id";
+    static final String TMDB_FIELD_IDIMDB = "imdb_id";
+    static final String TMDB_FIELD_TITLE = "title";
+    static final String TMDB_FIELD_RUNTIME = "runtime";
+    static final String TMDB_FIELD_DATE = "release_date";
+    static final String TMDB_FIELD_OVERVIEW = "overview";
+    static final String TMDB_FIELD_NAME = "name";
+    static final String TMDB_FIELD_PATH = "file_path";
+    static final String TMDB_FIELD_RESULTS = "results";
+    static final String TMDB_FIELD_RATIO = "aspect_ratio";
+    static final String TMDB_FIELD_POSTER = "posters";
+    static final String TMDB_FIELD_GENRES = "genres";
+    static final String TMDB_FIELD_CAST = "cast";
+
+    static final String OMDB_FIELD_VOTES = "imdbVotes";
+    static final String OMDB_FIELD_RATE = "imdbRating";
+
 
     private MovieRepository movieRepository;
     private ActorRepository actorRepository;
     private GenreRepository genreRepository;
 
-    private final RestTemplate restTemplate;
+    private RestTemplate restTemplate;
+
+    private Map<String, String> args = new HashMap<>();
+    private Map<String, String> argsOmdb = new HashMap<>();
 
     public MovieServiceImpl(
             MovieRepository movieRepository,
@@ -36,7 +71,14 @@ public class MovieServiceImpl implements MovieService {
         this.actorRepository = actorRepository;
         this.genreRepository = genreRepository;
         this.restTemplate = restTemplateBuilder.build();
+
+        this.args.put("key", "09f9524466812ccf78760c6ef7807fd5");
+        this.args.put("lang", "fr-FR");
+
+        this.argsOmdb.put("key", "3c7d9cd");
     }
+
+    public static String methodName() { return Thread.currentThread().getStackTrace()[2].getMethodName(); }
 
     @Override
     public Movie createMovie(Movie newMovie) {
@@ -49,9 +91,9 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Movie getMovieById(String id) throws EntityNotFoundException {
+    public Movie getMovieById(String id) {
         Optional<Movie> dbMovie = movieRepository.findById(id);
-        if(dbMovie.isPresent()){
+        if (dbMovie.isPresent()) {
             return dbMovie.get();
         } else {
             throw new EntityNotFoundException("The movie with ID: " + id + " cannot be found in DB Movie");
@@ -60,276 +102,169 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movie> getMovies() {
-        return movieRepository.findAll();
-    }
-
-    @Override
-    public Movie getMovieFromTMDBByImdbID(String imdbId, Boolean save) throws JsonProcessingException {
-
-        Map<String, String> args = new HashMap<>();
-        args.put("Id", imdbId);
-        args.put("key", "09f9524466812ccf78760c6ef7807fd5");
-        args.put("lang", "fr-FR");
-
-        String movieImdb =  this.restTemplate.getForObject(
-                "https://api.themoviedb.org/3/movie/{Id}?api_key={key}&language={lang}",
-                String.class,
-                args
-        );
-
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonMovie = mapper.readTree(movieImdb);
-
-        if (
-                jsonMovie.has("imdb_id") && !jsonMovie.get("imdb_id").isNull() && !jsonMovie.get("imdb_id").asText().equals("") &&
-                jsonMovie.has("title") && !jsonMovie.get("title").isNull() && !jsonMovie.get("title").asText().equals("")
-        ) {
-            Movie newMovie = new Movie(imdbId, jsonMovie.get("title").asText());
-
-            if (jsonMovie.has("runtime")) { newMovie.setRuntime(jsonMovie.get("runtime").asInt()); }
-            if (jsonMovie.has("released_date")) { newMovie.setReleased(jsonMovie.get("release_date").asText()); }
-            if (jsonMovie.has("overview")) { newMovie.setPlot(jsonMovie.get("overview").asText()); }
-
-            if (jsonMovie.has("genres")) {
-                List<Genre> genres = new ArrayList<>();
-
-                for (Object genreObj : jsonMovie.get("genres")) {
-                    ObjectMapper mapperGenre = new ObjectMapper();
-                    JsonNode jsonGenre = mapperGenre.readTree(genreObj.toString());
-                    Genre genre = new Genre(jsonGenre.get("id").asLong(), jsonGenre.get("name").asText());
-                    genres.add(genre);
-                    this.genreRepository.save(genre);
-                }
-
-                newMovie.setGenres(genres);
-            }
-
-            newMovie.setPosterUrl(this.getPosterFromTMDBByImdbID(imdbId));
-            newMovie.setActors(this.getActorsFromTMDBByImdbID(imdbId));
-            newMovie.setDirector(this.getDirectorFromTMDBByImdbID(imdbId));
-
-            newMovie.setImdbRating(this.getImdbRatingFromOMDBByImdbID(imdbId));
-            newMovie.setImdbVote(this.getImdbVotesFromOMDBByImdbID(imdbId));
-
-            if (save) { movieRepository.save(newMovie); }
-
-            System.out.println("Ajout du film (" + newMovie.getIdImdb() + ") : " + newMovie.getTitle());
-
-            return newMovie;
+        List<Movie> dbMovies = movieRepository.findAll();
+        if (!dbMovies.isEmpty()) {
+            return dbMovies;
         } else {
-            return null;
+            throw new EntityNotFoundException("No movie in DB Movie");
         }
-
     }
 
     @Override
-    public Movie getMovieFromTMDBByImdbID(Integer tmdbId, Boolean save) throws JsonProcessingException {
-
-        Map<String, String> args = new HashMap<>();
-        args.put("Id", tmdbId.toString());
-        args.put("key", "09f9524466812ccf78760c6ef7807fd5");
-        args.put("lang", "fr-FR");
-
-        String movieImdb =  this.restTemplate.getForObject(
-                "https://api.themoviedb.org/3/movie/{Id}?api_key={key}&language={lang}",
-                String.class,
-                args
-        );
-
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonMovie = mapper.readTree(movieImdb);
-
-        String imdbId = jsonMovie.get("imdb_id").asText();
-
-        if (
-                jsonMovie.has("imdb_id") && !jsonMovie.get("imdb_id").isNull() && !jsonMovie.get("imdb_id").asText().equals("") &&
-                jsonMovie.has("title") && !jsonMovie.get("title").isNull() && !jsonMovie.get("title").asText().equals("")
-        ) {
-            Movie newMovie = new Movie(imdbId, jsonMovie.get("title").asText());
-
-            if (jsonMovie.has("runtime")) { newMovie.setRuntime(jsonMovie.get("runtime").asInt()); }
-            if (jsonMovie.has("released_date")) { newMovie.setReleased(jsonMovie.get("release_date").asText()); }
-            if (jsonMovie.has("overview")) { newMovie.setPlot(jsonMovie.get("overview").asText()); }
-
-            if (jsonMovie.has("genres")) {
-                List<Genre> genres = new ArrayList<>();
-
-                for (Object genreObj : jsonMovie.get("genres")) {
-                    ObjectMapper mapperGenre = new ObjectMapper();
-                    JsonNode jsonGenre = mapperGenre.readTree(genreObj.toString());
-                    Genre genre = new Genre(jsonGenre.get("id").asLong(), jsonGenre.get("name").asText());
-                    genres.add(genre);
-                    this.genreRepository.save(genre);
-                }
-
-                newMovie.setGenres(genres);
-            }
-
-            newMovie.setPosterUrl(this.getPosterFromTMDBByImdbID(imdbId));
-            newMovie.setActors(this.getActorsFromTMDBByImdbID(imdbId));
-            newMovie.setDirector(this.getDirectorFromTMDBByImdbID(imdbId));
-
-            newMovie.setImdbRating(this.getImdbRatingFromOMDBByImdbID(imdbId));
-            newMovie.setImdbVote(this.getImdbVotesFromOMDBByImdbID(imdbId));
-
-            if (save) { movieRepository.save(newMovie); }
-
-            System.out.println("Ajout du film (" + newMovie.getIdImdb() + ") : " + newMovie.getTitle());
-
-            return newMovie;
-        } else {
-            return null;
-        }
-
-
+    public Movie getMovieFromTMDBByImdbID (String imdbId, boolean save) throws InvalidMovieTMDBException {
+        return this.getMovieFormTMDB(imdbId, save);
     }
 
     @Override
-    public List<Actor> getActorsFromTMDBByImdbID(String imdbId) throws JsonProcessingException {
-        Map<String, String> args = new HashMap<>();
-        args.put("Id", imdbId);
-        args.put("key", "09f9524466812ccf78760c6ef7807fd5");
+    public Movie getMovieFromTMDBByImdbID (Integer tmdbId, boolean save) throws InvalidMovieTMDBException {
+        String imdbId = tmdbId.toString();
+        return this.getMovieFormTMDB(imdbId, save);
+    }
 
-        String movieImdb =  this.restTemplate.getForObject(
-                "https://api.themoviedb.org/3/movie/{Id}/credits?api_key={key}",
-                String.class,
-                args
-        );
-
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonMovie = mapper.readTree(movieImdb);
+    @Override
+    public List<Actor> getActorsFromTMDBByImdbID (String imdbId) throws InvalidMovieTMDBException {
+        this.args.put("Id", imdbId);
 
         List<Actor> actors = new ArrayList<>();
 
-        for (Object cast : jsonMovie.get("cast")) {
-            ObjectMapper mapperCast = new ObjectMapper();
-            JsonNode jsonActor = mapperCast.readTree(cast.toString());
+        try {
+            String movieImdb =  this.restTemplate.getForObject(
+                    "https://api.themoviedb.org/3/movie/{Id}/credits?api_key={key}",
+                    String.class,
+                    this.args
+            );
 
-            Actor actor = new Actor(jsonActor.get("id").asLong(), jsonActor.get("name").asText());
-            actorRepository.save(actor);
-            actors.add(actor);
-            System.out.println("Ajout de l'acteur (" + actor.getIdActor() + ") : " + actor.getName());
+            if (movieImdb != null) {
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode jsonMovie = mapper.readTree(movieImdb);
+                actors = this.addActors(jsonMovie);
+            }
+        } catch (Exception e) {
+            this.errorManagement(e, methodName());
         }
-
         return actors;
     }
 
     @Override
-    public String getDirectorFromTMDBByImdbID(String imdbId) throws JsonProcessingException {
-        Map<String, String> args = new HashMap<>();
-        args.put("Id", imdbId);
-        args.put("key", "09f9524466812ccf78760c6ef7807fd5");
+    public String getDirectorFromTMDBByImdbID (String imdbId) throws InvalidMovieTMDBException {
+        this.args.put("Id", imdbId);
 
-        String movieImdb =  this.restTemplate.getForObject(
-                "https://api.themoviedb.org/3/movie/{Id}/credits?api_key={key}",
-                String.class,
-                args
-        );
+        try {
+            String movieImdb =  this.restTemplate.getForObject(
+                    "https://api.themoviedb.org/3/movie/{Id}/credits?api_key={key}",
+                    String.class,
+                    this.args
+            );
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonMovie = mapper.readTree(movieImdb);
+            if (movieImdb != null) {
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode jsonMovie = mapper.readTree(movieImdb);
 
-        for (Object crew : jsonMovie.get("crew")) {
-            ObjectMapper mapperCrew = new ObjectMapper();
-            JsonNode jsonCrew = mapperCrew.readTree(crew.toString());
+                for (Object crew : jsonMovie.get("crew")) {
+                    ObjectMapper mapperCrew = new ObjectMapper();
+                    JsonNode jsonCrew = mapperCrew.readTree(crew.toString());
 
-            if (jsonCrew.has("job") && jsonCrew.get("job").asText().equals("Director")) {
-                System.out.println("Ajout du réalisateur (" + jsonCrew.get("name").asText() + ")");
-                return jsonCrew.get("name").asText();
+                    if (
+                            jsonCrew.has("job") &&
+                                    jsonCrew.get("job").asText().equals("Director")
+                    ) {
+                        String nameDirector = jsonCrew.get(TMDB_FIELD_NAME).asText();
+                        LOGGER.info("Ajout du réalisateur ({})", nameDirector);
+                        return nameDirector;
+                    }
+                }
             }
-        }
-        return null;
-    }
-
-    @Override
-    public Float getImdbRatingFromOMDBByImdbID(String imdbId) throws JsonProcessingException {
-        Map<String, String> args = new HashMap<>();
-        args.put("Id", imdbId);
-        args.put("key", "3c7d9cd");
-
-        String movieImdb =  this.restTemplate.getForObject(
-                "http://www.omdbapi.com/?i={Id}&apikey={key}",
-                String.class,
-                args
-        );
-
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonMovie = mapper.readTree(movieImdb);
-
-        if (
-                jsonMovie.has("imdbRating") &&
-                !jsonMovie.get("imdbRating").asText().equals("N/A")
-        ) {
-            try {
-                return Float.parseFloat(jsonMovie.get("imdbRating").asText());
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            this.errorManagement(e, methodName());
         }
 
         return null;
     }
 
     @Override
-    public Integer getImdbVotesFromOMDBByImdbID(String imdbId) throws JsonProcessingException {
-        Map<String, String> args = new HashMap<>();
-        args.put("Id", imdbId);
-        args.put("key", "3c7d9cd");
+    public Float getImdbRatingFromOMDBByImdbID(String imdbId) throws InvalidMovieTMDBException {
+        argsOmdb.put("Id", imdbId);
 
-        String movieImdb =  this.restTemplate.getForObject(
-                "http://www.omdbapi.com/?i={Id}&apikey={key}",
-                String.class,
-                args
-        );
+        try {
+            String movieImdb =  this.restTemplate.getForObject(
+                    "http://www.omdbapi.com/?i={Id}&apikey={key}",
+                    String.class,
+                    this.argsOmdb
+            );
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonMovie = mapper.readTree(movieImdb);
+            if (movieImdb != null) {
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode jsonMovie = mapper.readTree(movieImdb);
 
-        if (
-                jsonMovie.has("imdbVotes") &&
-                !jsonMovie.get("imdbVotes").asText().equals("N/A")
-        ) {
-            try {
-                return Integer.parseInt(jsonMovie.get("imdbVotes").asText().replace(",", ""));
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
+                if (
+                        jsonMovie.has(OMDB_FIELD_RATE) &&
+                        !jsonMovie.get(OMDB_FIELD_RATE).asText().equals("N/A")
+                ) {
+                    return Float.parseFloat(jsonMovie.get(OMDB_FIELD_RATE).asText());
+                }
             }
+
+        } catch (Exception e) {
+            this.errorManagement(e, methodName());
+        }
+
+        return null;
+    }
+
+    @Override
+    public Integer getImdbVotesFromOMDBByImdbID(String imdbId) throws InvalidMovieTMDBException {
+        argsOmdb.put("Id", imdbId);
+
+        try {
+            String movieImdb =  this.restTemplate.getForObject(
+                    "http://www.omdbapi.com/?i={Id}&apikey={key}",
+                    String.class,
+                    this.argsOmdb
+            );
+
+            if (movieImdb != null) {
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode jsonMovie = mapper.readTree(movieImdb);
+
+                if (
+                        jsonMovie.has(OMDB_FIELD_VOTES) &&
+                        !jsonMovie.get(OMDB_FIELD_VOTES).asText().equals("N/A")
+                ) {
+                    return Integer.parseInt(jsonMovie.get(OMDB_FIELD_VOTES).asText().replace(",", ""));
+                }
+            }
+
+        } catch (Exception e) {
+            this.errorManagement(e, methodName());
         }
 
         return null;
     }  
   
     @Override
-    public String getPosterFromTMDBByImdbID(String imdbId) throws JsonProcessingException {
+    public String getPosterFromTMDBByImdbID(String imdbId) throws InvalidMovieTMDBException {
 
-        String urlImage = "http://image.tmdb.org/t/p/original";
+        this.args.put("Id", imdbId);
 
-        Map<String, String> args = new HashMap<>();
-        args.put("Id", imdbId);
-        args.put("key", "09f9524466812ccf78760c6ef7807fd5");
+        try {
+            String movieImdb =  this.restTemplate.getForObject(
+                    "https://api.themoviedb.org/3/movie/{Id}/images?api_key={key}",
+                    String.class,
+                    this.args
+            );
 
-        String movieImdb =  this.restTemplate.getForObject(
-                "https://api.themoviedb.org/3/movie/{Id}/images?api_key={key}",
-                String.class,
-                args
-        );
+            if (movieImdb != null) {
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode jsonMovie = mapper.readTree(movieImdb);
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonMovie = mapper.readTree(movieImdb);
-
-        if (jsonMovie.has("posters")) {
-            ObjectMapper mapperPosters = new ObjectMapper();
-            for (Object poster : jsonMovie.get("posters")) {
-                ObjectMapper mapperPoster = new ObjectMapper();
-                JsonNode jsonPoster = mapperPoster.readTree(poster.toString());
-                if ( jsonPoster.has("aspect_ratio") &&
-                     jsonPoster.has("file_path") &&
-                     jsonPoster.get("aspect_ratio").asDouble() == 0.6666666666666666) {
-                    System.out.println("Ajout du Poster : " + urlImage + jsonPoster.get("file_path").asText());
-                    return urlImage + jsonPoster.get("file_path").asText();
+                if (jsonMovie.has(TMDB_FIELD_POSTER)) {
+                    return this.searchPosterWithRatio(jsonMovie);
                 }
             }
+        } catch (Exception e) {
+            this.errorManagement(e, methodName());
         }
+
         return null;
     }
     
@@ -339,65 +274,220 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Movie> searchMoviesFromTMDBByKeyword(String keyword) throws JsonProcessingException {
-        Map<String, String> args = new HashMap<>();
-        args.put("keyword", keyword);
-        args.put("key", "09f9524466812ccf78760c6ef7807fd5");
-        args.put("lang", "fr-FR");
-
-        String movieImdb =  this.restTemplate.getForObject(
-                "https://api.themoviedb.org/3/search/movie?query={keyword}&language={lang}&api_key={key}",
-                String.class,
-                args
-        );
-
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonMovie = mapper.readTree(movieImdb);
+    public List<Movie> searchMoviesFromTMDBByKeyword(String keyword) throws InvalidMovieTMDBException {
+        this.args.put("keyword", keyword);
 
         List<Movie> moviesSearch = new ArrayList<>();
+        int maxSearch = 5;
 
-        Integer maxSearch = 5;
+        try {
+            String movieImdb =  this.restTemplate.getForObject(
+                "https://api.themoviedb.org/3/search/movie?query={keyword}&language={lang}&api_key={key}",
+                String.class,
+                this.args
+            );
 
-        while (maxSearch > 0) {
-            for (Object returns : jsonMovie.get("results")) {
-                ObjectMapper mapperReturns = new ObjectMapper();
-                JsonNode jsonMovieSearch = mapperReturns.readTree(returns.toString());
+            if (movieImdb != null) {
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode jsonMovie = mapper.readTree(movieImdb);
 
-                Movie movieSearch = this.getMovieFromTMDBByImdbID(jsonMovieSearch.get("id").asInt(), false);
-                if (moviesSearch != null) { moviesSearch.add(movieSearch); }
-                maxSearch--;
+                if (this.checkNode(jsonMovie, TMDB_FIELD_RESULTS)) {
+                    while (maxSearch > 0) {
+                        for (Object returns : jsonMovie.get(TMDB_FIELD_RESULTS)) {
+                            ObjectMapper mapperReturns = new ObjectMapper();
+                            JsonNode jsonMovieSearch = mapperReturns.readTree(returns.toString());
+
+                            Movie movieSearch = this.getMovieFromTMDBByImdbID(jsonMovieSearch.get(TMDB_FIELD_ID).asInt(), false);
+                            moviesSearch.add(movieSearch);
+                            maxSearch--;
+                        }
+                    }
+                }
             }
+        } catch (Exception e) {
+            this.errorManagement(e, methodName());
         }
-
-
-//        {
-//            "page": 1,
-//                "total_results": 151,
-//                "total_pages": 8,
-//                "results": [
-//                {
-//                    "popularity": 36.605,
-//                    "vote_count": 14281,
-//                    "video": false,
-//                    "poster_path": "/q8pF6s9b9veTQvxTqMDIQf9nJKi.jpg",
-//                    "id": 10195,
-//                    "adult": false,
-//                    "backdrop_path": "/LvmmDZxkTDqp0DX7mUo621ahdX.jpg",
-//                    "original_language": "en",
-//                    "original_title": "Thor",
-//                    "genre_ids": [
-//                        28,
-//                        12,
-//                        14
-//                    ],
-//                    "title": "Thor",
-//                    "vote_average": 6.7,
-//                    "overview": "Thor, le héros du nouveau film issu de l'univers Marvel, est un guerrier tout-puissant et arrogant dont les actes téméraires font renaître de nos jours un conflit ancestral. À cause de cela, il est banni du Royaume mythique d’Asgard et est condamné à vivre parmi les humains. Mais lorsque les forces du Mal d’Asgard s’apprêtent à envahir la Terre, Thor découvre enfin ce que signifie \"être un héros\".",
-//                    "release_date": "2011-04-21"
-//                },
-
-//        System.out.println(jsonMovie.toString());
 
         return moviesSearch;
     }
+
+    private Movie getMovieFormTMDB(String imdbId, boolean save) throws InvalidMovieTMDBException {
+        this.args.put("Id", imdbId);
+
+        try {
+            String movieImdb = this.restTemplate.getForObject(
+                    "https://api.themoviedb.org/3/movie/{Id}?api_key={key}&language={lang}",
+                    String.class,
+                    this.args
+            );
+
+            if (movieImdb != null) {
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode jsonMovie = mapper.readTree(movieImdb);
+
+                if (checkIdAndTitle(jsonMovie)) {
+                    Movie newMovie = new Movie(jsonMovie.get(TMDB_FIELD_IDIMDB).asText(), jsonMovie.get(TMDB_FIELD_TITLE).asText());
+
+                    this.addRuntime(jsonMovie, newMovie);
+                    this.addReleased(jsonMovie, newMovie);
+                    this.addPlot(jsonMovie, newMovie);
+                    newMovie.setGenres(this.addGenres(jsonMovie));
+                    newMovie.setPosterUrl(this.getPosterFromTMDBByImdbID(imdbId));
+                    newMovie.setActors(this.getActorsFromTMDBByImdbID(imdbId));
+                    newMovie.setDirector(this.getDirectorFromTMDBByImdbID(imdbId));
+                    newMovie.setImdbRating(this.getImdbRatingFromOMDBByImdbID(imdbId));
+                    newMovie.setImdbVote(this.getImdbVotesFromOMDBByImdbID(imdbId));
+
+                    if (save) {
+                        movieRepository.save(newMovie);
+                    }
+
+                    LOGGER.info("Ajout du film ({}) : {}", newMovie.getIdImdb(), newMovie.getTitle());
+
+                    return newMovie;
+                } else {
+                    return null;
+                }
+            }
+        } catch (Exception e) {
+            this.errorManagement(e, methodName());
+        }
+        return null;
+    }
+
+    private void errorManagement(Exception e, String method) throws InvalidMovieTMDBException {
+        if (e instanceof ResourceAccessException) {
+            if (e.getCause() instanceof ConnectException) {
+                LOGGER.error(ERROR_ACCESS, method, ERROR_TIMEOUT);
+            } else {
+                LOGGER.error(ERROR_ACCESS, method, e.getMessage());
+            }
+        }
+        else if (e instanceof JsonProcessingException) {
+            LOGGER.error(ERROR_PARSE, method, e.getMessage());
+        }
+        else if (e instanceof HttpClientErrorException) {
+            LOGGER.error(ERROR_HTTP, method, e.getMessage());
+            if (e.getMessage().contains("404")) {
+                throw new InvalidMovieTMDBException("The resource you requested could not be found.");
+            }
+        }
+        else if (e instanceof NumberFormatException) {
+            LOGGER.error(ERROR_FORMAT, method, e.getMessage());
+        }
+        else {
+            LOGGER.error(ERROR_OTHER, method, e.getMessage());
+        }
+    }
+
+    private boolean checkNode (JsonNode jsonNode, String nodeText) {
+        return (
+                jsonNode.has(nodeText) &&
+                        !jsonNode.get(nodeText).isNull() &&
+                        (
+                                !jsonNode.get(nodeText).asText().equals("") ||
+                                        jsonNode.get(nodeText).size() > 0
+                        )
+        );
+    }
+
+    private boolean checkIdAndTitle (JsonNode jsonNode) {
+        return (checkNode(jsonNode, TMDB_FIELD_IDIMDB) && checkNode(jsonNode, TMDB_FIELD_TITLE));
+    }
+
+    private void addRuntime (JsonNode jsonNode, Movie movie) {
+        if (checkNode(jsonNode, TMDB_FIELD_RUNTIME)) {
+            String runtime = jsonNode.get(TMDB_FIELD_RUNTIME).asText();
+            movie.setRuntime(jsonNode.get(TMDB_FIELD_RUNTIME).asInt());
+            LOGGER.info("Ajout de la Durée : {}", runtime);
+        }
+    }
+
+    private void addReleased (JsonNode jsonNode, Movie movie) {
+        if (checkNode(jsonNode, TMDB_FIELD_DATE)) {
+            String releaseDate = jsonNode.get(TMDB_FIELD_DATE).asText();
+            movie.setReleased(releaseDate);
+            LOGGER.info("Ajout de la Date de sortie : {}", releaseDate);
+        }
+    }
+
+    private void addPlot (JsonNode jsonNode, Movie movie) {
+        if (checkNode(jsonNode, TMDB_FIELD_OVERVIEW)) {
+            movie.setPlot(jsonNode.get(TMDB_FIELD_OVERVIEW).asText());
+            String msg;
+            if (jsonNode.get(TMDB_FIELD_OVERVIEW).asText().length() >= 40) {
+                msg = jsonNode.get(TMDB_FIELD_OVERVIEW).asText().substring(0, 40) + " ...";
+            } else {
+                msg = jsonNode.get(TMDB_FIELD_OVERVIEW).asText();
+            }
+            LOGGER.info("Ajout du Synopsis : {}", msg);
+        }
+    }
+
+    private List<Genre> addGenres (JsonNode jsonNode) throws InvalidMovieTMDBException {
+        List<Genre> genres = new ArrayList<>();
+
+        if (checkNode(jsonNode, TMDB_FIELD_GENRES)) {
+
+            for (Object genreObj : jsonNode.get(TMDB_FIELD_GENRES)) {
+                try {
+                    ObjectMapper mapperGenre = new ObjectMapper();
+                    JsonNode jsonGenre = mapperGenre.readTree(genreObj.toString());
+                    Genre genre = new Genre(jsonGenre.get(TMDB_FIELD_ID).asLong(), jsonGenre.get(TMDB_FIELD_NAME).asText());
+                    genres.add(genre);
+                    LOGGER.info("Ajout du genre ({}) : {}", genre.getIdGenre(), genre.getName());
+                    this.genreRepository.save(genre);
+                } catch (Exception e) {
+                    this.errorManagement(e, methodName());
+                }
+            }
+        } else {
+            LOGGER.info("Ajout d'aucun genre !");
+        }
+        return genres;
+    }
+
+    private List<Actor> addActors (JsonNode jsonNode) throws InvalidMovieTMDBException {
+        List<Actor> actors = new ArrayList<>();
+
+        if (checkNode(jsonNode, TMDB_FIELD_CAST)) {
+            for (Object cast : jsonNode.get(TMDB_FIELD_CAST)) {
+                try {
+                    ObjectMapper mapperCast = new ObjectMapper();
+                    JsonNode jsonActor = mapperCast.readTree(cast.toString());
+                    Actor actor = new Actor(jsonActor.get(TMDB_FIELD_ID).asLong(), jsonActor.get(TMDB_FIELD_NAME).asText());
+                    actorRepository.save(actor);
+                    actors.add(actor);
+                    LOGGER.info("Ajout de l'acteur ({}) : {}", actor.getIdActor(), actor.getName());
+                } catch (Exception e) {
+                    this.errorManagement(e, methodName());
+                }
+            }
+        }
+        return actors;
+    }
+
+    private String searchPosterWithRatio(JsonNode jsonNode) throws InvalidMovieTMDBException {
+        String urlImage = "http://image.tmdb.org/t/p/original";
+
+        try {
+            for (Object poster : jsonNode.get(TMDB_FIELD_POSTER)) {
+                ObjectMapper mapperPoster = new ObjectMapper();
+                JsonNode jsonPoster = mapperPoster.readTree(poster.toString());
+                if ( jsonPoster.has(TMDB_FIELD_RATIO) &&
+                        jsonPoster.has(TMDB_FIELD_PATH) &&
+                        jsonPoster.get(TMDB_FIELD_RATIO).asDouble() == 0.6666666666666666
+                ) {
+                    String msg = urlImage + jsonPoster.get(TMDB_FIELD_PATH).asText();
+                    LOGGER.info("Ajout du Poster : {}", msg);
+                    return urlImage + jsonPoster.get(TMDB_FIELD_PATH).asText();
+                }
+            }
+        } catch (Exception e) {
+            this.errorManagement(e, methodName());
+        }
+
+        return null;
+    }
+
 }
