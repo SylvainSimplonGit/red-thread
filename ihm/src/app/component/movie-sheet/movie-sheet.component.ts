@@ -8,6 +8,7 @@ import { OpinionListComponent } from '../opinion-list/opinion-list.component';
 import { Opinion } from '../../model/opinion';
 import { MovieBuffService } from '../../service/movieBuff.service';
 import { MovieBuff } from '../../model/moviebuff';
+import { OpinionMineComponent } from '../opinion-mine/opinion-mine.component';
 
 
 @Component({
@@ -138,10 +139,12 @@ export class MovieSheetComponent implements OnInit {
     dialogConfig.width = '600px';
     dialogConfig.data = {
       id: 1,
-      title: 'Mon opinion sur le film'
+      title: 'Mon opinion sur le film',
+      // opinion: 'T\'as raison, mon bon !'
+      opinion: ''
     };
 
-    this.dialog.open(OpinionListComponent, dialogConfig);
+    this.dialog.open(OpinionMineComponent, dialogConfig);
   }
 
   refreshMovieInfo(idImdb: string) {

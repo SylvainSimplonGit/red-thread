@@ -11,27 +11,13 @@ export class MovieService {
 
   private pathRootApi = 'http://localhost:8080/api/';
 
-  // Decommenter pour avoir les données depuis l'array movies du service
-  // private movies = [
-  // {
-  //   idImdb: 'tt0000001',
-  //   title: 'Vingt ans sur le pot, la vie d\'un constipé',
-  //   director: 'Kevin Lachass',
-  //   actors: [{ name: 'Paul Javel' }],
-  //   genres: [{ genre: 'Art et essai' }]
-  // }];
-
   constructor(
     private httpClient: HttpClient
   ) {  }
 
-  getMovies() {
-    // Decommenter pour avoir les données depuis la base PostgreSQL
+  getMovies(): Observable<Movie[]> {
     const urlApi = this.pathRootApi + 'movies';
     return this.httpClient.get<Movie[]>(urlApi);
-
-    // Decommenter pour avoir les données depuis l'array movies du service
-    // return this.movies;
   }
 
   getMovieById(idImdb: string): Observable<Movie> {
