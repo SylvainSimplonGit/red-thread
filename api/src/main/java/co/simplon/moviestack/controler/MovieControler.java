@@ -5,14 +5,15 @@
  */
 package co.simplon.moviestack.controler;
 
+import co.simplon.moviestack.exception.InvalidMovieTMDBException;
 import co.simplon.moviestack.model.Movie;
 import co.simplon.moviestack.model.Opinion;
 import co.simplon.moviestack.service.MovieService;
 import java.util.List;
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -41,8 +42,12 @@ public class MovieControler {
      * @return
      */
     @GetMapping()
-    public List<Movie> getMovies() {
-        return movieService.getMovies();
+    public Object getMovies() {
+        try {
+            return movieService.getMovies();
+        } catch (EntityNotFoundException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -52,8 +57,12 @@ public class MovieControler {
      * @return
      */
     @GetMapping("/{movieId}")
-    public Movie getMovieById(@PathVariable String movieId) {
-        return movieService.getMovieById(movieId);
+    public Object getMovieById(@PathVariable String movieId) {
+        try {
+            return movieService.getMovieById(movieId);
+        } catch (EntityNotFoundException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -63,13 +72,18 @@ public class MovieControler {
      * @return
      */
     @GetMapping("/{movieId}/tmdb")
-    public Movie getMovieFromTmdbByImdbId(@PathVariable String movieId) throws JsonProcessingException {
+    public Object getMovieFromTmdbByImdbId(@PathVariable String movieId) {
         try {
             return movieService.getMovieFromTMDBByImdbID(Integer.parseInt(movieId), true);
         } catch (NumberFormatException e) {
-            return movieService.getMovieFromTMDBByImdbID(movieId, true);
+            try {
+                return movieService.getMovieFromTMDBByImdbID(movieId, true);
+            } catch (InvalidMovieTMDBException | JsonProcessingException i) {
+                return i.getMessage();
+            }
+        } catch (InvalidMovieTMDBException | JsonProcessingException i) {
+            return i.getMessage();
         }
-//        return movieService.getMovieFromTMDBByImdbID(movieId);
     }
 
     /**
@@ -90,7 +104,7 @@ public class MovieControler {
      * @return
      */
     @GetMapping("/search/{keyword}")
-    public List<Movie> searchMoviesFromTMDBByKeyword(@PathVariable String keyword) throws JsonProcessingException {
+    public List<Movie> searchMoviesFromTMDBByKeyword(@PathVariable String keyword) throws JsonProcessingException, InvalidMovieTMDBException {
         return movieService.searchMoviesFromTMDBByKeyword(keyword);
     }
 
