@@ -8,13 +8,13 @@
   <!-- Title -->
   <ng-container matColumnDef="Titre">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Titre</mat-header-cell>
-    <mat-cell *matCellDef="let item"><a [routerLink]="['/movie', item.idImdb]">{{item.title}}</a></mat-cell>
+    <mat-cell *matCellDef="let item"><mat-icon [routerLink]="['/movie', item.idImdb]">zoom_in</mat-icon>{{item.title}}</mat-cell>
   </ng-container>
 
   <!-- Director -->
   <ng-container matColumnDef="Réalisateur">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Réalisateur</mat-header-cell>
-    <mat-cell *matCellDef="let item"><a [routerLink]="['/director', 1]">{{item.director}}</a></mat-cell>
+    <mat-cell *matCellDef="let item"><mat-icon [routerLink]="['/director', 1]">zoom_in</mat-icon>{{item.director}}</mat-cell>
   </ng-container>
 
   <!-- Actors -->

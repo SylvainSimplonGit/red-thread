@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSortModule } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 
 import { MovieService } from '../../service/movie.service';
 import { Movie } from '../../model/movie';
@@ -23,19 +23,26 @@ export class MovieListComponent implements OnInit {
 
   constructor(private movieService: MovieService) { }
 
-  @ViewChild(MatSortModule, { static: true }) sort: MatSortModule;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   ngOnInit() {
     this.movieService.getMovies().subscribe(
       movies => {
         this.dataSource.data = movies;
+        this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       });
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+  // applyFilter(event: Event) {
+  //   const filterValue = (event.target as HTMLInputElement).value;
+  //   this.dataSource.filter = filterValue.trim().toLowerCase();
+  // }
 
 }
+
+function compare(a: string, b: string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+

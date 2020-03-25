@@ -6,9 +6,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
+import { MatTable } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 import { AppComponent } from './app.component';
 import { MovieService } from './service/movie.service';
@@ -49,9 +49,9 @@ import { OpinionListComponent } from './component/opinion-list/opinion-list.comp
     MatDialogModule,
     MatButtonModule,
     BrowserAnimationsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
+    MatTable,
+    MatPaginator,
+    MatSort,
   ],
   entryComponents: [
     OpinionListComponent
