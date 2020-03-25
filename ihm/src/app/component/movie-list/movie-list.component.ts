@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator'; 
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { MovieService } from '../../service/movie.service';
 import { Movie } from '../../model/movie';
@@ -14,8 +14,8 @@ import { Movie } from '../../model/movie';
 export class MovieListComponent implements OnInit {
 
   moviesColumns = ['Titre', 'Réalisateur', 'Acteurs', 'Genres'];//
-  dataSource =  new MatTableDataSource<Movie>();
-  
+  dataSource = new MatTableDataSource<Movie>();
+
   // Number of Actor displayed in the list
   public maxActor = 5;
   // Number of Genre displayed in the list
@@ -23,8 +23,8 @@ export class MovieListComponent implements OnInit {
 
   constructor(private movieService: MovieService) { }
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  
+  @ViewChild(MatSortModule, { static: true }) sort: MatSortModule;
+
   ngOnInit() {
     this.movieService.getMovies().subscribe(
       movies => {
