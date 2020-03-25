@@ -6,7 +6,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MovieService } from './service/movie.service';
@@ -21,6 +26,7 @@ import { GenreSuggestionComponent } from './component/genre-suggestion/genre-sug
 import { DirectorSheetComponent } from './component/director-sheet/director-sheet.component';
 import { StarRatingComponent } from './component/star-rating/star-rating.component';
 import { OpinionListComponent } from './component/opinion-list/opinion-list.component';
+import { OpinionMineComponent } from './component/opinion-mine/opinion-mine.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +39,8 @@ import { OpinionListComponent } from './component/opinion-list/opinion-list.comp
     GenreSuggestionComponent,
     DirectorSheetComponent,
     StarRatingComponent,
-    OpinionListComponent
+    OpinionListComponent,
+    OpinionMineComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,9 +56,15 @@ import { OpinionListComponent } from './component/opinion-list/opinion-list.comp
     MatButtonModule,
     BrowserAnimationsModule,
     MatTableModule,
+    MatSortModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule,
+    ReactiveFormsModule,
   ],
   entryComponents: [
-    OpinionListComponent
+    OpinionListComponent,
+    OpinionMineComponent
   ],
   providers: [MovieService, MovieBuffService, DirectorService],
   bootstrap: [AppComponent]
