@@ -7,6 +7,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 import { AppComponent } from './app.component';
 import { MovieService } from './service/movie.service';
@@ -52,6 +54,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     BrowserAnimationsModule,
     MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
     ReactiveFormsModule,
   ],
   entryComponents: [

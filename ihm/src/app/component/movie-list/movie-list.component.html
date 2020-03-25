@@ -1,60 +1,74 @@
-<h2>movie-list works!</h2>
-<section id="table-view">
-    <table aria-describedby="Liste des films">
-        <thead>
-            <tr>
-                <th scope="col">Titre</th>
-                <th scope="col">Réalisateur</th>
-                <th scope="col">Acteurs</th>
-                <th scope="col">Genres</th>
-            </tr>
-        </thead>
-<!--      Décommenter la ligne suivante si vous utiliser l'API-->
-        <tr *ngFor="let item of movies | async">
-<!--      Décommenter la ligne suivante si vous utiliser les données locales-->
-<!--        <tr *ngFor="let item of movies">-->
-            <td><a [routerLink]="['/movie', item.idImdb]">{{ item.title }}</a></td>
-            <td><a [routerLink]="['/director', 1]">{{ item.director }}</a></td>
-            <td>
-              <span *ngFor="let actor of item.actors; let i=index">
-                <span *ngIf="(item.actors)?.length <= maxActor; else elseGreaterThan">
-                  <span *ngIf="i < (item.actors)?.length - 1; else elseIf">
-                    {{ actor.name }},
-                  </span>
-                  <ng-template #elseIf>
-                    {{ actor.name }}
-                  </ng-template>
-                </span>
-                <ng-template #elseGreaterThan>
-                  <span *ngIf="i < (maxActor - 1)">
-                    {{ actor.name }},
-                  </span>
-                  <span *ngIf="i == (maxActor - 1)">
-                    {{ actor.name }}...
-                  </span>
-                </ng-template>
-              </span>
-            </td>
-            <td>
-              <span *ngFor="let genre of item.genres; let i=index">
-                <span *ngIf="(item.genres)?.length <= maxGenre; else elseGreaterThan">
-                  <span *ngIf="i < (item.genres)?.length - 1; else elseIf">
-                    {{ genre.name }},
-                  </span>
-                  <ng-template #elseIf>
-                    {{ genre.name }}
-                  </ng-template>
-                </span>
-                <ng-template #elseGreaterThan>
-                  <span *ngIf="i < (maxGenre - 1)">
-                    {{ genre.name }},
-                  </span>
-                  <span *ngIf="i == (maxGenre - 1)">
-                    {{ genre.name }}...
-                  </span>
-                </ng-template>
-              </span>
-            </td>
-        </tr>
-    </table>
-</section>
+<!-- <mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+</mat-form-field> -->
+
+<mat-table [dataSource]="dataSource" matSort aria-describedby="Liste des films">
+
+  <!-- Title -->
+  <ng-container matColumnDef="Titre">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Titre</mat-header-cell>
+    <mat-cell *matCellDef="let item"><mat-icon [routerLink]="['/movie', item.idImdb]">zoom_in</mat-icon>{{item.title}}</mat-cell>
+  </ng-container>
+
+  <!-- Director -->
+  <ng-container matColumnDef="Réalisateur">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Réalisateur</mat-header-cell>
+    <mat-cell *matCellDef="let item"><mat-icon [routerLink]="['/director', 1]">zoom_in</mat-icon>{{item.director}}</mat-cell>
+  </ng-container>
+
+  <!-- Actors -->
+  <ng-container matColumnDef="Acteurs">
+    <mat-header-cell *matHeaderCellDef>Acteurs</mat-header-cell>
+    <mat-cell *matCellDef="let item">
+      <span *ngFor="let actor of item.actors; let i=index">
+        <span *ngIf="(item.actors)?.length <= maxActor; else elseGreaterThan">
+          <span *ngIf="i < (item.actors)?.length - 1; else elseIf">
+            {{ actor.name }},
+          </span>
+          <ng-template #elseIf>
+            {{ actor.name }}
+          </ng-template>
+        </span>
+        <ng-template #elseGreaterThan>
+          <span *ngIf="i < (maxActor - 1)">
+            {{ actor.name }},
+          </span>
+          <span *ngIf="i == (maxActor - 1)">
+            {{ actor.name }}...
+          </span>
+        </ng-template>
+      </span>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Genres -->
+  <ng-container matColumnDef="Genres">
+    <mat-header-cell *matHeaderCellDef>Genres</mat-header-cell>
+    <mat-cell *matCellDef="let item">
+      <span *ngFor="let genre of item.genres; let i=index">
+        <span *ngIf="(item.genres)?.length <= maxGenre; else elseGreaterThan">
+          <span *ngIf="i < (item.genres)?.length - 1; else elseIf">
+            {{ genre.name }},
+          </span>
+          <ng-template #elseIf>
+            {{ genre.name }}
+          </ng-template>
+        </span>
+        <ng-template #elseGreaterThan>
+          <span *ngIf="i < (maxGenre - 1)">
+            {{ genre.name }},
+          </span>
+          <span *ngIf="i == (maxGenre - 1)">
+            {{ genre.name }}...
+          </span>
+        </ng-template>
+      </span>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="moviesColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: moviesColumns"></mat-row>
+</mat-table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
