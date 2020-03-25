@@ -29,7 +29,7 @@
     <ng-container matColumnDef="Titre">
       <mat-header-cell class="mat_header" *matHeaderCellDef mat-sort-header> Titre </mat-header-cell>
       <mat-cell id="add_movie" *matCellDef="let movie">
-        <a id="add_movie_icon" (click)="addAMovie(movie)"><mat-icon aria-hidden="false" aria-label="Ajouter un film">add</mat-icon></a>
+        <a id="add_movie_icon"><mat-icon aria-hidden="false" aria-label="Ajouter un film">add</mat-icon></a>
         <div>
           {{ movie.title }}
         </div>

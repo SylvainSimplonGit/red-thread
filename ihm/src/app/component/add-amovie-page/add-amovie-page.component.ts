@@ -18,8 +18,8 @@ export class AddAMoviePageComponent implements OnInit {
   moviesByKeyword: Movie[];
   displayedColumns: string[] = ['Titre', 'Année', 'idImdb', 'posterUrl'];
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,11 +53,6 @@ export class AddAMoviePageComponent implements OnInit {
   }
 
   applyFilter($event: KeyboardEvent) {
-
-  }
-
-  addAMovie(movie: Movie) {
-    this.addAMovieService.addAMovie(movie);
 
   }
 }
