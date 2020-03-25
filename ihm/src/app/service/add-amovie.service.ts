@@ -21,7 +21,7 @@ export class AddAMovieService {
     return this.httpClient.get<Movie[]>(urlApi);
   }
 
-  addAMovie(movie: Movie) {
-    const urlApi = this.pathRootApi + 'movies/movie_buff';
-  }
+  // addAMovie(movie: Movie) {
+  //   const urlApi = this.pathRootApi + 'movies/movie_buff';
+  // }
 }
