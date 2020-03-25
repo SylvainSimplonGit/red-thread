@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogConfig  } from '@angular/material/dialog';
 
 import { MovieService } from '../../service/movie.service';
+import { MovieBuffService } from '../../service/movieBuff.service';
+
 import { Movie } from '../../model/movie';
 import { OpinionListComponent } from '../opinion-list/opinion-list.component';
 
@@ -14,6 +16,7 @@ import { OpinionListComponent } from '../opinion-list/opinion-list.component';
 })
 export class MovieSheetComponent implements OnInit {
 
+  // public currentMovieBuff: MovieBuff = new MovieBuff();
   public movie: Movie = new Movie();
   private opinionsOfMovie = [];
 
@@ -26,7 +29,8 @@ export class MovieSheetComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private movieService: MovieService
+    private movieService: MovieService,
+    private movieBuffService: MovieBuffService
   ) {
   }
 
@@ -38,6 +42,12 @@ export class MovieSheetComponent implements OnInit {
           this.calculateRatingMovie(movieServer);
         }
       )
+    );
+
+    this.movieBuffService.getCurrentMovieBuff().subscribe(
+      movieBuff => {
+        console.log('Vous êtes : ' + movieBuff.firstName + ' ' + movieBuff.lastName);
+      }
     );
   }
 
