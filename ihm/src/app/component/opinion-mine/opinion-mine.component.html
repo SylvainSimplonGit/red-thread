@@ -3,8 +3,18 @@
 <mat-dialog-content>
   <form [formGroup]="myOpinionForm" class="example-form">
     <mat-form-field class="example-full-width">
-      <label for="opinionField">Qu'avez-vous pensé de ce film ?</label>
-      <input #message matInput id="opinionField" maxlength="256" formControlName="opinion">
+      <label
+        for="opinionField"
+      >
+        Qu'avez-vous pensé de ce film ?
+      </label>
+      <input
+        #message
+        matInput
+        id="opinionField"
+        maxlength="256"
+        formControlName="opinion"
+      >
       <mat-hint align="start"><strong>Maximum 256 caractères</strong> </mat-hint>
       <mat-hint align="end">{{ message.value.length }} / 256</mat-hint>
     </mat-form-field>
