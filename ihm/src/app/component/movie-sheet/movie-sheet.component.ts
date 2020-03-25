@@ -87,11 +87,14 @@ export class MovieSheetComponent implements OnInit {
   }
 
   calculateNbStar(rating: number): number {
-    return Math.round(rating / this.dividerRating);
+    return (rating / this.dividerRating);
   }
 
   getSomePropertiesOfOpinion(opinion: Opinion): any {
-    if (opinion.movieBuff.idMovieBuff === this.currentMovieBuff.idMovieBuff) { this.opinionMine = opinion; }
+    if (opinion.movieBuff.idMovieBuff === this.currentMovieBuff.idMovieBuff) {
+      this.opinionMine = opinion;
+      console.log('Votre nom : ' + this.currentMovieBuff.lastName);
+    }
     // RAZ object
     const valueOp = {
       idOpinion: 0,
@@ -140,11 +143,17 @@ export class MovieSheetComponent implements OnInit {
     dialogConfig.data = {
       id: 1,
       title: 'Mon opinion sur le film',
-      // opinion: 'T\'as raison, mon bon !'
-      opinion: ''
+      opinion: this.opinionMine.comment
     };
 
-    this.dialog.open(OpinionMineComponent, dialogConfig);
+    console.log('Mon Opinion sur le film : ' + this.opinionMine.comment);
+    const dialogMyOpinion = this.dialog.open(OpinionMineComponent, dialogConfig);
+
+    dialogMyOpinion.afterClosed().subscribe( myNewOpinion => {
+      console.log('Ma nouvelle opinion : ' + myNewOpinion);
+      this.opinionMine.comment = myNewOpinion;
+      console.log(this.opinionMine);
+    });
   }
 
   refreshMovieInfo(idImdb: string) {

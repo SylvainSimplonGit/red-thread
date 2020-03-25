@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 // import { MatTableDataSource } from '@angular/material/table';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-opinion-mine',
@@ -18,13 +19,23 @@ export class OpinionMineComponent implements OnInit {
 
   // @ViewChild(MatSort, {static: false}) sort: MatSort;
 
+  myOpinionForm: FormGroup;
+  //   opinion: data.opinion
+  // });
+
   constructor(
     private dialogRef: MatDialogRef<OpinionMineComponent>,
+    private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
     // this.title = data.title;
     // this.myOpinion = data.opinion;
     // this.opinionsMine = data.opinionMine;
+
+    this.myOpinionForm = this.formBuilder.group({
+      opinion: data.opinion
+    });
+
   }
 
   ngOnInit(): void {

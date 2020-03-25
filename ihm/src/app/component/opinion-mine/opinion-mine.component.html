@@ -1,33 +1,17 @@
 <h2 mat-dialog-title class="center">{{ data.title }}</h2>
 
 <mat-dialog-content>
-<!--&lt;!&ndash;  <p>Votre avis sur le film</p>&ndash;&gt;-->
-<!--  <form>-->
-<!--  <mat-form-field class="example-full-width">-->
-<!--&lt;!&ndash;    <mat-label for="opinionField">Qu'avez-vous pensé de ce film ?</mat-label>&ndash;&gt;-->
-<!--    <textarea-->
-<!--      matInput-->
-<!--      [(ngModel)]="data.opinion"-->
-<!--      maxlength="256"-->
-<!--      #message-->
-<!--      id="opinionField"-->
-<!--      placeholder="Votre avis sur le film ..."-->
-<!--    ></textarea>-->
-<!--    <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint>-->
-<!--    <mat-hint align="end">{{ message.value.length }} / 256</mat-hint>-->
-<!--  </mat-form-field>-->
-<!--  </form>-->
-
-  <form class="example-form">
+  <form [formGroup]="myOpinionForm" class="example-form">
     <mat-form-field class="example-full-width">
-      <mat-label for="opinionField">Qu'avez-vous pensé de ce film ?</mat-label>
-      <input matInput #message id="opinionField" maxlength="256" placeholder="Votre avis sur le film ...">
-      <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint>
-      <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+      <label for="opinionField">Qu'avez-vous pensé de ce film ?</label>
+      <input #message matInput id="opinionField" maxlength="256" formControlName="opinion">
+      <mat-hint align="start"><strong>Maximum 256 caractères</strong> </mat-hint>
+      <mat-hint align="end">{{ message.value.length }} / 256</mat-hint>
     </mat-form-field>
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-button class="mat-raised-button" (click)="close()">Close</button>
+  <button mat-button (click)="close()">Annuler</button>
+  <button mat-button [mat-dialog-close]="data.opinion">Sauvegarder</button>
 </mat-dialog-actions>
