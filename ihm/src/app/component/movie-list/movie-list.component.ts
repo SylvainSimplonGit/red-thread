@@ -14,8 +14,7 @@ import { Movie } from '../../model/movie';
 export class MovieListComponent implements OnInit {
 
   moviesColumns = ['Titre', 'Réalisateur', 'Acteurs', 'Genres'];//
-  dataSource: MatTableDataSource<Movie[]>;
-  movies;
+  dataSource =  new MatTableDataSource<Movie>();
   
   // Number of Actor displayed in the list
   public maxActor = 5;
@@ -27,8 +26,11 @@ export class MovieListComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   
   ngOnInit() {
-    this.movies = this.movieService.getMovies();
-    this.dataSource = new MatTableDataSource(this.movies);
+    this.movieService.getMovies().subscribe(
+      movies => {
+        this.dataSource.data = movies;
+        this.dataSource.sort = this.sort;
+      });
   }
 
   applyFilter(event: Event) {
