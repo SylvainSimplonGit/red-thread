@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -36,9 +37,11 @@ public class MovieBuff {
     private Long idMovieBuff;
 
     @Column()
+    @NotNull
     private String firstName;
 
     @Column()
+    @NotNull
     private String lastName;
 
 //    @OneToMany(mappedBy = "connection")
