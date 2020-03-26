@@ -53,4 +53,5 @@ export class MovieService {
     const urlApi = this.pathRootApi + 'movies/search/' + keyword;
     return this.httpClient.get<Movie[]>(urlApi);
   }
+
 }
