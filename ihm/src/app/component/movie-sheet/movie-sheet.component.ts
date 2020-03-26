@@ -136,23 +136,20 @@ export class MovieSheetComponent implements OnInit {
 
   displayMyOpinion(): void {
     const dialogConfig = new MatDialogConfig();
-    // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    // dialogConfig.height = '400px';
     dialogConfig.width = '600px';
     dialogConfig.data = {
-      id: 1,
       title: 'Mon opinion sur le film',
       opinion: this.opinionMine.comment
     };
 
-    console.log('Mon Opinion sur le film : ' + this.opinionMine.comment);
     const dialogMyOpinion = this.dialog.open(OpinionMineComponent, dialogConfig);
 
     dialogMyOpinion.afterClosed().subscribe( myNewOpinion => {
-      console.log('Ma nouvelle opinion : ' + myNewOpinion);
-      this.opinionMine.comment = myNewOpinion;
-      console.log(this.opinionMine);
+      if (this.opinionMine.comment !== myNewOpinion) {
+        this.opinionMine.comment = myNewOpinion;
+        this.movieBuffService.setMyOpinionOfMovieIdImdb(this.opinionMine).subscribe();
+      }
     });
   }
 
