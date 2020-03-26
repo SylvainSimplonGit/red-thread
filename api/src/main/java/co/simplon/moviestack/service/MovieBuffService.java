@@ -5,6 +5,7 @@
  */
 package co.simplon.moviestack.service;
 
+import co.simplon.moviestack.exception.InvalidRequestException;
 import co.simplon.moviestack.model.Movie;
 import java.util.List;
 
@@ -18,7 +19,9 @@ import org.springframework.stereotype.Service;
 @Service
 public interface MovieBuffService {
 
-    List<MovieBuff> getMovieBuffs();
+    List<MovieBuff> getMovieBuffs() throws InvalidRequestException;
 
-    MovieBuff getMovieBuffById(Long IdMovieBuff);
+    MovieBuff getMovieBuffById(Long idMovieBuff) throws InvalidRequestException;
+
+    MovieBuff updateMovieBuff(Long idMovieBuff, MovieBuff movieBuff) throws InvalidRequestException;
 }
