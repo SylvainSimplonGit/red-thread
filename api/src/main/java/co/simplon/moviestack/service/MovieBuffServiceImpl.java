@@ -8,6 +8,7 @@ package co.simplon.moviestack.service;
 import co.simplon.moviestack.exception.InvalidMovieBuffException;
 import co.simplon.moviestack.model.Movie;
 import co.simplon.moviestack.model.MovieBuff;
+import co.simplon.moviestack.model.Opinion;
 import co.simplon.moviestack.repository.MovieBuffRepository;
 import java.util.List;
 import java.util.Optional;
@@ -42,6 +43,11 @@ public class MovieBuffServiceImpl implements MovieBuffService {
             throw new InvalidMovieBuffException();
 //            throw new RuntimeException();
         }
+    }
+
+    @Override
+    public List<Opinion> getOpinionsByidMovieBuff(Long idMovieBuff) {
+        return movieBuffRepository.getListOfOpinionsByMovieBuff(idMovieBuff);
     }
     
 }

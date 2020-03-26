@@ -9,6 +9,7 @@ import co.simplon.moviestack.model.Movie;
 import java.util.List;
 
 import co.simplon.moviestack.model.MovieBuff;
+import co.simplon.moviestack.model.Opinion;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,4 +22,6 @@ public interface MovieBuffService {
     List<MovieBuff> getMovieBuffs();
 
     MovieBuff getMovieBuffById(Long IdMovieBuff);
+
+    List<Opinion> getOpinionsByidMovieBuff(Long idMovieBuff);
 }

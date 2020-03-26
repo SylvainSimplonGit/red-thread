@@ -24,8 +24,11 @@ export class StarRatingComponent implements OnInit {
   showIcon(index: number) {
     if (this.rating >= index + 1) {
       return 'star';
+    } else if (this.rating >= index + 0.5) {
+      return 'star_half';
     } else {
       return 'star_border';
     }
+
   }
 }

@@ -8,6 +8,7 @@ import co.simplon.moviestack.model.Opinion;
 import co.simplon.moviestack.repository.ActorRepository;
 import co.simplon.moviestack.repository.GenreRepository;
 import co.simplon.moviestack.repository.MovieRepository;
+import co.simplon.moviestack.repository.OpinionRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -55,6 +56,7 @@ public class MovieServiceImpl implements MovieService {
     private MovieRepository movieRepository;
     private ActorRepository actorRepository;
     private GenreRepository genreRepository;
+    private OpinionRepository opinionRepository;
 
     private RestTemplate restTemplate;
 
@@ -65,11 +67,13 @@ public class MovieServiceImpl implements MovieService {
             MovieRepository movieRepository,
             ActorRepository actorRepository,
             GenreRepository genreRepository,
+            OpinionRepository opinionRepository,
             RestTemplateBuilder restTemplateBuilder
     ) {
         this.movieRepository = movieRepository;
         this.actorRepository = actorRepository;
         this.genreRepository = genreRepository;
+        this.opinionRepository = opinionRepository;
         this.restTemplate = restTemplateBuilder.build();
 
         this.args.put("key", "09f9524466812ccf78760c6ef7807fd5");
@@ -271,6 +275,7 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<Opinion> getOpinionsByImdbID(String imdbId) {
         return movieRepository.getListOfOpinionsByMovie(imdbId);
+//        return opinionRepository.getListOfOpinionsByMovie(imdbId);
     }
 
     @Override

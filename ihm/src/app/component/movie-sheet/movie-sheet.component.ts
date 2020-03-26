@@ -7,8 +7,10 @@ import { MovieBuffService } from '../../service/movieBuff.service';
 
 import { Movie } from '../../model/movie';
 import { MovieBuff } from '../../model/moviebuff';
+import { OpinionMineComponent } from '../opinion-mine/opinion-mine.component';
 
 import { OpinionListComponent } from '../opinion-list/opinion-list.component';
+import { Opinion } from '../../model/opinion';
 
 @Component({
   selector: 'app-movie-sheet',
@@ -20,12 +22,15 @@ export class MovieSheetComponent implements OnInit {
   public currentMovieBuff: MovieBuff;
   public movie: Movie = new Movie();
   private opinionsOfMovie = [];
+  public opinionMine: Opinion = new Opinion();
 
-  public localRating = 0.0;
+  public localGlobalRating = 0.0;
+  public localMyRating = 0.0;
   public maxActor = 8;
   public maxGenre = 3;
 
   public starCount = 5;
+  private dividerRating = 10 / this.starCount;
 
   constructor(
     private route: ActivatedRoute,
@@ -54,53 +59,82 @@ export class MovieSheetComponent implements OnInit {
   }
 
   calculateRatingMovie(movie: Movie) {
-    this.movieService.getOpinionsMovieById(movie.idImdb).subscribe(values => {
+    this.movieService.getOpinionsMovieById(movie.idImdb).subscribe(opinions => {
       let total = 0;
 
-      if (values.length > 0) {
-        values.forEach( (value) => {
-          total += value.rating;
-
-          // RAZ object
-          const valueOp = {
-            idOpinion: 0,
-            // movieBuff: {
-            //   idMovieBuff: 0,
-            //   firstName: '',
-            //   lastName: ''
-            // },
-            movieBuffName: '',
-            rating: 0,
-            comment: ''
-          };
-          // Copying part of the Opinion object to avoid copying the Movie object
-          valueOp.idOpinion = value.idOpinion;
-          // valueOp.movieBuff.idMovieBuff = value.movieBuff.idMovieBuff;
-          // valueOp.movieBuff.firstName = value.movieBuff.firstName;
-          // valueOp.movieBuff.lastName = value.movieBuff.lastName;
-          valueOp.movieBuffName = value.movieBuff.firstName + ' ' + value.movieBuff.lastName;
-          valueOp.rating = value.rating;
-          valueOp.comment = value.comment;
+      if (opinions.length > 0) {
+        opinions.forEach( (opinion) => {
+          total += opinion.rating;
+          let valueOp: {};
+          valueOp = this.getSomePropertiesOfOpinion(opinion);
           this.opinionsOfMovie.push(valueOp);
         });
       }
 
-      if (total > 0) {
-        total /= values.length;
-      } else {
-        total = 0;
-      }
+      total = (total > 0) ? total /= opinions.length : 0 ;
+
+      console.log('Total : ' + total);
 
       this.movie = movie;
-      this.localRating = Math.round(total / 2);
-      // console.log('Movie : ' + JSON.stringify(this.movie));
+      this.localGlobalRating = this.calculateNbStar(total);
+      // this.localMyRating = this.calculateNbStar(this.opinionMine.rating);
+      // this.movieBuffService.getOpinionByIdMovieFromCurrentMovieBuff(movie.idImdb);
       console.log('this.opinionsOfMovie : ' + JSON.stringify(this.opinionsOfMovie));
-      console.log('localRating : ' + this.localRating);
-      console.log('Mon nom : ' + this.currentMovieBuff.lastName);
+      console.log('Global Rating : ' + total);
     });
   }
 
+  calculateNbStar(rating: number): number {
+    return (rating / this.dividerRating);
+  }
+
+  getSomePropertiesOfOpinion(opinion: Opinion): any {
+    if (opinion.movieBuff.idMovieBuff === this.currentMovieBuff.idMovieBuff) {
+      this.opinionMine = opinion;
+      console.log('Votre nom : ' + this.currentMovieBuff.lastName);
+    }
+    // RAZ object
+    const valueOp = {
+      idOpinion: 0,
+      // movieBuff: {
+      //   idMovieBuff: 0,
+      //   firstName: '',
+      //   lastName: ''
+      // },
+      movieBuffName: '',
+      rating: 0,
+      comment: ''
+    };
+    // Copying part of the Opinion object to avoid copying the Movie object
+    valueOp.idOpinion = opinion.idOpinion;
+    // valueOp.movieBuff.idMovieBuff = opinion.movieBuff.idMovieBuff;
+    // valueOp.movieBuff.firstName = opinion.movieBuff.firstName;
+    // valueOp.movieBuff.lastName = opinion.movieBuff.lastName;
+    valueOp.movieBuffName = opinion.movieBuff.firstName + ' ' + opinion.movieBuff.lastName;
+    valueOp.rating = opinion.rating;
+    valueOp.comment = opinion.comment;
+
+    return valueOp;
+  }
+
   displayOpinionList(): void {
+    if (this.opinionsOfMovie.length > 0) {
+      const dialogConfig = new MatDialogConfig();
+      // dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      // dialogConfig.height = '400px';
+      dialogConfig.width = '600px';
+      dialogConfig.data = {
+        id: 1,
+        title: this.movie.title,
+        opinionList: this.opinionsOfMovie
+      };
+
+      this.dialog.open(OpinionListComponent, dialogConfig);
+    }
+  }
+
+  displayMyOpinion(): void {
     const dialogConfig = new MatDialogConfig();
     // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -108,11 +142,18 @@ export class MovieSheetComponent implements OnInit {
     dialogConfig.width = '600px';
     dialogConfig.data = {
       id: 1,
-      title: this.movie.title,
-      opinionList: this.opinionsOfMovie
+      title: 'Mon opinion sur le film',
+      opinion: this.opinionMine.comment
     };
 
-    this.dialog.open(OpinionListComponent, dialogConfig);
+    console.log('Mon Opinion sur le film : ' + this.opinionMine.comment);
+    const dialogMyOpinion = this.dialog.open(OpinionMineComponent, dialogConfig);
+
+    dialogMyOpinion.afterClosed().subscribe( myNewOpinion => {
+      console.log('Ma nouvelle opinion : ' + myNewOpinion);
+      this.opinionMine.comment = myNewOpinion;
+      console.log(this.opinionMine);
+    });
   }
 
   refreshMovieInfo(idImdb: string) {

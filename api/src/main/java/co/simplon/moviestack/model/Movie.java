@@ -88,7 +88,6 @@ public class Movie {
     private List<Genre> genres;
 
     @JsonIgnore
-    // TODO Ajouter une @Query dans le MovieRepository
     @OneToMany(mappedBy = "movie")
     private List<Opinion> opinions;
 

@@ -1,6 +1,7 @@
 package co.simplon.moviestack.controler;
 
 import co.simplon.moviestack.model.MovieBuff;
+import co.simplon.moviestack.model.Opinion;
 import co.simplon.moviestack.service.MovieBuffService;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,12 +42,24 @@ public class MovieBuffController {
      * @return
      */
     @GetMapping("/{movieBuffId}")
-    public Object getMovieById(@PathVariable Long movieBuffId) {
+    public Object getMovieBuffById(@PathVariable Long movieBuffId) {
         try {
             return movieBuffService.getMovieBuffById(movieBuffId);
         } catch (EntityNotFoundException e) {
             return e.getMessage();
         }
-
     }
+
+    /**
+     * Get opinions from TheMovieDB with Movie Buff Id
+     *
+     * @param movieBuffId
+     * @return
+     */
+    @GetMapping("/{movieBuffId}/opinions")
+    public List<Opinion> getOpinionsByImdbId(@PathVariable Long movieBuffId) {
+        return movieBuffService.getOpinionsByidMovieBuff(movieBuffId);
+    }
+
+
 }

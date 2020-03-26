@@ -17,4 +17,5 @@ public interface OpinionService {
     Opinion getOpinionById(Long id);
 
     List<Opinion> getOpinions();
+
 }

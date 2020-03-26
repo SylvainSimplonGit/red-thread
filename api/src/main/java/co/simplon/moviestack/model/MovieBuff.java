@@ -54,7 +54,6 @@ public class MovieBuff {
     private List<Movie> moviesSeen;
 
     @JsonIgnore
-    // TODO Ajouter une @Query dans le MovieRepository
     @OneToMany(mappedBy = "movieBuff")
     private List<Opinion> opinions;
 
