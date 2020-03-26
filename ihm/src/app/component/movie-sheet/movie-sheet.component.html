@@ -25,36 +25,36 @@
   </div>
   <div id="contentSheet">
     <div id="poster" class="col-30">
-      <img *ngIf="movie.posterUrl" alt="poster" class="poster" [src]="movie.posterUrl">
+      <img *ngIf="currentMovie.posterUrl" alt="poster" class="poster" [src]="currentMovie.posterUrl">
     </div>
     <div id="details" class="col-last">
       <div class="row">
         <div class="label col-20">Titre</div>
-        <div class="data col-30">{{ movie.title }}</div>
+        <div class="data col-30">{{ currentMovie.title }}</div>
         <div class="label col-10">Note</div>
-        <div class="data col-10 center">{{ movie.imdbRating }}</div>
+        <div class="data col-10 center">{{ currentMovie.imdbRating }}</div>
       </div>
 
       <div class="row">
         <div class="label col-20">Date de sortie</div>
-        <div class="data col-30 center">{{ movie.released | date:'yyyy':'fr-FR'}}</div>
+        <div class="data col-30 center">{{ currentMovie.released | date:'yyyy':'fr-FR'}}</div>
         <div class="label col-10">Votants</div>
-        <div class="data col-10 center">{{ movie.imdbVote }}</div>
+        <div class="data col-10 center">{{ currentMovie.imdbVote }}</div>
       </div>
 
       <div class="row">
         <div class="label col-20">Réalisateur</div>
-        <div class="data col-30">{{ movie.director }}</div>
-        <div class="label col-10" (click)="refreshMovieInfo(movie.idImdb)">id IMDB</div>
-        <div class="data col-10 center">{{ movie.idImdb }}</div>
+        <div class="data col-30">{{ currentMovie.director }}</div>
+        <div class="label col-10" (click)="refreshMovieInfo(currentMovie.idImdb)">id IMDB</div>
+        <div class="data col-10 center">{{ currentMovie.idImdb }}</div>
       </div>
 
       <div class="row">
         <div class="label col-20">Genres</div>
         <div class="data col-30">
-          <span *ngFor="let genre of movie.genres ; let i=index">
-            <span *ngIf="(movie.genres)?.length <= maxGenre; else elseGreaterThan">
-              <span *ngIf="i < (movie.genres)?.length - 1; else elseIf">
+          <span *ngFor="let genre of currentMovie.genres ; let i=index">
+            <span *ngIf="(currentMovie.genres)?.length <= maxGenre; else elseGreaterThan">
+              <span *ngIf="i < (currentMovie.genres)?.length - 1; else elseIf">
                 {{ genre.name }},
               </span>
               <ng-template #elseIf>
@@ -72,15 +72,15 @@
           </span>
         </div>
         <div class="label col-10">Durée</div>
-        <div class="data col-10 center">{{ movie.runtime }} min</div>
+        <div class="data col-10 center">{{ currentMovie.runtime }} min</div>
       </div>
 
       <div class="row">
         <div class="label col-20">Acteurs</div>
         <div class="data col-50">
-          <span *ngFor="let actor of movie.actors ; let i=index">
-            <span *ngIf="(movie.actors)?.length <= maxActor; else elseGreaterThan">
-              <span *ngIf="i < (movie.actors)?.length - 1; else elseIf">
+          <span *ngFor="let actor of currentMovie.actors ; let i=index">
+            <span *ngIf="(currentMovie.actors)?.length <= maxActor; else elseGreaterThan">
+              <span *ngIf="i < (currentMovie.actors)?.length - 1; else elseIf">
                 {{ actor.name }},
               </span>
               <ng-template #elseIf>
@@ -102,7 +102,7 @@
       <div class="row">
         <div class="label col-20">Synopsis</div>
         <div class="data  col-50">
-          {{ movie.plot | slice: 0: 260}} ...
+          {{ currentMovie.plot | slice: 0: 260}} ...
         </div>
       </div>
 

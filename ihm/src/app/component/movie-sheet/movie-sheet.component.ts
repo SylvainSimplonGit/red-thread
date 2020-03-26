@@ -20,7 +20,8 @@ import { Opinion } from '../../model/opinion';
 export class MovieSheetComponent implements OnInit {
 
   public currentMovieBuff: MovieBuff;
-  public movie: Movie = new Movie();
+  // public currentMovie: Movie;
+  public currentMovie: Movie = new Movie();
   private opinionsOfMovie = [];
   public opinionMine: Opinion = new Opinion();
 
@@ -75,7 +76,7 @@ export class MovieSheetComponent implements OnInit {
 
       console.log('Total : ' + total);
 
-      this.movie = movie;
+      this.currentMovie = movie;
       this.localGlobalRating = this.calculateNbStar(total);
       // this.localMyRating = this.calculateNbStar(this.opinionMine.rating);
       // this.movieBuffService.getOpinionByIdMovieFromCurrentMovieBuff(movie.idImdb);
@@ -126,7 +127,7 @@ export class MovieSheetComponent implements OnInit {
       dialogConfig.width = '600px';
       dialogConfig.data = {
         id: 1,
-        title: this.movie.title,
+        title: this.currentMovie.title,
         opinionList: this.opinionsOfMovie
       };
 
@@ -147,7 +148,10 @@ export class MovieSheetComponent implements OnInit {
 
     dialogMyOpinion.afterClosed().subscribe( myNewOpinion => {
       if (this.opinionMine.comment !== myNewOpinion) {
+        this.opinionMine.movie = this.currentMovie;
+        this.opinionMine.movieBuff = this.currentMovieBuff;
         this.opinionMine.comment = myNewOpinion;
+        console.log(this.opinionMine);
         this.movieBuffService.setMyOpinionOfMovieIdImdb(this.opinionMine).subscribe();
       }
     });
@@ -156,7 +160,7 @@ export class MovieSheetComponent implements OnInit {
   refreshMovieInfo(idImdb: string) {
     this.movieService.getMovieFromTMDBById(idImdb).subscribe(
       movieServer => {
-        this.movie = movieServer;
+        this.currentMovie = movieServer;
         console.log('Refresh : ' + idImdb);
       }
     );

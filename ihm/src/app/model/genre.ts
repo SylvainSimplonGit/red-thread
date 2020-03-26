@@ -1,4 +1,4 @@
 export class Genre {
     idGenre: number;
-    genre: string;
+    name: string;
 }
