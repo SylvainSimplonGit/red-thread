@@ -297,15 +297,19 @@ public class MovieServiceImpl implements MovieService {
                 JsonNode jsonMovie = mapper.readTree(movieImdb);
 
                 if (this.checkNode(jsonMovie, TMDB_FIELD_RESULTS)) {
-                    while (maxSearch > 0) {
-                        for (Object returns : jsonMovie.get(TMDB_FIELD_RESULTS)) {
-                            ObjectMapper mapperReturns = new ObjectMapper();
-                            JsonNode jsonMovieSearch = mapperReturns.readTree(returns.toString());
-
-                            Movie movieSearch = this.getMovieFromTMDBByImdbID(jsonMovieSearch.get(TMDB_FIELD_ID).asInt(), false);
-                            moviesSearch.add(movieSearch);
-                            maxSearch--;
+                    for (Object returns : jsonMovie.get(TMDB_FIELD_RESULTS)) {
+                        if (maxSearch < 0) {
+                            break;
                         }
+                        ObjectMapper mapperReturns = new ObjectMapper();
+                        JsonNode jsonMovieSearch = mapperReturns.readTree(returns.toString());
+
+                        Movie movieSearch = this.getMovieFromTMDBByImdbID(jsonMovieSearch.get(TMDB_FIELD_ID).asInt(), false);
+                        if (moviesSearch != null) {
+                            moviesSearch.add(movieSearch);
+                            --maxSearch;
+                        }
+
                     }
                 }
             }
