@@ -24,6 +24,7 @@ import { StarRatingComponent } from './component/star-rating/star-rating.compone
 import { OpinionListComponent } from './component/opinion-list/opinion-list.component';
 import { AddAMoviePageComponent } from './component/add-amovie-page/add-amovie-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FooterComponent } from './component/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     DirectorSheetComponent,
     StarRatingComponent,
     OpinionListComponent,
-    AddAMoviePageComponent
+    AddAMoviePageComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

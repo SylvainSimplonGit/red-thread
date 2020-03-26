@@ -1,1 +1,49 @@
+div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  width: auto;
+  background-color: rgb(159, 163, 255);
+}
 
+h1 {
+  font-family: MovieStack_Font, serif;
+  font-size: larger;
+}
+
+app-top-bar {
+  position: sticky;
+  flex: 1;
+}
+
+div div {
+  height: 35px;
+  font-size: large;
+  background: none;
+  margin: 0 10px;
+}
+
+.clap_cinema {
+  height: 50px;
+}
+
+.welcome_Page_button {
+  background: none;
+  border-color: rgb(159, 163, 255);
+}
+
+a .button_connexion {
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+}
+
+.button_connexion {
+  height: 35px;
+  font-size: large;
+  padding: 0 15px;
+  border-color: rgb(159, 163, 255);
+  background-color: rgb(126, 123, 255);
+}

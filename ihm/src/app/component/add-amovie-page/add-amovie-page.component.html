@@ -26,11 +26,11 @@
 <section>
   <div id="scrollable_table">
   <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z5">
-    <ng-container matColumnDef="Titre">
+    <ng-container matColumnDef="title">
       <mat-header-cell class="mat_header" *matHeaderCellDef mat-sort-header> Titre </mat-header-cell>
       <mat-cell *matCellDef="let movie"> {{ movie.title }} </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="Annee">
+    <ng-container matColumnDef="released">
       <mat-header-cell  class="mat_header" *matHeaderCellDef mat-sort-header> Année </mat-header-cell>
       <mat-cell *matCellDef="let movie"> {{ movie.released | date:'yyyy':'fr-FR'}} </mat-cell>
     </ng-container>
@@ -42,7 +42,7 @@
       <mat-header-cell  class="mat_header" *matHeaderCellDef> Poster </mat-header-cell>
       <mat-cell id="add_movie" *matCellDef="let movie">
         <img class="poster" src="{{ movie.posterUrl }}" alt="Affiche du film {{movie.title}}">
-        <mat-icon id="add_movie_icon" aria-hidden="false" aria-label="Ajouter un film" title="Ajouter un film">add</mat-icon>
+        <mat-icon id="add_movie_icon" aria-hidden="false" aria-label="Ajouter un film" title="Ajouter un film" (click)="addAmovie(movie)">add</mat-icon>
       </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
