@@ -9,6 +9,7 @@ import co.simplon.moviestack.exception.InvalidMovieBuffException;
 import co.simplon.moviestack.exception.InvalidRequestException;
 import co.simplon.moviestack.model.Movie;
 import co.simplon.moviestack.model.MovieBuff;
+import co.simplon.moviestack.model.Opinion;
 import co.simplon.moviestack.repository.MovieBuffRepository;
 import java.util.List;
 import java.util.Optional;
@@ -95,6 +96,11 @@ public class MovieBuffServiceImpl implements MovieBuffService {
 
     }
 
+    @Override
+    public List<Opinion> getOpinionsByidMovieBuff(Long idMovieBuff) {
+        return movieBuffRepository.getListOfOpinionsByMovieBuff(idMovieBuff);
+    }
+    
 //    private void errorManagement(Exception e, String method) throws InvalidRequestException {
 //        if (e instanceof EntityNotFoundException) {
 //            LOGGER.error(ERROR_LOGGER, method, ERROR_NO_DATA_IN_DB);
@@ -106,6 +112,5 @@ public class MovieBuffServiceImpl implements MovieBuffService {
 //            throw new InvalidRequestException(msg);
 //        }
 //    }
-
 
 }

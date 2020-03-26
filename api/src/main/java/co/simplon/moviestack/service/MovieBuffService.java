@@ -10,6 +10,7 @@ import co.simplon.moviestack.model.Movie;
 import java.util.List;
 
 import co.simplon.moviestack.model.MovieBuff;
+import co.simplon.moviestack.model.Opinion;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,7 +22,9 @@ public interface MovieBuffService {
 
     List<MovieBuff> getMovieBuffs() throws InvalidRequestException;
 
-    MovieBuff getMovieBuffById(Long idMovieBuff) throws InvalidRequestException;
-
+    MovieBuff getMovieBuffById(Long IdMovieBuff);  
+  
     MovieBuff updateMovieBuff(Long idMovieBuff, MovieBuff movieBuff) throws InvalidRequestException;
+  
+    List<Opinion> getOpinionsByidMovieBuff(Long idMovieBuff);
 }

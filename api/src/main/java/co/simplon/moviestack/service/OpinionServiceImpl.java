@@ -48,5 +48,4 @@ public class OpinionServiceImpl implements OpinionService {
         return opinionRepository.findAll();
     }
 
-
 }

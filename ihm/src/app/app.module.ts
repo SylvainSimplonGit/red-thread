@@ -6,12 +6,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MovieService } from './service/movie.service';
+import { MovieBuffService } from './service/movieBuff.service';
 import { DirectorService } from './service/director.service';
 import { TopBarComponent } from './component/top-bar/top-bar.component';
 import { WelcomePageComponent } from './component/welcome-page/welcome-page.component';
@@ -22,8 +27,8 @@ import { GenreSuggestionComponent } from './component/genre-suggestion/genre-sug
 import { DirectorSheetComponent } from './component/director-sheet/director-sheet.component';
 import { StarRatingComponent } from './component/star-rating/star-rating.component';
 import { OpinionListComponent } from './component/opinion-list/opinion-list.component';
+import { OpinionMineComponent } from './component/opinion-mine/opinion-mine.component';
 import { AddAMoviePageComponent } from './component/add-amovie-page/add-amovie-page.component';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -37,6 +42,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     DirectorSheetComponent,
     StarRatingComponent,
     OpinionListComponent,
+    OpinionMineComponent,
     AddAMoviePageComponent
   ],
   imports: [
@@ -56,12 +62,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule,
     ReactiveFormsModule,
   ],
   entryComponents: [
-    OpinionListComponent
+    OpinionListComponent,
+    OpinionMineComponent
   ],
-  providers: [MovieService, DirectorService],
+  providers: [MovieService, MovieBuffService, DirectorService],
   bootstrap: [AppComponent]
 })
 
