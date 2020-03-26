@@ -14,6 +14,8 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.swagger.annotations.ApiParam;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -42,12 +44,16 @@ public class MovieControler {
      * @return
      */
     @GetMapping()
-    public Object getMovies() {
-        try {
-            return movieService.getMovies();
-        } catch (EntityNotFoundException e) {
-            return e.getMessage();
-        }
+    public Page<Movie> getMovies(
+            @ApiParam(value = "Query param for 'pageNumber'") @Valid @RequestParam(value = "pageNumber", required = false) Integer pageNumber,
+            @ApiParam(value = "Query param for 'pageSize'") @Valid @RequestParam(value = "pageSize", required = false) Integer pageSize,
+            @ApiParam(value = "Query param for 'sort' criteria") @Valid @RequestParam(value = "sort", required = false) String criteria,
+            @ApiParam(value = "Query param for 'sort' direction") @Valid @RequestParam(value = "direction", required = false) String direction) {
+//        try {
+            return movieService.getMovies(pageNumber, pageSize, criteria, direction);
+//        } catch (EntityNotFoundException e) {
+//            return e.getMessage();
+//        }
     }
 
     /**

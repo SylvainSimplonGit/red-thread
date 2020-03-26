@@ -7,6 +7,7 @@ import java.util.List;
 
 import co.simplon.moviestack.model.Opinion;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,7 +19,7 @@ public interface MovieService {
     
     Movie getMovieById(String id);
     
-    List<Movie> getMovies();
+    Page<Movie> getMovies(Integer pageNumber, Integer pageSize, String criteria, String direction);
 
     Movie getMovieFromTMDBByImdbID(String imdbId, boolean save) throws JsonProcessingException, InvalidMovieTMDBException;
 
