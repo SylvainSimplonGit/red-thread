@@ -70,7 +70,11 @@ export class MovieBuffService {
       }
     } else {
       // Sinon faire un POST de l'opinion
-      return this.httpClient.post<Opinion>(urlApi, opinion);
+      try {
+        return this.httpClient.post<Opinion>(urlApi, opinion, {headers});
+      } catch (e) {
+        return e.message;
+      }
     }
   }
 
