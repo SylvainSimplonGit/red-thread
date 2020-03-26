@@ -298,7 +298,7 @@ public class MovieServiceImpl implements MovieService {
 
                 if (this.checkNode(jsonMovie, TMDB_FIELD_RESULTS)) {
                     for (Object returns : jsonMovie.get(TMDB_FIELD_RESULTS)) {
-                        if (maxSearch < 0) {
+                        if (maxSearch <= 0) {
                             break;
                         }
                         ObjectMapper mapperReturns = new ObjectMapper();
