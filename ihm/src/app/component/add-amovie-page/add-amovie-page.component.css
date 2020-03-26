@@ -53,7 +53,7 @@ mat-header-cell, mat-cell {
 
 #scrollable_table {
   scroll-behavior: smooth;
-  height: 620px;
+  height: 615px;
   overflow: auto;
 }
 
@@ -61,7 +61,7 @@ mat-header-cell, mat-cell {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 25px;
 }
 
 .addMovieForm form {
@@ -114,7 +114,7 @@ section h1 {
 }
 
 .addMovieForm a button {
-  height: 80px;
+  height: 40px;
   width: 140px;
   font-size: larger;
   font-weight: bolder;

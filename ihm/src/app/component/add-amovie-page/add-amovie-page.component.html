@@ -3,51 +3,60 @@
     <img alt="back to movie list" src="/assets/back.png" title="retour">
   </a>
 </div>
+
 <section class="addMovieForm">
   <div>
     <h1>Indiquez vos critères de recherche</h1>
   </div>
+
   <form [formGroup]="addAMovieForm" (ngSubmit)="onSubmit(addAMovieForm.value)">
     <div>
       <div class="title">
         <label for="title"><h2>Titre du film</h2></label>
         <input id="title" type="text" formControlName="movie_title" placeholder="Tapez le titre...">
       </div>
-      <div class="released">
-        <label for="released"><h2>Année de sortie du film</h2></label>
-        <input id="released" type="text" formControlName="movie_released" placeholder="Tapez l'année...">
-      </div>
+<!--      <div class="released">-->
+<!--        <label for="released"><h2>Année de sortie du film</h2></label>-->
+<!--        <input id="released" type="text" formControlName="movie_released" placeholder="Tapez l'année...">-->
+<!--      </div>-->
     </div>
+
     <div>
       <a><button class="button" type="submit">Chercher</button></a>
     </div>
+
   </form>
 </section>
+
 <section>
   <div id="scrollable_table">
-  <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z5">
-    <ng-container matColumnDef="title">
-      <mat-header-cell class="mat_header" *matHeaderCellDef mat-sort-header> Titre </mat-header-cell>
-      <mat-cell *matCellDef="let movie"> {{ movie.title }} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="released">
-      <mat-header-cell  class="mat_header" *matHeaderCellDef mat-sort-header> Année </mat-header-cell>
-      <mat-cell *matCellDef="let movie"> {{ movie.released | date:'yyyy':'fr-FR'}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="idImdb">
-      <mat-header-cell  class="mat_header" *matHeaderCellDef mat-sort-header> id IMDB </mat-header-cell>
-      <mat-cell *matCellDef="let movie"> {{ movie.idImdb }} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="posterUrl">
-      <mat-header-cell  class="mat_header" *matHeaderCellDef> Poster </mat-header-cell>
-      <mat-cell id="add_movie" *matCellDef="let movie">
-        <img class="poster" src="{{ movie.posterUrl }}" alt="Affiche du film {{movie.title}}">
-        <mat-icon id="add_movie_icon" aria-hidden="false" aria-label="Ajouter un film" title="Ajouter un film" (click)="addAmovie(movie)">add</mat-icon>
-      </mat-cell>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
+    <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z5">
+      <ng-container matColumnDef="title">
+        <mat-header-cell class="mat_header" *matHeaderCellDef mat-sort-header> Titre </mat-header-cell>
+        <mat-cell *matCellDef="let movie"> {{ movie.title }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="released">
+        <mat-header-cell  class="mat_header" *matHeaderCellDef mat-sort-header> Année </mat-header-cell>
+        <mat-cell *matCellDef="let movie"> {{ movie.released | date:'yyyy':'fr-FR'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="idImdb">
+        <mat-header-cell  class="mat_header" *matHeaderCellDef mat-sort-header> id IMDB </mat-header-cell>
+        <mat-cell *matCellDef="let movie"> {{ movie.idImdb }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="posterUrl">
+        <mat-header-cell  class="mat_header" *matHeaderCellDef> Poster </mat-header-cell>
+        <mat-cell id="add_movie" *matCellDef="let movie">
+          <img class="poster" src="{{ movie.posterUrl }}" alt="Affiche du film {{movie.title}}">
+          <mat-icon id="add_movie_icon" aria-hidden="false" aria-label="Ajouter un film" title="Ajouter un film" (click)="addAmovie(movie)">add</mat-icon>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
 
   </div>
   <mat-paginator [length]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { MovieBuff } from '../model/moviebuff';
 import { Observable } from 'rxjs';
 
@@ -44,6 +44,18 @@ export class MovieBuffService {
 
   public getCurrentMovieBuff(): Observable<MovieBuff> {
     return this.currentMovieBuff;
+  }
+
+  public updateCurrentMovieBuff(movieBuff: MovieBuff): Observable<MovieBuff> {
+    const urlApi = this.pathRootApi + 'movies/movie_buff/' + movieBuff.idMovieBuff;
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+
+    try {
+      return this.httpClient.put<MovieBuff>(urlApi, movieBuff  , {headers});
+    } catch (e) {
+      return e.message;
+    }
   }
 
 }

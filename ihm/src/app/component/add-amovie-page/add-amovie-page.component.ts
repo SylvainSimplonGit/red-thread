@@ -8,6 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MovieService } from '../../service/movie.service';
 import {MovieBuffService} from '../../service/movieBuff.service';
+import {MovieBuff} from '../../model/moviebuff';
 
 @Component({
   selector: 'app-add-amovie-page',
@@ -19,6 +20,7 @@ export class AddAMoviePageComponent implements OnInit {
   addAMovieForm;
   displayedColumns: any[] = ['title', 'released', 'idImdb', 'posterUrl'];
   dataSource = new MatTableDataSource<Movie>();
+  public currentMovieBuff: MovieBuff;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -38,13 +40,19 @@ export class AddAMoviePageComponent implements OnInit {
 
     this.addAMovieForm = this.formBuilder.group({
       movie_title: '',
-      movie_released: '',
+      // movie_released: '',
     });
   }
 
   ngOnInit() {
+    this.movieBuffService.getCurrentMovieBuff().subscribe(
+      movieBuff => {
+        this.currentMovieBuff = movieBuff;
+        console.log('Utilisateur : Id n°' + movieBuff.idMovieBuff + '--> ' + movieBuff.firstName + ' ' + movieBuff.lastName);
+        console.log(movieBuff.moviesSeen);
+      }
+    );
   }
-
 
   onSubmit(addAMovieForm) {
     if (addAMovieForm.movie_title === '') {
@@ -64,6 +72,10 @@ export class AddAMoviePageComponent implements OnInit {
   }
 
   addAmovie(movie: Movie) {
-
-  }
+    this.currentMovieBuff.moviesSeen.push(movie);
+    console.log(this.currentMovieBuff);
+    this.movieBuffService.updateCurrentMovieBuff(this.currentMovieBuff).subscribe(movieBuff => {
+      this.currentMovieBuff = movieBuff; });
+    console.log('tentative d\'ajout à la liste du film: ' + movie);
+    }
 }
