@@ -177,7 +177,7 @@ app-add-amovie-page mat-table {
 
 app-add-amovie-page mat-header-cell, mat-cell {
   display: flex;
-  flex: auto;
+  /*flex: auto;*/
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -192,11 +192,11 @@ app-add-amovie-page mat-header-cell, mat-cell {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
 }
 
 #add_movie_icon {
-  padding: 0 15px 0 0;
+  padding-left: 20px;
+  cursor: pointer;
 }
 
 .poster {
