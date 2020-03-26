@@ -49,4 +49,9 @@ export class MovieService {
     return this.httpClient.get<Movie>(urlApi);
   }
 
+  getMoviesByKeyword(keyword: string): Observable<Movie[]> {
+    const urlApi = this.pathRootApi + 'movies/search/' + keyword;
+    return this.httpClient.get<Movie[]>(urlApi);
+  }
+
 }
