@@ -28,8 +28,8 @@ export class MovieListComponent implements OnInit {
 
   ngOnInit() {
     this.movieBuffService.getCurrentMovieBuff().subscribe(
-      moviesSeen => {
-        this.dataSource.data = moviesSeen;
+      movieBuff => {
+        this.dataSource.data = movieBuff.moviesSeen;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       });
