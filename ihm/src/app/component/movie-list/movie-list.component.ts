@@ -3,7 +3,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 
-import { MovieService } from '../../service/movie.service';
+import { MovieBuffService } from '../../service/movieBuff.service';
 import { Movie } from '../../model/movie';
 
 @Component({
@@ -21,15 +21,15 @@ export class MovieListComponent implements OnInit {
   // Number of Genre displayed in the list
   public maxGenre = 3;
 
-  constructor(private movieService: MovieService) { }
+  constructor(private movieBuffService: MovieBuffService) { }
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   ngOnInit() {
-    this.movieService.getMovies().subscribe(
-      movies => {
-        this.dataSource.data = movies;
+    this.movieBuffService.getCurrentMovieBuff().subscribe(
+      moviesSeen => {
+        this.dataSource.data = moviesSeen;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       });
