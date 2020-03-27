@@ -51,9 +51,8 @@ export class MovieBuffService {
 
   public updateMovieBuff(movieBuff: MovieBuff): Observable<MovieBuff> {
     const urlApi = this.pathRootApi + 'movies/movie_buff/' + movieBuff.idMovieBuff;
-    console.log(movieBuff);
     try {
-      return this.httpClient.get<MovieBuff>(urlApi);
+      return this.httpClient.put<MovieBuff>(urlApi, movieBuff);
     } catch (e) {
       return e.message;
     }
