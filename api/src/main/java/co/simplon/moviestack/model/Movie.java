@@ -75,9 +75,6 @@ public class Movie {
     @Column()
     private Integer imdbVote;
 
-//    @Enumerated(EnumType.STRING)
-//    private Rate rated;
-
     @ManyToMany
     @JoinTable(
         name = "mv_movies_genres",

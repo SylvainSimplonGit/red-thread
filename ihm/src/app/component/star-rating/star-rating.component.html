@@ -38,8 +38,6 @@
       *ngFor="let ratingId of ratingArr; index as i"
       [id]="'star_'+i"
       (click)="onClick(i+1)"
-      [matTooltip]="ratingId+1"
-      matTooltipPosition="above"
     >
       <mat-icon class="starIcon">
         {{ showIcon(i) }}

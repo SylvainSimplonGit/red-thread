@@ -21,14 +21,14 @@ export class MovieBuffService {
     this.setCurrentMovieBuff(idCurrentMovieBuff);
   }
 
-  // getMovieBuffs() {
-  //   const urlApi = this.pathRootApi + 'movie_buff';
-  //   try {
-  //     return this.httpClient.get<MovieBuff[]>(urlApi);
-  //   } catch (e) {
-  //     return e.message;
-  //   }
-  // }
+  getMovieBuffs() {
+    const urlApi = this.pathRootApi + 'movie_buff';
+    try {
+      return this.httpClient.get<MovieBuff[]>(urlApi);
+    } catch (e) {
+      return e.message;
+    }
+  }
 
   public getMovieBuffById(id: number): Observable<MovieBuff> {
     const urlApi = this.pathRootApi + 'movies/movie_buff/' + id;

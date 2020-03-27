@@ -93,13 +93,6 @@ public class MovieBuff {
         this.lastName = lastName;
     }
 
-//    public List<Connection> getConnections() {
-//        return connections;
-//    }
-//    public void setConnections(List<Connection> connections) {
-//        this.connections = connections;
-//    }
-    
     public List<Movie> getMoviesSeen() {
         return moviesSeen;
     }
