@@ -25,262 +25,6 @@ app-root {
 /*-------------------------------------------------*/
 
 
-
-/*----------------CSS DE LA TOP-BAR----------------*/
-/*-------------------------------------------------*/
-
-app-top-bar div {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  height: 60px;
-  width: auto;
-  background-color: rgb(159, 163, 255);
-}
-
-app-top-bar h1 {
-  font-family: MovieStack_Font, serif;
-  font-size: larger;
-}
-
-app-top-bar {
-  position: sticky;
-  flex: 1;
-}
-
-app-top-bar .clap_cinema {
-  height: 50px;
-}
-
-app-top-bar .welcome_Page_button {
-  background: none;
-  border-color: rgb(159, 163, 255);
-}
-
-app-top-bar div div {
-  height: 35px;
-  font-size: large;
-  background: none;
-  margin: 0 10px;
-}
-
-a .button_connexion {
-  cursor: pointer;
-  color: white;
-  text-decoration: none;
-}
-
-app-top-bar .button_connexion {
-  height: 35px;
-  font-size: large;
-  padding: 0 15px;
-  border-color: rgb(159, 163, 255);
-  background-color: rgb(126, 123, 255);
-}
-/*-------------------------------------------------*/
-/*-------------------------------------------------*/
-
-
-
-/*----------------CSS DU FOOTER----------------*/
-/*---------------------------------------------*/
-
-footer {
-  flex-shrink: 0;
-  position: fixed;
-  bottom: 0;
-  width: 99%;
-  background-color: white;
-}
-
-footer div {
-  height: 60px;
-  width: auto;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
-footer #logo_renault {
-  height: 40px;
-}
-
-footer #logo_simplon {
-  height: 40px;
-}
-/*---------------------------------------------*/
-/*---------------------------------------------*/
-
-
-
-/*----------------CSS DE LA PAGE D'ACCUEIL----------------*/
-/*--------------------------------------------------------*/
-
-app-welcome-page {
-  width: auto;
-}
-
-app-welcome-page div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-app-welcome-page .Title span{
-  font-family: MovieStack_Font, serif;
-}
-
-app-welcome-page .Title {
-  padding: 100px 0;
-}
-
-app-welcome-page .What_for {
-  padding: 0 0 50px 0;
-}
-
-app-welcome-page .What_for span{
-  font-family: MovieStack_Font, serif;
-}
-/*--------------------------------------------------------*/
-/*--------------------------------------------------------*/
-
-
-
-/*----------------CSS DE LA PAGE D'AJOUT D'UN FILM----------------*/
-/*----------------------------------------------------------------*/
-
-app-add-amovie-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-app-add-amovie-page #buttonBack {
-  padding-right: 95%;
-  height: 63px;
-  width: 63px;
-  margin: 5px 0;
-  position: absolute;
-}
-
-app-add-amovie-page section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-app-add-amovie-page mat-table {
-  width: 1400px;
-}
-
-app-add-amovie-page mat-header-cell, mat-cell {
-  display: flex;
-  /*flex: auto;*/
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.mat_header {
-  font-size: medium;
-  font-weight: bold;
-}
-
-#add_movie {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-#add_movie_icon {
-  padding-left: 20px;
-  cursor: pointer;
-}
-
-.poster {
-  width: 70px;
-  padding: 5px 0;
-}
-
-#scrollable_table {
-  scroll-behavior: smooth;
-  height: 620px;
-  overflow: auto;
-}
-
-app-add-amovie-page .addMovieForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 50px;
-}
-
-app-add-amovie-page .addMovieForm form {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-app-add-amovie-page section h1 {
-  background-color: grey;
-  color: white;
-  width: 650px;
-  height: 30px;
-}
-
-app-add-amovie-page .addMovieForm form div div {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-
-app-add-amovie-page .addMovieForm label {
-  width: 400px;
-  padding: 0 25px;
-}
-
-app-add-amovie-page .addMovieForm .title h2 {
-  background-color: grey;
-  color: white;
-  height: 30px;
-  margin: 5px 0;
-}
-
-app-add-amovie-page .addMovieForm .released h2 {
-  background-color: grey;
-  color: white;
-  margin: 5px 0;
-}
-
-app-add-amovie-page .addMovieForm input {
-  width: 300px;
-  height: 28px;
-  margin: 0 25px 0 0;
-  border-radius: 5px;
-}
-
-app-add-amovie-page .addMovieForm input[type=text] {
-  padding: 0 0 0 15px;
-}
-
-app-add-amovie-page .addMovieForm a button {
-  height: 80px;
-  width: 140px;
-  font-size: larger;
-  font-weight: bolder;
-  color: white;
-  border-radius: 5px;
-  background-color: #33801d;
-}
-
-/*----------------------------------------------------------------*/
-/*----------------------------------------------------------------*/
-
-
-
 .container {
   display: flex;
   flex-direction: column;
@@ -292,36 +36,17 @@ app-add-amovie-page .addMovieForm a button {
   font-family: 'Roboto', sans-serif;
 }
 
-/*div {*/
-/*  padding: 5px;*/
-/*}*/
-
-#table-view {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-/* Hyperlink */
 a {
     cursor: pointer;
     color: #1976d2;
     text-decoration: none;
   }
 
-/*button a {*/
-/*  cursor: pointer;*/
-/*  color: black;*/
-/*  text-decoration: none;*/
-/*}*/
-
 a:hover {
   opacity: 0.8;
 }
 
-ul li {
-  text-align: justify;
-}
+
 
 html, body {
   height: 99%;
@@ -333,4 +58,7 @@ body {
   display: flex;
 }
 
+ul li {
+  text-align: justify;
+}
 

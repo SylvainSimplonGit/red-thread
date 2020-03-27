@@ -1,0 +1,103 @@
+app-welcome-page {
+  width: auto;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Title span{
+  font-family: MovieStack_Font, serif;
+}
+
+.Title {
+  padding: 100px 0;
+}
+
+.What_for {
+  padding: 0 0 50px 0;
+}
+
+.What_for span{
+  font-family: MovieStack_Font, serif;
+}
+
+
+
+
+/* Coix déroulant d'utilisateur*/
+#user_choice_nav {
+  display: flex;
+  flex-direction: row;
+}
+
+#user_choice {
+  display: flex;
+  /*flex-direction: row;*/
+  justify-content: flex-end;
+  position: absolute;
+  margin: 0 auto;
+  width: 100%;
+}
+
+#user_choice ul {
+  list-style-type: none;
+  padding: 0 50px 0 0;
+}
+
+#user_choice ul .deroulant {
+  flex: 1 1 auto;
+  text-align: center;
+  position: relative;
+}
+
+#user_choice a {
+  display: block;
+  text-decoration: none;
+  color: black;
+  background-color: lightslategrey;
+  border-bottom: 2px solid transparent;
+  border-radius: 3px;
+  padding: 10px 15px;
+}
+
+#user_choice a:hover {
+  color: white;
+  border-bottom: 2px solid lightgrey;
+}
+
+.sous {
+  display: none;
+  /*box-shadow: 0px 1px 2px #CCC;*/
+  background-color: white;
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+}
+
+#user_choice > ul .deroulant:hover .sous {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.sous li {
+  flex: 1 1 auto;
+  text-align: left;
+}
+
+.sous a {
+  padding: 10px;
+  border-bottom: none;
+}
+
+.sous a:hover {
+  border-bottom: none;
+  background-color: RGBa(200,200,200,0.1);
+}
+
+.deroulant > a::after {
+  content:" ▼";
+  font-size: 12px;
+}

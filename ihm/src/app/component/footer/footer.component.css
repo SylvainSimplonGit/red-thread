@@ -1,0 +1,25 @@
+
+footer {
+  flex-shrink: 0;
+  position: fixed;
+  bottom: 0;
+  width: 99%;
+  background-color: white;
+}
+
+div {
+  height: 60px;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#logo_renault {
+  height: 40px;
+}
+
+#logo_simplon {
+  height: 40px;
+}
