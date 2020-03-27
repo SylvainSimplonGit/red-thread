@@ -3,6 +3,7 @@ package co.simplon.moviestack.controler;
 import antlr.ASTFactory;
 import co.simplon.moviestack.exception.InvalidRequestException;
 import co.simplon.moviestack.model.MovieBuff;
+import co.simplon.moviestack.model.Opinion;
 import co.simplon.moviestack.service.MovieBuffService;
 import co.simplon.moviestack.service.MovieBuffServiceImpl;
 import org.hibernate.exception.ConstraintViolationException;
@@ -67,7 +68,17 @@ public class MovieBuffController {
                 throw new InvalidRequestException("test!");
             }
         }
+    }
 
+    /**
+     * Get opinions from TheMovieDB with Movie Buff Id
+     *
+     * @param movieBuffId
+     * @return
+     */
+    @GetMapping("/{movieBuffId}/opinions")
+    public List<Opinion> getOpinionsByImdbId(@PathVariable Long movieBuffId) {
+        return movieBuffService.getOpinionsByidMovieBuff(movieBuffId);
     }
 
     /**

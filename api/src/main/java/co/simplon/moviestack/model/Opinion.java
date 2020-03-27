@@ -1,5 +1,7 @@
 package co.simplon.moviestack.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -13,11 +15,11 @@ public class Opinion {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "opinion_seq_id")
     private Long idOpinion;
 
+//    @JsonIgnore
     @ManyToOne
     private Movie movie;
 
-//    @Column(nullable = false)
-//    private Long idMovieBuff;
+//    @JsonIgnore
     @ManyToOne
     private MovieBuff movieBuff;
 

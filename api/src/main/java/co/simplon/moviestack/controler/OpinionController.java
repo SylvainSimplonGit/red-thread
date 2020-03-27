@@ -36,7 +36,7 @@ public class OpinionController {
      * @param opinionId
      * @return
      */
-    @GetMapping("/opinion/{opinionId}")
+    @GetMapping("/{opinionId}")
     public Opinion getOpinionById(@PathVariable Long opinionId) {
         return opinionService.getOpinionById(opinionId);
     }
