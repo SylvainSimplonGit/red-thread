@@ -44,6 +44,7 @@ import { FooterComponent } from './component/footer/footer.component';
     DirectorSheetComponent,
     StarRatingComponent,
     OpinionListComponent,
+    OpinionMineComponent,
     AddAMoviePageComponent,
     FooterComponent
   ],
