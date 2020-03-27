@@ -22,12 +22,24 @@ mat-table {
   width: 1400px;
 }
 
-mat-header-cell, mat-cell {
+mat-header-cell, mat-cell:not(#mat_cell_title) {
   display: flex;
   /*flex: auto;*/
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+#mat_cell_title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+mat-header-cell:first-of-type, mat-cell:first-of-type {
+  flex: 0 0 40px !important;
+  min-width: 40px !important;
 }
 
 .mat_header {
@@ -42,7 +54,7 @@ mat-header-cell, mat-cell {
 }
 
 #add_movie_icon {
-  padding-left: 20px;
+  padding: 0 20px;
   cursor: pointer;
 }
 

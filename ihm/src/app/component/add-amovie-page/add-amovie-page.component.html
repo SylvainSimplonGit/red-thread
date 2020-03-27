@@ -15,10 +15,17 @@
         <label for="title"><h2>Titre du film</h2></label>
         <input id="title" type="text" formControlName="movie_title" placeholder="Tapez le titre...">
       </div>
+
+<!--      ###################################################################################################      -->
+<!--      ### FUTURE FEATURE### - Possibilité d'ajouter l'année de sortie du film comme critère de recherche       -->
+<!--      ###################################################################################################      -->
 <!--      <div class="released">-->
 <!--        <label for="released"><h2>Année de sortie du film</h2></label>-->
 <!--        <input id="released" type="text" formControlName="movie_released" placeholder="Tapez l'année...">-->
 <!--      </div>-->
+<!--      ###################################################################################################      -->
+<!--      ###################################################################################################      -->
+
     </div>
 
     <div>
@@ -31,9 +38,17 @@
 <section>
   <div id="scrollable_table">
     <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z5">
+
+      <ng-container matColumnDef="add">
+        <mat-header-cell class="mat_header" *matHeaderCellDef mat-sort-header></mat-header-cell>
+        <mat-cell *matCellDef="let movie">
+          <mat-icon id="add_movie_icon" aria-hidden="false" aria-label="Ajouter un film" title="Ajouter un film" (click)="addAmovie(movie)">add</mat-icon>
+        </mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="title">
         <mat-header-cell class="mat_header" *matHeaderCellDef mat-sort-header> Titre </mat-header-cell>
-        <mat-cell *matCellDef="let movie"> {{ movie.title }} </mat-cell>
+        <mat-cell id="mat_cell_title" *matCellDef="let movie"> {{ dataSource.data.indexOf(movie)+1 }}.  {{ movie.title }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="released">
@@ -50,7 +65,6 @@
         <mat-header-cell  class="mat_header" *matHeaderCellDef> Poster </mat-header-cell>
         <mat-cell id="add_movie" *matCellDef="let movie">
           <img class="poster" src="{{ movie.posterUrl }}" alt="Affiche du film {{movie.title}}">
-          <mat-icon id="add_movie_icon" aria-hidden="false" aria-label="Ajouter un film" title="Ajouter un film" (click)="addAmovie(movie)">add</mat-icon>
         </mat-cell>
       </ng-container>
 

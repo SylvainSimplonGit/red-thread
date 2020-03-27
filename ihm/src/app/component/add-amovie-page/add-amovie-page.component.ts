@@ -18,7 +18,7 @@ import {MovieBuff} from '../../model/moviebuff';
 
 export class AddAMoviePageComponent implements OnInit {
   addAMovieForm;
-  displayedColumns: any[] = ['title', 'released', 'idImdb', 'posterUrl'];
+  displayedColumns: any[] = ['add', 'title', 'released', 'idImdb', 'posterUrl'];
   dataSource = new MatTableDataSource<Movie>();
   public currentMovieBuff: MovieBuff;
 
@@ -67,15 +67,8 @@ export class AddAMoviePageComponent implements OnInit {
     });
   }
 
-  applyFilter($event: KeyboardEvent) {
-
-  }
-
   addAmovie(movie: Movie) {
-    this.currentMovieBuff.moviesSeen.push(movie);
-    console.log(this.currentMovieBuff);
-    this.movieBuffService.updateCurrentMovieBuff(this.currentMovieBuff).subscribe(movieBuff => {
-      this.currentMovieBuff = movieBuff; });
-    console.log('tentative d\'ajout à la liste du film: ' + movie);
+    this.movieService.getMovieFromTMDBById(movie.idImdb).subscribe();
+    console.log('tentative d\'ajout à la liste du film: ' + movie.title);
     }
 }

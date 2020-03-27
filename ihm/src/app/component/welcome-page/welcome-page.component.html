@@ -1,7 +1,16 @@
-<div>
-
+<div id="user_choice_nav">
+  <h3>Bonjour <em> {{ this.currentMovieBuff.firstName }} {{ this.currentMovieBuff.lastName }} ! </em></h3>
+  <nav id="user_choice">
+    <ul>
+      <li class="deroulant">
+        <a href="#">Choix utilisateur &ensp;</a>
+        <ul class="sous" >
+          <li *ngFor="let movieBuff of movieBuffsList" (click)="selectMovieBuff(movieBuff)"><a href="#"> {{ movieBuff.firstName }} {{ movieBuff.lastName }} </a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
 </div>
-
 
 
 <div>
