@@ -13,6 +13,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AppComponent } from './app.component';
 import { MovieService } from './service/movie.service';
@@ -66,6 +67,7 @@ import { AddAMoviePageComponent } from './component/add-amovie-page/add-amovie-p
     FormsModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatTooltipModule,
   ],
   entryComponents: [
     OpinionListComponent,

@@ -78,7 +78,7 @@ export class MovieSheetComponent implements OnInit {
 
       this.currentMovie = movie;
       this.localGlobalRating = this.calculateNbStar(total);
-      // this.localMyRating = this.calculateNbStar(this.opinionMine.rating);
+      this.localMyRating = this.calculateNbStar(this.opinionMine.rating);
       // this.movieBuffService.getOpinionByIdMovieFromCurrentMovieBuff(movie.idImdb);
       console.log('this.opinionsOfMovie : ' + JSON.stringify(this.opinionsOfMovie));
       console.log('Global Rating : ' + total);
@@ -141,16 +141,22 @@ export class MovieSheetComponent implements OnInit {
     dialogConfig.width = '600px';
     dialogConfig.data = {
       title: 'Mon opinion sur le film',
-      opinion: this.opinionMine.comment
+      opinion: this.opinionMine.comment,
+      rate: this.opinionMine.rating
     };
 
     const dialogMyOpinion = this.dialog.open(OpinionMineComponent, dialogConfig);
 
     dialogMyOpinion.afterClosed().subscribe( myNewOpinion => {
-      if (this.opinionMine.comment !== myNewOpinion) {
+      console.log('displayMyOpinion');
+      console.log(myNewOpinion);
+      if (this.opinionMine.comment !== myNewOpinion.newOpinion) {
         this.opinionMine.movie = this.currentMovie;
         this.opinionMine.movieBuff = this.currentMovieBuff;
-        this.opinionMine.comment = myNewOpinion;
+        this.opinionMine.comment = myNewOpinion.newOpinion;
+        this.opinionMine.rating = myNewOpinion.newRate;
+        // this.localMyRating = this.opinionMine.rating;
+        console.log('this.opinionMine');
         console.log(this.opinionMine);
         this.movieBuffService.setMyOpinionOfMovieIdImdb(this.opinionMine).subscribe();
       }

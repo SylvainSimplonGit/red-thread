@@ -1,16 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-star-rating',
   templateUrl: './star-rating.component.html',
-  styleUrls: ['./star-rating.component.css']
+  styleUrls: ['./star-rating.component.css'],
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class StarRatingComponent implements OnInit {
 
   @Input('rating') private rating: number;
   @Input('starCount') private starCount: number;
+  @Input('readOnly') private readOnly: boolean;
+  @Output() private ratingUpdated = new EventEmitter();
 
   public ratingArr = [];
+  public readonly = true;
 
   constructor(
   ) { }
@@ -19,6 +23,7 @@ export class StarRatingComponent implements OnInit {
     for (let index = 0; index < this.starCount; index++) {
       this.ratingArr.push(index);
     }
+    this.readonly = this.readOnly;
   }
 
   showIcon(index: number) {
@@ -29,6 +34,11 @@ export class StarRatingComponent implements OnInit {
     } else {
       return 'star_border';
     }
+  }
 
+  onClick(rating: number) {
+    console.log('star-rating : ' + rating);
+    this.ratingUpdated.emit(rating);
+    return false;
   }
 }

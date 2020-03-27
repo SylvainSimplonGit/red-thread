@@ -1,18 +1,36 @@
-.starColumn {
+/*.starColumn {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  justify-content: center;*/
+/*  !*height: 100%;*!*/
+/*  width: 100%;*/
+/*}*/
+
+/*.starRow {*/
+/*  display: flex;*/
+/*  flex-direction: row;*/
+/*  justify-content: center;*/
+/*  width: 100%;*/
+/*}*/
+
+.starIcon {
+  color: gold;
+}
+
+.mat-icon-button {
+  width: 24px;
+}
+
+.col {
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  width: 20vw;
 }
 
-.starRow {
+.row {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 100%;
-}
-
-.starIcon {
-  color: gold;
+  /*width: 100%;*/
 }

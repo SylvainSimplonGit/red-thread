@@ -5,23 +5,29 @@
         <img alt="back to movie list" src="./assets/back.png">
       </a>
     </div>
+    <div class="starDiv">
+      <app-star-rating
+        [rating]="localMyRating"
+        [starCount]="starCount"
+        [readOnly]="true"
+        (click)="displayMyOpinion()"
+      >
+      </app-star-rating>
+    </div>
 
-  <app-star-rating
-    [rating]="localMyRating"
-    [starCount]="starCount"
-    (click)="displayMyOpinion()"
-  >
-  </app-star-rating>
-  <div id="pageName">
-    <h3>Fiche du film</h3>
-  </div>
-    <app-star-rating
-      [rating]="localGlobalRating"
-      [starCount]="starCount"
-      (click)="displayOpinionList()"
-    >
+    <div id="pageName">
+      <h3>Fiche du film</h3>
+    </div>
 
-    </app-star-rating>
+    <div class="starDiv">
+      <app-star-rating
+        [rating]="localGlobalRating"
+        [starCount]="starCount"
+        [readOnly]="true"
+        (click)="displayOpinionList()"
+      >
+      </app-star-rating>
+    </div>
   </div>
   <div id="contentSheet">
     <div id="poster" class="col-30">
