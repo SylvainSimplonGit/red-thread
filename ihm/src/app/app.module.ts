@@ -30,6 +30,7 @@ import { StarRatingComponent } from './component/star-rating/star-rating.compone
 import { OpinionListComponent } from './component/opinion-list/opinion-list.component';
 import { OpinionMineComponent } from './component/opinion-mine/opinion-mine.component';
 import { AddAMoviePageComponent } from './component/add-amovie-page/add-amovie-page.component';
+import { FooterComponent } from './component/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -43,8 +44,8 @@ import { AddAMoviePageComponent } from './component/add-amovie-page/add-amovie-p
     DirectorSheetComponent,
     StarRatingComponent,
     OpinionListComponent,
-    OpinionMineComponent,
-    AddAMoviePageComponent
+    AddAMoviePageComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

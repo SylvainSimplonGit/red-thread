@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
 
 import { MovieBuff } from '../model/moviebuff';
@@ -13,6 +14,7 @@ export class MovieBuffService {
   private pathRootApi = 'http://localhost:8080/api/';
 
   public currentMovieBuff: Observable<MovieBuff>;
+  public currentUser: MovieBuff;
 
   constructor(
     private httpClient: HttpClient
@@ -21,8 +23,8 @@ export class MovieBuffService {
     this.setCurrentMovieBuff(idCurrentMovieBuff);
   }
 
-  getMovieBuffs() {
-    const urlApi = this.pathRootApi + 'movie_buff';
+  public getMovieBuffs(): Observable<MovieBuff[]> {
+    const urlApi = this.pathRootApi + 'movies/movie_buff';
     try {
       return this.httpClient.get<MovieBuff[]>(urlApi);
     } catch (e) {
@@ -45,6 +47,16 @@ export class MovieBuffService {
 
   public getCurrentMovieBuff(): Observable<MovieBuff> {
     return this.currentMovieBuff;
+  }
+
+  public updateMovieBuff(movieBuff: MovieBuff): Observable<MovieBuff> {
+    const urlApi = this.pathRootApi + 'movies/movie_buff/' + movieBuff.idMovieBuff;
+    console.log(movieBuff);
+    try {
+      return this.httpClient.get<MovieBuff>(urlApi);
+    } catch (e) {
+      return e.message;
+    }
   }
 
   private getOpinionById(idOpinion: number): Observable<Opinion> {
