@@ -19,7 +19,6 @@ export class WelcomePageComponent implements OnInit {
   ngOnInit() {
     this.movieBuffService.getMovieBuffs().subscribe( movieBuffs => {
       this.movieBuffsList = movieBuffs;
-      console.log(this.movieBuffsList);
       this.updateCurrentMovieBuff();
     });
   }
@@ -33,7 +32,6 @@ export class WelcomePageComponent implements OnInit {
     return this.movieBuffService.getCurrentMovieBuff().subscribe(
       movieBuff => {
         this.currentMovieBuff = movieBuff;
-        console.log('Vous êtes : ' + movieBuff.firstName + ' ' + movieBuff.lastName);
       });
   }
 }

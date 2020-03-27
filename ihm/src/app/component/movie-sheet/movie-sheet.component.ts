@@ -45,9 +45,7 @@ export class MovieSheetComponent implements OnInit {
       this.movieService.setCurrentMovie(params.get('movieId'));
       this.movieService.getCurrentMovie().subscribe(
       movieServer => {
-        console.log('Init');
         this.currentMovie = movieServer;
-        console.log('Le film courant est : ' + movieServer.idImdb);
         this.calculateGlobalRatingOfMovie(movieServer);
         this.updateOpinionsListOfMovie(movieServer);
       });
@@ -56,7 +54,6 @@ export class MovieSheetComponent implements OnInit {
     this.movieBuffService.getCurrentMovieBuff().subscribe(
       movieBuff => {
         this.currentMovieBuff = movieBuff;
-        console.log('Vous êtes : ' + this.currentMovieBuff.firstName + ' ' + this.currentMovieBuff.lastName);
       }
     );
   }
@@ -77,7 +74,6 @@ export class MovieSheetComponent implements OnInit {
       total = (total > 0) ? total /= opinions.length : 0 ;
       // Get persistent the global rating movie
       this.localGlobalRating = this.calculateNbStar(total);
-      console.log('Global Rating : ' + this.localGlobalRating);
     });
   }
 
@@ -106,7 +102,6 @@ export class MovieSheetComponent implements OnInit {
   getSomePropertiesOfOpinion(opinion: Opinion): any {
     if (opinion.movieBuff.idMovieBuff === this.currentMovieBuff.idMovieBuff) {
       this.opinionMine = opinion;
-      console.log('Votre nom : ' + this.currentMovieBuff.lastName);
     }
     // RAZ object
     const valueOp = {
@@ -151,8 +146,6 @@ export class MovieSheetComponent implements OnInit {
     const dialogMyOpinion = this.dialog.open(OpinionMineComponent, dialogConfig);
 
     dialogMyOpinion.afterClosed().subscribe( myNewOpinion => {
-      console.log('displayMyOpinion');
-      console.log(myNewOpinion);
       if (
             this.opinionMine.comment !== myNewOpinion.newOpinion ||
             this.opinionMine.rating !== myNewOpinion.newRate
@@ -175,7 +168,6 @@ export class MovieSheetComponent implements OnInit {
     this.movieService.getMovieFromTMDBById(idImdb).subscribe(
       movieServer => {
         this.currentMovie = movieServer;
-        console.log('Refresh : ' + idImdb);
       }
     );
   }

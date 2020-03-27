@@ -35,9 +35,9 @@
   </form>
 </section>
 
-<section>
+<section *ngIf="searchLaunch; else noSearch" >
   <div id="scrollable_table">
-    <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z5">
+    <mat-table *ngIf="dataSource.data.length > 0; else noData" [dataSource]="dataSource" matSort class="mat-elevation-z5">
 
       <ng-container matColumnDef="add">
         <mat-header-cell class="mat_header" *matHeaderCellDef mat-sort-header></mat-header-cell>
@@ -72,6 +72,14 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
 
+    <ng-template #noData>
+      Pas de films trouvés avec ces critères ...
+    </ng-template>
+
   </div>
   <mat-paginator [length]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
 </section>
+
+<ng-template #noSearch>
+  Veuillez indiquez vos critères de recherches et cliquez sur Chercher.
+</ng-template>
