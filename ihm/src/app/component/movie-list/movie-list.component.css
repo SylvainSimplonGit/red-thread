@@ -1,24 +1,74 @@
-table {
-    width: 100%;
-}
-
 .large-icon {
   font-size: 30px;
 }
 
 .justify-right {
   margin-left: 30px;
+  text-align: left;
 }
 
 mat-icon {
     cursor: pointer;
 }
 
-div {
-    display: flex;
-    flex-direction: row;
+.flex-cont-row {
+  display: flex;
+  flex-direction: row;
 }
 
+.flex-cont-col {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.item {
+  padding: 0.5em;
+  min-width: 0;
+  height: 30px;
+  width: 60px;
+}
+
+.initial {
+  flex: initial;
+}
+
+.auto {
+  flex: auto;
+}
+
+.labelTitle {
+  font-size: large;
+  font-weight: bolder;
+}
+
+.row-strech {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+
+/*---------------------------------------------------------*/
+/*------------ Affichage en ligne des cellules ------------*/
+
+.cellActors, .cellGenres {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+  min-height: auto;
+}
+
+.cellActor, .cellGenre {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/*---------------------------------------------------------*/
+/*------ Affichage du Paginator au milieu de la page  -----*/
 mat-paginator {
   display: flex;
   flex-direction: column;

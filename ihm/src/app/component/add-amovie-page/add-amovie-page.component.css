@@ -1,61 +1,48 @@
-app-add-amovie-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#buttonBack {
-  padding-right: 95%;
-  height: 63px;
-  width: 63px;
-  margin: 5px 0;
-  position: absolute;
-}
-
-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-mat-table {
-  width: 1400px;
-}
-
-mat-header-cell, mat-cell:not(#mat_cell_title) {
-  display: flex;
-  /*flex: auto;*/
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-#mat_cell_title {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-mat-header-cell:first-of-type, mat-cell:first-of-type {
-  flex: 0 0 40px !important;
-  min-width: 40px !important;
-}
-
-.mat_header {
-  font-size: medium;
-  font-weight: bold;
-}
-
-#add_movie {
+.flex-cont-row {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  margin: 1em;
 }
 
-#add_movie_icon {
-  padding: 0 20px;
-  cursor: pointer;
+.flex-cont-col {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.item {
+  padding: 0.5em;
+  min-width: 0;
+  height: 100px;
+  width: 60px;
+}
+
+.initial {
+  flex: initial;
+}
+
+.auto {
+  flex: auto;
+}
+
+.labelTitle {
+  font-size: larger;
+  font-weight: bolder;
+  padding: 7px 5vw;
+}
+
+.label-color-gray {
+  background-color: grey;
+  color: white;
+}
+
+.row-strech {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .poster {
@@ -63,74 +50,36 @@ mat-header-cell:first-of-type, mat-cell:first-of-type {
   padding: 5px 0;
 }
 
-#scrollable_table {
-  scroll-behavior: smooth;
-  height: 615px;
-  overflow: auto;
+.mat-column-add {
+  flex: 0 0 40px !important;
+  min-width: 40px !important;
+  justify-content: center;
 }
 
-.addMovieForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 25px;
+#buttonBack {
+  background-color: white;
 }
 
-.addMovieForm form {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-section h1 {
-  background-color: grey;
-  color: white;
-  width: 650px;
-  height: 30px;
-}
-
-.addMovieForm form div div {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.addMovieForm label {
-  width: 400px;
-  padding: 0 25px;
-}
-
-.addMovieForm .title h2 {
-  background-color: grey;
-  color: white;
-  height: 30px;
-  margin: 5px 0;
-}
-
-.addMovieForm .released h2 {
-  background-color: grey;
-  color: white;
-  margin: 5px 0;
-}
-
-.addMovieForm input {
-  width: 300px;
-  height: 28px;
-  margin: 0 25px 0 0;
-  border-radius: 5px;
-}
-
-.addMovieForm input[type=text] {
-  padding: 0 0 0 15px;
-}
-
-.addMovieForm a button {
-  height: 40px;
-  width: 140px;
+#buttonSearch {
   font-size: larger;
   font-weight: bolder;
   color: white;
   border-radius: 5px;
   background-color: #33801d;
+  padding: 2px 5vw;
+}
+
+#inputTitle {
+  width: 40%;
+}
+
+#add_movie_icon {
+  padding: 0 20px;
+  cursor: pointer;
+}
+
+mat-paginator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

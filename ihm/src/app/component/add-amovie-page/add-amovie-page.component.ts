@@ -21,7 +21,8 @@ export class AddAMoviePageComponent implements OnInit {
   dataSource = new MatTableDataSource<Movie>();
 
   public currentMovieBuff: MovieBuff;
-  public searchLaunch = false;
+  public searchLaunch = 'no';
+  public hasData = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -50,11 +51,13 @@ export class AddAMoviePageComponent implements OnInit {
     if (addAMovieForm.movie_title === '') {
       alert('Veuillez entrer un titre de film');
     } else {
-      this.searchLaunch = true;
+      this.searchLaunch = 'inProgress';
       this.movieService.getMoviesByKeyword(addAMovieForm.movie_title).subscribe(movieSearch => {
         this.dataSource.data = movieSearch;
+        this.hasData = (movieSearch.length > 0);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        this.searchLaunch = 'finished';
       });
     }
   }

@@ -30,7 +30,7 @@ app-root {
   flex-direction: column;
   justify-content: space-evenly;
   text-align: center;
-  width: 99%;
+  /*width: 99%;*/
   margin: 0;
   padding: 0 0 70px 0;
   font-family: 'Roboto', sans-serif;

@@ -1,31 +1,38 @@
-<!-- <mat-form-field>
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
-</mat-form-field> -->
-
-<div class="justify-right">
-  <!-- <mat-label>Filter</mat-label> -->
-  <mat-icon title="Ajouter un film" class="large-icon" [routerLink]="['/addamovie']">playlist_add</mat-icon>
+<div class="flex-cont-row">
+  <div class="item initial">
+    <mat-icon title="Ajouter un film" class="large-icon" [routerLink]="['/addamovie']">playlist_add</mat-icon>
+  </div>
+  <div class="item auto">
+    <div *ngIf="!hasData" class="flex-cont-col">
+      <div class="row-strech">
+          <span class="labelTitle">
+            <= cliquez sur le bouton pour ajouter un film à votre liste
+          </span>
+      </div>
+    </div>
+  </div>
 </div>
-<mat-table [dataSource]="dataSource" matSort aria-describedby="Liste des films">
 
-  <!-- Title -->
-  <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Titre</mat-header-cell>
-    <mat-cell *matCellDef="let item"><mat-icon [routerLink]="['/movie', item.idImdb]">zoom_in</mat-icon>{{item.title}}</mat-cell>
-  </ng-container>
+<section *ngIf="hasData">
+  <mat-table [dataSource]="dataSource" matSort aria-describedby="Liste des films">
 
-  <!-- Director -->
-  <ng-container matColumnDef="director">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Réalisateur</mat-header-cell>
-    <mat-cell *matCellDef="let item"><mat-icon [routerLink]="['/director', 1]">zoom_in</mat-icon>{{item.director}}</mat-cell>
-  </ng-container>
+    <!-- Title -->
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Titre</mat-header-cell>
+      <mat-cell *matCellDef="let item"><mat-icon [routerLink]="['/movie', item.idImdb]">zoom_in</mat-icon>{{item.title}}</mat-cell>
+    </ng-container>
 
-  <!-- Actors -->
-  <ng-container matColumnDef="actors">
-    <mat-header-cell *matHeaderCellDef>Acteurs</mat-header-cell>
-    <mat-cell *matCellDef="let item">
-      <span *ngFor="let actor of item.actors; let i=index">
+    <!-- Director -->
+    <ng-container matColumnDef="director">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Réalisateur</mat-header-cell>
+      <mat-cell *matCellDef="let item"><mat-icon [routerLink]="['/director', 1]">zoom_in</mat-icon>{{item.director}}</mat-cell>
+    </ng-container>
+
+    <!-- Actors -->
+    <ng-container matColumnDef="actors">
+      <mat-header-cell *matHeaderCellDef> Acteurs </mat-header-cell>
+      <mat-cell *matCellDef="let item" class="cellActors">
+      <span *ngFor="let actor of item.actors; let i=index" class="cellActor">
         <span *ngIf="(item.actors)?.length <= maxActor; else elseGreaterThan">
           <span *ngIf="i < (item.actors)?.length - 1; else elseIf">
             {{ actor.name }},
@@ -43,14 +50,14 @@
           </span>
         </ng-template>
       </span>
-    </mat-cell>
-  </ng-container>
+      </mat-cell>
+    </ng-container>
 
-  <!-- Genres -->
-  <ng-container matColumnDef="genres">
-    <mat-header-cell *matHeaderCellDef>Genres</mat-header-cell>
-    <mat-cell *matCellDef="let item">
-      <span *ngFor="let genre of item.genres; let i=index">
+    <!-- Genres -->
+    <ng-container matColumnDef="genres">
+      <mat-header-cell *matHeaderCellDef>Genres</mat-header-cell>
+      <mat-cell *matCellDef="let item" class="cellGenres">
+      <span *ngFor="let genre of item.genres; let i=index" class="cellGenre">
         <span *ngIf="(item.genres)?.length <= maxGenre; else elseGreaterThan">
           <span *ngIf="i < (item.genres)?.length - 1; else elseIf">
             {{ genre.name }},
@@ -68,11 +75,12 @@
           </span>
         </ng-template>
       </span>
-    </mat-cell>
-  </ng-container>
+      </mat-cell>
+    </ng-container>
 
-  <mat-header-row *matHeaderRowDef="moviesColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: moviesColumns"></mat-row>
-</mat-table>
+    <mat-header-row *matHeaderRowDef="moviesColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: moviesColumns"></mat-row>
+  </mat-table>
 
-<mat-paginator [length]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+  <mat-paginator [length]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+</section>

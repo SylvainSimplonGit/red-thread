@@ -13,6 +13,7 @@ import { Movie } from '../../model/movie';
 })
 export class MovieListComponent implements OnInit {
 
+  public hasData = true;
   moviesColumns = ['title', 'director', 'actors', 'genres'];
   dataSource = new MatTableDataSource<Movie[]>();
 
@@ -29,7 +30,7 @@ export class MovieListComponent implements OnInit {
   ngOnInit() {
     this.movieBuffService.getCurrentMovieBuff().subscribe(
       movieBuff => {
-        // @ts-ignore
+        if (movieBuff.moviesSeen.length === 0) { this.hasData = false; }
         this.dataSource.data = movieBuff.moviesSeen;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
