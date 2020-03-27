@@ -305,7 +305,7 @@ public class MovieServiceImpl implements MovieService {
                         JsonNode jsonMovieSearch = mapperReturns.readTree(returns.toString());
 
                         Movie movieSearch = this.getMovieFromTMDBByImdbID(jsonMovieSearch.get(TMDB_FIELD_ID).asInt(), false);
-                        if (moviesSearch != null) {
+                        if (moviesSearch != null && movieSearch.getTitle() != null) {
                             moviesSearch.add(movieSearch);
                             --maxSearch;
                         }
