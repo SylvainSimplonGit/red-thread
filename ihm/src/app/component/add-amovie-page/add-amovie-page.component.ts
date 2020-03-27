@@ -2,13 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Movie } from '../../model/movie';
 import { MatPaginator } from '@angular/material/paginator';
-import { DomSanitizer } from '@angular/platform-browser';
-import { MatIconRegistry } from '@angular/material/icon';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MovieService } from '../../service/movie.service';
-import {MovieBuffService} from '../../service/movieBuff.service';
-import {MovieBuff} from '../../model/moviebuff';
+import { MovieBuffService } from '../../service/movieBuff.service';
+import { MovieBuff } from '../../model/moviebuff';
 
 @Component({
   selector: 'app-add-amovie-page',
@@ -29,15 +27,7 @@ export class AddAMoviePageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private movieService: MovieService,
     private movieBuffService: MovieBuffService,
-    // private iconRegistry: MatIconRegistry,
-    // private sanitizer: DomSanitizer
   ) {
-    // Décommenter si besoin -- exemple pour créer de nouvelle icones
-    // iconRegistry.addSvgIcon(
-    //   'add-movie',
-    //   sanitizer.bypassSecurityTrustResourceUrl('/assets/add-24px.svg')
-    // );
-
     this.addAMovieForm = this.formBuilder.group({
       movie_title: '',
       // movie_released: '',
@@ -59,8 +49,6 @@ export class AddAMoviePageComponent implements OnInit {
       alert('Veuillez entrer un titre de film');
     }
     this.movieService.getMoviesByKeyword(addAMovieForm.movie_title).subscribe(movieSearch => {
-      console.log(movieSearch);
-      // @ts-ignore
       this.dataSource.data = movieSearch;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -69,11 +57,12 @@ export class AddAMoviePageComponent implements OnInit {
 
   addAmovie(movie: Movie) {
     this.movieService.getMovieFromTMDBById(movie.idImdb).subscribe(movieRefreshed => {
-      console.log(this.currentMovieBuff.moviesSeen);
       this.currentMovieBuff.moviesSeen.push(movieRefreshed);
-      console.log(this.currentMovieBuff.moviesSeen);
-      this.movieBuffService.updateMovieBuff(this.currentMovieBuff);
+      this.movieBuffService.updateMovieBuff(this.currentMovieBuff).subscribe(
+        movieBuffUpdated => {
+          this.currentMovieBuff = movieBuffUpdated;
+        }
+      );
     });
-    console.log('tentative d\'ajout à la liste du film: ' + movie.title);
-    }
+  }
 }
