@@ -46,4 +46,14 @@ export class MovieBuffService {
   public getCurrentMovieBuff(): Observable<MovieBuff> {
     return this.currentMovieBuff;
   }
+
+  public updateMovieBuff(movieBuff: MovieBuff): Observable<MovieBuff> {
+    const urlApi = this.pathRootApi + 'movies/movie_buff/' + movieBuff.idMovieBuff;
+    console.log(movieBuff);
+    try {
+      return this.httpClient.get<MovieBuff>(urlApi);
+    } catch (e) {
+      return e.message;
+    }
+  }
 }

@@ -68,7 +68,12 @@ export class AddAMoviePageComponent implements OnInit {
   }
 
   addAmovie(movie: Movie) {
-    this.movieService.getMovieFromTMDBById(movie.idImdb).subscribe();
+    this.movieService.getMovieFromTMDBById(movie.idImdb).subscribe(movieRefreshed => {
+      console.log(this.currentMovieBuff.moviesSeen);
+      this.currentMovieBuff.moviesSeen.push(movieRefreshed);
+      console.log(this.currentMovieBuff.moviesSeen);
+      this.movieBuffService.updateMovieBuff(this.currentMovieBuff);
+    });
     console.log('tentative d\'ajout à la liste du film: ' + movie.title);
     }
 }

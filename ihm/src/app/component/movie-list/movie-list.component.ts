@@ -13,8 +13,8 @@ import { Movie } from '../../model/movie';
 })
 export class MovieListComponent implements OnInit {
 
-  moviesColumns = ['title', 'director', 'actors', 'genres'];//
-  dataSource = new MatTableDataSource<Movie>();
+  moviesColumns = ['title', 'director', 'actors', 'genres'];
+  dataSource = new MatTableDataSource<Movie[]>();
 
   // Number of Actor displayed in the list
   public maxActor = 5;
@@ -29,6 +29,7 @@ export class MovieListComponent implements OnInit {
   ngOnInit() {
     this.movieBuffService.getCurrentMovieBuff().subscribe(
       movieBuff => {
+        // @ts-ignore
         this.dataSource.data = movieBuff.moviesSeen;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
