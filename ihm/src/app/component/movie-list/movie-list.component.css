@@ -3,10 +3,8 @@ table{
 }
 
 mat-icon {
+    display: flex;
+    flex-direction: row;
     cursor: pointer;
 }
 
-div {
-    display: flex;
-    flex-direction: row;
-}

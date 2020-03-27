@@ -12,6 +12,7 @@ import co.simplon.moviestack.repository.OpinionRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.lang.reflect.Field;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -23,6 +24,9 @@ import org.springframework.web.client.RestTemplate;
 import javax.persistence.EntityNotFoundException;
 import java.net.ConnectException;
 import java.util.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -105,8 +109,33 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Movie> getMovies() {
-        List<Movie> dbMovies = movieRepository.findAll();
+    public Page<Movie> getMovies(Integer pageNumber, Integer pageSize, String criteria, String direction) {
+        // If page number is not null then use it for paging, otherwise provide page 0
+        int pNumber = (pageNumber != null) ? pageNumber : 0;
+        // If page size is not null then use it for paging, otherwise use default 5 page size
+        int pSize = (pageSize != null) ? pageSize : 5;
+
+        // By default sort on title
+        String sortingCriteria = "title";
+
+        // If sorting criteria matches an movie field title, then use it for sorting
+        Field[] fields = Movie.class.getDeclaredFields();
+        List<String> possibleCriteria = new ArrayList<>();
+        for (Field field : fields) {
+            possibleCriteria.add(field.getName().toLowerCase());
+        }
+        if (criteria != null && possibleCriteria.contains(criteria)) {
+            sortingCriteria = criteria;
+        }
+
+        // By default sorting ascending, but if user explicitely choose desc, then sort descending
+        Sort.Direction sortingDirection = Sort.Direction.ASC;
+        if (direction != null) {
+            sortingDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        }
+
+        Page<Movie> dbMovies = movieRepository.findAll(PageRequest.of(pNumber, pSize, Sort.by(sortingDirection, sortingCriteria)));
+
         if (!dbMovies.isEmpty()) {
             return dbMovies;
         } else {

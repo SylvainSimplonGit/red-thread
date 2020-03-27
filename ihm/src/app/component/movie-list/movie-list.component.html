@@ -1,24 +1,26 @@
+<mat-icon [routerLink]="['/addamovie']">playlist_add</mat-icon>
+
 <!-- <mat-form-field>
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
 </mat-form-field> -->
 
-<div class="justify-right">
-  <!-- <mat-label>Filter</mat-label> -->
-  <mat-icon [routerLink]="['/addamovie']">playlist_add</mat-icon>
-</div>
 <mat-table [dataSource]="dataSource" matSort aria-describedby="Liste des films">
 
   <!-- Title -->
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Titre</mat-header-cell>
-    <mat-cell *matCellDef="let item"><mat-icon [routerLink]="['/movie', item.idImdb]">zoom_in</mat-icon>{{item.title}}</mat-cell>
+    <mat-cell *matCellDef="let item">
+      <mat-icon [routerLink]="['/movie', item.idImdb]">zoom_in</mat-icon>{{item.title}}
+    </mat-cell>
   </ng-container>
 
   <!-- Director -->
   <ng-container matColumnDef="director">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Réalisateur</mat-header-cell>
-    <mat-cell *matCellDef="let item"><mat-icon [routerLink]="['/director', 1]">zoom_in</mat-icon>{{item.director}}</mat-cell>
+    <mat-cell *matCellDef="let item">
+      <mat-icon [routerLink]="['/director', 1]">zoom_in</mat-icon>{{item.director}}
+    </mat-cell>
   </ng-container>
 
   <!-- Actors -->
