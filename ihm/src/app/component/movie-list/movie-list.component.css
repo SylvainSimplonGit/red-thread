@@ -1,5 +1,13 @@
-table{
+table {
     width: 100%;
+}
+
+.large-icon {
+  font-size: 30px;
+}
+
+.justify-right {
+  margin-left: 30px;
 }
 
 mat-icon {
@@ -9,4 +17,10 @@ mat-icon {
 div {
     display: flex;
     flex-direction: row;
+}
+
+mat-paginator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -5,7 +5,7 @@
 
 <div class="justify-right">
   <!-- <mat-label>Filter</mat-label> -->
-  <mat-icon [routerLink]="['/addamovie']">playlist_add</mat-icon>
+  <mat-icon title="Ajouter un film" class="large-icon" [routerLink]="['/addamovie']">playlist_add</mat-icon>
 </div>
 <mat-table [dataSource]="dataSource" matSort aria-describedby="Liste des films">
 
@@ -75,4 +75,4 @@
   <mat-row *matRowDef="let row; columns: moviesColumns"></mat-row>
 </mat-table>
 
-<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+<mat-paginator [length]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
