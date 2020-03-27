@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MovieService } from '../../service/movie.service';
 import { MovieBuffService } from '../../service/movieBuff.service';
 import { MovieBuff } from '../../model/moviebuff';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-amovie-page',
@@ -27,6 +28,7 @@ export class AddAMoviePageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private movieService: MovieService,
     private movieBuffService: MovieBuffService,
+    private router: Router
   ) {
     this.addAMovieForm = this.formBuilder.group({
       movie_title: '',
@@ -61,6 +63,7 @@ export class AddAMoviePageComponent implements OnInit {
       this.movieBuffService.updateMovieBuff(this.currentMovieBuff).subscribe(
         movieBuffUpdated => {
           this.currentMovieBuff = movieBuffUpdated;
+          this.router.navigate(['/movies']);
         }
       );
     });
