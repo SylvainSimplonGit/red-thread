@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { MovieBuff } from '../model/moviebuff';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
+
+import { MovieBuff } from '../model/moviebuff';
+import { Opinion } from '../model/opinion';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +13,14 @@ export class MovieBuffService {
 
   private pathRootApi = 'http://localhost:8080/api/';
 
-  private idCurrentMovieBuff = 1;
-
   public currentMovieBuff: Observable<MovieBuff>;
   public currentUser: MovieBuff;
 
   constructor(
     private httpClient: HttpClient
   ) {
-    this.setCurrentMovieBuff(this.idCurrentMovieBuff);
+    const idCurrentMovieBuff = 1;
+    this.setCurrentMovieBuff(idCurrentMovieBuff);
   }
 
   public getMovieBuffs(): Observable<MovieBuff[]> {
@@ -56,4 +58,36 @@ export class MovieBuffService {
       return e.message;
     }
   }
+
+  private getOpinionById(idOpinion: number): Observable<Opinion> {
+    const urlApi = this.pathRootApi + 'movies/opinion/' + idOpinion;
+    try {
+      return this.httpClient.get<Opinion>(urlApi);
+    } catch (e) {
+      return e.message;
+    }
+  }
+
+  public setMyOpinionOfMovieIdImdb(opinion: Opinion): Observable<Opinion> {
+    const urlApi = this.pathRootApi + 'movies/opinion';
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+    // Si l'opinion existe
+    if (this.getOpinionById(opinion.idOpinion) != null) {
+      // alors faire un PUT
+      try {
+        return this.httpClient.put<Opinion>(urlApi, opinion, {headers});
+      } catch (e) {
+        return e.message;
+      }
+    } else {
+      // Sinon faire un POST de l'opinion
+      try {
+        return this.httpClient.post<Opinion>(urlApi, opinion, {headers});
+      } catch (e) {
+        return e.message;
+      }
+    }
+  }
+
 }

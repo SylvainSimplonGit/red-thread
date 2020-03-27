@@ -63,7 +63,6 @@ public class MovieBuffController {
                 LOGGER.error(e.getMessage());
                 throw new InvalidRequestException("Attributes are missing in request !");
             }
-//            return e.getMessage();
             else {
                 throw new InvalidRequestException("test!");
             }
@@ -88,7 +87,7 @@ public class MovieBuffController {
      * @return
      */
     @PutMapping("/{movieBuffId}")
-    public Object putMovieBuffById(@PathVariable Long movieBuffId, @RequestBody MovieBuff movieBuff) {
+    public Object putMovieBuffById(@PathVariable Long movieBuffId, @RequestBody MovieBuff movieBuff) throws Exception {
         try {
             return movieBuffService.updateMovieBuff(movieBuffId, movieBuff);
         } catch (EntityNotFoundException | InvalidRequestException e) {

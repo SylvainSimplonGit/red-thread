@@ -1,9 +1,47 @@
-<div class="starColumn">
-  <div class="starRow">
-    <div *ngFor="let ratingId of ratingArr; index as i">
+<!--<div class="starColumn">-->
+<!--  <div class="starRow" *ngIf="readOnly; else rate">-->
+<!--    <div *ngFor="let ratingId of ratingArr; index as i">-->
+<!--      <mat-icon class="starIcon">-->
+<!--        {{ showIcon(i) }}-->
+<!--      </mat-icon>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <ng-template class="starRow" #rate>-->
+<!--    <button-->
+<!--      mat-icon-button-->
+<!--      *ngFor="let ratingId of ratingArr; index as i"-->
+<!--      [id]="'star_'+i"-->
+<!--      (click)="onClick(i+1)"-->
+<!--      [matTooltip]="ratingId+1"-->
+<!--      matTooltipPosition="above"-->
+<!--    >-->
+<!--      <mat-icon class="starIcon">-->
+<!--        {{ showIcon(i) }}-->
+<!--      </mat-icon>-->
+<!--    </button>-->
+<!--  </ng-template>-->
+<!--</div>-->
+
+<div >
+  <div class="row" *ngIf="readonly; else rate">
+    <div class="col" *ngFor="let ratingId of ratingArr; index as i">
       <mat-icon class="starIcon">
         {{ showIcon(i) }}
       </mat-icon>
     </div>
   </div>
+
+  <ng-template class="row" #rate>
+    <button
+      mat-icon-button
+      *ngFor="let ratingId of ratingArr; index as i"
+      [id]="'star_'+i"
+      (click)="onClick(i+1)"
+    >
+      <mat-icon class="starIcon">
+        {{ showIcon(i) }}
+      </mat-icon>
+    </button>
+  </ng-template>
 </div>

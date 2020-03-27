@@ -20,7 +20,7 @@ import { Opinion } from '../../model/opinion';
 export class MovieSheetComponent implements OnInit {
 
   public currentMovieBuff: MovieBuff;
-  public movie: Movie = new Movie();
+  public currentMovie: Movie = new Movie();
   private opinionsOfMovie = [];
   public opinionMine: Opinion = new Opinion();
 
@@ -41,46 +41,61 @@ export class MovieSheetComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params =>
-      this.movieService.getMovieById(params.get('movieId')).subscribe(
-        movieServer => {
-          console.log('Init');
-          this.calculateRatingMovie(movieServer);
-        }
-      )
-    );
+    this.route.paramMap.subscribe(params => {
+      this.movieService.setCurrentMovie(params.get('movieId'));
+      this.movieService.getCurrentMovie().subscribe(
+      movieServer => {
+        console.log('Init');
+        this.currentMovie = movieServer;
+        console.log('Le film courant est : ' + movieServer.idImdb);
+        this.calculateGlobalRatingOfMovie(movieServer);
+        this.updateOpinionsListOfMovie(movieServer);
+      });
+    });
 
     this.movieBuffService.getCurrentMovieBuff().subscribe(
       movieBuff => {
         this.currentMovieBuff = movieBuff;
-        console.log('Vous êtes : ' + movieBuff.firstName + ' ' + movieBuff.lastName);
+        console.log('Vous êtes : ' + this.currentMovieBuff.firstName + ' ' + this.currentMovieBuff.lastName);
       }
     );
   }
 
-  calculateRatingMovie(movie: Movie) {
+  private calculateGlobalRatingOfMovie(movie: Movie) {
     this.movieService.getOpinionsMovieById(movie.idImdb).subscribe(opinions => {
+      // Initialization of variable
       let total = 0;
 
+      // Check if opinion exist
       if (opinions.length > 0) {
         opinions.forEach( (opinion) => {
+          // increments total with all rating opinions
           total += opinion.rating;
-          let valueOp: {};
-          valueOp = this.getSomePropertiesOfOpinion(opinion);
-          this.opinionsOfMovie.push(valueOp);
         });
       }
-
+      // calculate the average rating opinion
       total = (total > 0) ? total /= opinions.length : 0 ;
-
-      console.log('Total : ' + total);
-
-      this.movie = movie;
+      // Get persistent the global rating movie
       this.localGlobalRating = this.calculateNbStar(total);
-      // this.localMyRating = this.calculateNbStar(this.opinionMine.rating);
-      // this.movieBuffService.getOpinionByIdMovieFromCurrentMovieBuff(movie.idImdb);
-      console.log('this.opinionsOfMovie : ' + JSON.stringify(this.opinionsOfMovie));
-      console.log('Global Rating : ' + total);
+      console.log('Global Rating : ' + this.localGlobalRating);
+    });
+  }
+
+  private updateOpinionsListOfMovie(movie: Movie) {
+    this.movieService.getOpinionsMovieById(movie.idImdb).subscribe(opinions => {
+      // Initialization of variable
+      this.opinionsOfMovie = [];
+
+      // Check if opinion exist
+      if (opinions.length > 0) {
+        opinions.forEach( (opinion) => {
+
+          let valueOpinion: {};
+          valueOpinion = this.getSomePropertiesOfOpinion(opinion);
+          this.opinionsOfMovie.push(valueOpinion);
+        });
+      }
+      this.localMyRating = this.calculateNbStar(this.opinionMine.rating);
     });
   }
 
@@ -96,20 +111,12 @@ export class MovieSheetComponent implements OnInit {
     // RAZ object
     const valueOp = {
       idOpinion: 0,
-      // movieBuff: {
-      //   idMovieBuff: 0,
-      //   firstName: '',
-      //   lastName: ''
-      // },
       movieBuffName: '',
       rating: 0,
       comment: ''
     };
     // Copying part of the Opinion object to avoid copying the Movie object
     valueOp.idOpinion = opinion.idOpinion;
-    // valueOp.movieBuff.idMovieBuff = opinion.movieBuff.idMovieBuff;
-    // valueOp.movieBuff.firstName = opinion.movieBuff.firstName;
-    // valueOp.movieBuff.lastName = opinion.movieBuff.lastName;
     valueOp.movieBuffName = opinion.movieBuff.firstName + ' ' + opinion.movieBuff.lastName;
     valueOp.rating = opinion.rating;
     valueOp.comment = opinion.comment;
@@ -120,46 +127,54 @@ export class MovieSheetComponent implements OnInit {
   displayOpinionList(): void {
     if (this.opinionsOfMovie.length > 0) {
       const dialogConfig = new MatDialogConfig();
-      // dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
-      // dialogConfig.height = '400px';
       dialogConfig.width = '600px';
       dialogConfig.data = {
         id: 1,
-        title: this.movie.title,
+        title: this.currentMovie.title,
         opinionList: this.opinionsOfMovie
       };
-
       this.dialog.open(OpinionListComponent, dialogConfig);
     }
   }
 
   displayMyOpinion(): void {
     const dialogConfig = new MatDialogConfig();
-    // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    // dialogConfig.height = '400px';
     dialogConfig.width = '600px';
     dialogConfig.data = {
-      id: 1,
       title: 'Mon opinion sur le film',
-      opinion: this.opinionMine.comment
+      opinion: this.opinionMine.comment,
+      rate: this.opinionMine.rating
     };
 
-    console.log('Mon Opinion sur le film : ' + this.opinionMine.comment);
     const dialogMyOpinion = this.dialog.open(OpinionMineComponent, dialogConfig);
 
     dialogMyOpinion.afterClosed().subscribe( myNewOpinion => {
-      console.log('Ma nouvelle opinion : ' + myNewOpinion);
-      this.opinionMine.comment = myNewOpinion;
-      console.log(this.opinionMine);
+      console.log('displayMyOpinion');
+      console.log(myNewOpinion);
+      if (
+            this.opinionMine.comment !== myNewOpinion.newOpinion ||
+            this.opinionMine.rating !== myNewOpinion.newRate
+      ) {
+        this.opinionMine.movie = this.currentMovie;
+        this.opinionMine.movieBuff = this.currentMovieBuff;
+        this.opinionMine.comment = myNewOpinion.newOpinion;
+        this.opinionMine.rating = myNewOpinion.newRate;
+        this.movieBuffService.setMyOpinionOfMovieIdImdb(this.opinionMine)
+          .subscribe(
+          () => {
+            this.calculateGlobalRatingOfMovie(this.currentMovie);
+            this.updateOpinionsListOfMovie(this.currentMovie);
+          });
+      }
     });
   }
 
   refreshMovieInfo(idImdb: string) {
     this.movieService.getMovieFromTMDBById(idImdb).subscribe(
       movieServer => {
-        this.movie = movieServer;
+        this.currentMovie = movieServer;
         console.log('Refresh : ' + idImdb);
       }
     );

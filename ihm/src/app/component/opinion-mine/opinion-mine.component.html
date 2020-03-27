@@ -1,12 +1,31 @@
-<h2 mat-dialog-title class="center">{{ data.title }}</h2>
+<h2 mat-dialog-title class="center">{{ formTitle }}</h2>
 
 <mat-dialog-content>
-  <form [formGroup]="myOpinionForm" class="example-form">
-    <mat-form-field class="example-full-width">
+  <form [formGroup]="form" class="example-form">
+    <div id="rating">
+
+        <label
+          class="label"
+          for="ratingField"
+        >
+          Sur 10, je lui donne : {{ formRate }}
+        </label>
+        <app-star-rating
+          [rating]="formRate"
+          [starCount]="10"
+          [readOnly]="false"
+          id="ratingField"
+          (ratingUpdated)="onRatingChanged($event)"
+        ></app-star-rating>
+
+    </div>
+    <div id="opinion">
+      <mat-form-field class="example-full-width">
       <label
+        class="label"
         for="opinionField"
       >
-        Qu'avez-vous pensé de ce film ?
+        Ce que j'ai pensé de ce film ?
       </label>
       <input
         #message
@@ -17,11 +36,12 @@
       >
       <mat-hint align="start"><strong>Maximum 256 caractères</strong> </mat-hint>
       <mat-hint align="end">{{ message.value.length }} / 256</mat-hint>
-    </mat-form-field>
+      </mat-form-field>
+    </div>
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="data.opinion">Annuler</button>
-  <button mat-button [mat-dialog-close]="message.value">Sauvegarder</button>
+  <button class="mat-raised-button" (click)="close()">Close</button>
+  <button class="mat-raised-button mat-primary" (click)="save(message.value, formRate)">Save</button>
 </mat-dialog-actions>

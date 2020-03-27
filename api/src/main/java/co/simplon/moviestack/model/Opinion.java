@@ -23,7 +23,7 @@ public class Opinion {
     @ManyToOne
     private MovieBuff movieBuff;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     @Min(value = 0)
     @Max(value = 10)
     private Float rating;

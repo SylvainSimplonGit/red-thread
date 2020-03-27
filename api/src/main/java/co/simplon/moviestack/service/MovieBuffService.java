@@ -24,7 +24,7 @@ public interface MovieBuffService {
 
     MovieBuff getMovieBuffById(Long IdMovieBuff);  
   
-    MovieBuff updateMovieBuff(Long idMovieBuff, MovieBuff movieBuff) throws InvalidRequestException;
+    MovieBuff updateMovieBuff(Long idMovieBuff, MovieBuff movieBuff) throws Exception;
   
     List<Opinion> getOpinionsByidMovieBuff(Long idMovieBuff);
 }

@@ -11,6 +11,13 @@
 padding: 0;
 }
 
+.starDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 20vw;
+}
+
 #pageName {
   flex: 1;
 }
