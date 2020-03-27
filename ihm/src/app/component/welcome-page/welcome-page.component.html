@@ -1,5 +1,5 @@
 <div id="user_choice_nav">
-  <h3>Bonjour <em> {{ this.currentMovieBuff.firstName }} {{ this.currentMovieBuff.lastName }} ! </em></h3>
+  <h3>Bonjour <em *ngIf="currentMovieBuff"> {{ this.currentMovieBuff.firstName }} {{ this.currentMovieBuff.lastName }} ! </em></h3>
   <nav id="user_choice">
     <ul>
       <li class="deroulant">

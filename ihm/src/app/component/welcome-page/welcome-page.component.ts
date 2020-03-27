@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {MovieBuffService} from '../../service/movieBuff.service';
-import {MovieBuff} from '../../model/moviebuff';
+import { MovieBuffService } from '../../service/movieBuff.service';
+import { MovieBuff } from '../../model/moviebuff';
 
 @Component({
   selector: 'app-welcome-page',
@@ -8,9 +8,9 @@ import {MovieBuff} from '../../model/moviebuff';
   styleUrls: ['./welcome-page.component.css']
 })
 export class WelcomePageComponent implements OnInit {
+
   public movieBuffsList: MovieBuff[];
   public currentMovieBuff: MovieBuff;
-
 
   constructor(
     private movieBuffService: MovieBuffService,
@@ -20,18 +20,16 @@ export class WelcomePageComponent implements OnInit {
     this.movieBuffService.getMovieBuffs().subscribe( movieBuffs => {
       this.movieBuffsList = movieBuffs;
       console.log(this.movieBuffsList);
+      this.updateCurrentMovieBuff();
     });
-
-    this.currentMovieBufff();
-
   }
 
   selectMovieBuff(movieBuff: MovieBuff) {
     this.movieBuffService.setCurrentMovieBuff(movieBuff.idMovieBuff);
-    this.currentMovieBufff();
+    this.updateCurrentMovieBuff();
   }
 
-  currentMovieBufff() {
+  updateCurrentMovieBuff() {
     return this.movieBuffService.getCurrentMovieBuff().subscribe(
       movieBuff => {
         this.currentMovieBuff = movieBuff;
