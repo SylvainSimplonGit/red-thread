@@ -135,3 +135,5 @@ Relié un cinéphile à une liste de films sur lesquels il aura fournit des avis
 ## Les séries font-elles partie des goûts cinématographique
 
 - les séries font partie des choix. Elles sont définis avec les mêmes informations que les films.
+
+[Retour à la génèse](./genesis.md#recherches)

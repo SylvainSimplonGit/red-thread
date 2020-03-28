@@ -8,39 +8,109 @@ Le thème choisi sera :
 
 ## Les étapes du projet
 
-1. [Expression de besoins](documentation/requirements.md)
+Les étapes du projet ont été détaillées sur la page [La génèse du projet](documentation/genesis.md)
 
-1. [Recherches](documentation/investigations.md)
+## Le projet
 
-1. Synthèse
+>Dans les sections suivantes le répertoire racine du projet global ( **Backend** / **Frontend** ) sera nommé `PROJECT-ROOT`.
 
-1. Requalification du fil rouge
+### Prérequis
 
-1. Solution
+#### Installation de PostGreSQL
 
-   1. Solution 1 :
-        >Application Web qui proposera des listes de Films/Séries en fonction des goûts cinématographique d'un cinéphile.
-   1. Solution 2 :
-        >Application pour référencer les films déjà vus et fournir des liens vers des bases online de films
-   1. Solution non informatique :
-        >Créer un forum en IRL de cinéphiles pour partager son expérience des films déjà vus.
+Pour utiliser cette application, il vous faudra créer une base de données PostgreSQL afin que le backend du projet puisse générer le schéma de la base et puisse stocker dans cette base les informations que vous rentrerez via le frontend.
 
-1. [Users Stories](documentation/users_stories.md#liste-des-users-stories)
+Pour créer la base de données, vous devrez avoir un [SGDB](<nolink> "Système de Gestion de Base de Données") PostgreSQL d'installé sur votre PC.
 
-1. [Priorisation des Users Stories](documentation/users_stories.md#priorisation-des-users-stories)
+> IMPORTANT : le serveur de base de données **devra être hébergé** sur **la même machine** que celle sur laquelle vous allez lancer le Backend.
 
-1. [Maquettage](mockup/html/)
+Si ce n'est pas le cas, suivez la [Documentation officielle PostGreSQL](https://www.enterprisedb.com/edb-docs/d/postgresql/installation-getting-started/installation-guide-installers/12/index.html) en récupérant le [fichier d'installation ici](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads).
 
-1. [Modeles de données](documentation/model.puml)
+### Installation
 
-1. Dispatching
+Dans le répertoire `PROJECT-ROOT`, excécuter la commande suivante :
 
-   [Renommage de Users Stories](documentation/users_stories.md#nommage-des-users-stories)
+```shell
+git clone https://github.com/SylvainSimplonGit/red-thread.git
+```
 
-   /!\ Faire attention aux interactions entre Users Stories
+### Configuration Backend
 
-1. TDD
+#### Création d'une base de données PostgreSQL
 
-   Utilisation des workflows de GitHub pour l'automatisation des tests au push
+Créer votre base de données PostgreSQL sur votre serveur en gardant de côté les informations suivantes qui vous serviront plus tard :
 
-   - [Documentation](https://help.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow)
+- Nom de la base de données : <*nom_de_ma_base*>
+- Port utilisé (par défaut 5432) : <*port_de_ma_base*>
+- Login d'accès à la base : <*login_de_ma_base*>
+- Mot de passe du login <*login_de_ma_base*> : <*pass_de_ma_base*>
+
+#### Sous IntelliJ
+
+Ouvrez le projet situé dans le répertoire `PROJECT-ROOT/red-thread/api`.
+
+##### Définir le JDK à utiliser
+
+Dans la classe `MoviestackApplication`, dans la méthode `main`, survolez l'argument `String[]` qui doit être en rouge puis cliquez sur `setup JDK` et selectionnez une version **11** du **JDK**.
+
+##### Définir la configuration
+
+Faites un `edit configurations...` pour paramètrer le lancement de l'application.
+
+Ensuite configurer l'application comme suit :
+
+![config_ALL_vierge.png](./documentation/resources/config_ALL_vierge.png)
+
+Vous pouvez renseigner le `Name` de la configuration avec ce que vous souhaitez. Cette information sera réutilisée plus tard sous le nom <*nom_de_la_configuration*>.
+
+Dans notre exmple, nous avons choisi `Run API`.
+
+Puis ajouter les variables d'environnements suivantes :
+
+![config_ENV_vierge.png](./documentation/resources/config_ENV_vierge.png)
+
+avec comme valeur pour chaque variable d'environnement :
+
+- POSTGRES_DB : [Le nom de la base que vous avez créée](<nolink> "<*nom_de_ma_base*>")
+- POSTGRES_PORT : [Le port utilisé par le serveur PostgreSQL](<nolink> "<*port_de_ma_base*>")
+- POSTGRES_LOGIN : [Le login utilisé pour accéder à la base](<nolink> "<*login_de_ma_base*>")
+- POSTGRES_PASS : [Le mot de passe du login pour accéder à la base](<nolink> "<*pass_de_ma_base*>")
+
+#### Exécuter le Backend
+
+Une fois configuré, lancez le backend en cliquant dans le menu `Run` puis <*nom_de_la_configuration*> ou utilisez le raccourci `MAJ` + `F10`.
+
+Dans notre cas <*nom_de_la_configuration*> correspond à `Run API`.
+
+Une fois lancer le backend, vous devriez voir en cliquant sur le lien suivant :
+
+[http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+
+ceci :
+
+![swagger.png](./documentation/resources/swagger.png)
+
+C'est la preuve que votre Backend est bien fonctionnel !
+
+### Configuration Frontend
+
+#### Sous WebStorm
+
+Ouvrez le projet situé dans le répertoire `PROJECT-ROOT/red-thread/ihm`.
+Cliquez sur `Run 'npm install'` dans le popup `Install Dependencies`.
+
+Patientez le temps de l'installation des dépendances...
+
+Puis lancer le frontend en cliquant dans le menu `Run` puis `Run Angular CLI Server` ou utilisez le raccourci `MAJ` + `F10`
+
+Au premier lancement de l'application, cela peut être un peu long, le temps de compiler les différents modules.
+
+Ensuite, cliquez sur le lien suivant pour accéder au frontend de l'application :
+
+[http://localhost:4200/](http://localhost:4200/)
+
+Vous devriez voir ceci :
+
+![moviestack-ihm](documentation/resources/moviestack.png)
+
+C'est la preuve que votre Frontend est bien fonctionnel !
