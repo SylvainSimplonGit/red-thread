@@ -28,10 +28,12 @@ Si ce n'est pas le cas, suivez la [Documentation officielle PostGreSQL](https://
 
 ### Installation
 
-Dans le répertoire `PROJECT-ROOT`, excécuter la commande suivante :
+Dans le répertoire `PROJECT-ROOT`, excécuter les commandes suivantes dans cet ordre :
 
 ```shell
 git clone https://github.com/SylvainSimplonGit/red-thread.git
+cd red-thread
+git checkout tags/v1.0.2
 ```
 
 ### Configuration Backend
@@ -55,7 +57,9 @@ Dans la classe `MoviestackApplication`, dans la méthode `main`, survolez l'argu
 
 ##### Définir la configuration
 
-Faites un `edit configurations...` pour paramètrer le lancement de l'application.
+Faites un `add configuration...` pour paramètrer le lancement de l'application.
+
+Ajoutez une configuration depuis le template `Spring boot`.
 
 Ensuite configurer l'application comme suit :
 
