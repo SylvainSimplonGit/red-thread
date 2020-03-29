@@ -31,6 +31,7 @@ export class MovieListComponent implements OnInit {
     this.movieBuffService.getCurrentMovieBuff().subscribe(
       movieBuff => {
         if (movieBuff.moviesSeen.length === 0) { this.hasData = false; }
+        // @ts-ignore
         this.dataSource.data = movieBuff.moviesSeen;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
