@@ -83,5 +83,5 @@
 
   </div>
 
-  <mat-paginator [length]="dataSource.data.length" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+  <mat-paginator *ngIf="hasData" [length]="dataSource.data.length" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
 </section>
