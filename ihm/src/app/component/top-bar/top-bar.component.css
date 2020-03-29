@@ -47,3 +47,34 @@ a .button_connexion {
   border-color: rgb(159, 163, 255);
   background-color: rgb(126, 123, 255);
 }
+
+/*-------------------------------------------------*/
+/*-------------------------------------------------*/
+
+@media screen and (max-width: 425px) {
+  #top-bar {
+    padding: 5px 10px;
+  }
+
+  #top-bar-center h1 {
+    font-size: smaller;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  #top-bar {
+    padding: 2%;
+  }
+
+  #top-bar-center h1 {
+    font-size: x-small;
+  }
+
+  #clap_cinema {
+    height: 40px;
+  }
+
+  #button_connexion {
+    font-size: smaller;
+  }
+}

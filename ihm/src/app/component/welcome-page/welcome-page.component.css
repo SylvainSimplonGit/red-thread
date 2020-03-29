@@ -13,11 +13,25 @@ div {
 }
 
 .Title {
-  padding: 100px 0;
+  padding: 6vw 0;
+  width: 41.21vw;
+}
+
+.Title h1 {
+  font-size: 1.9vw;
 }
 
 .What_for {
-  padding: 0 0 50px 0;
+   padding: 0 0 3vw 0;
+   width: 56.8vw;
+ }
+
+.What_for h2 {
+  font-size: 1.43vw;
+}
+
+.What_for h3 {
+  font-size: 1.114vw;
 }
 
 .What_for span{
@@ -100,4 +114,45 @@ div {
 .deroulant > a::after {
   content:" ▼";
   font-size: 12px;
+}
+
+
+@media screen and (max-width: 2560px) {
+  #what_for {
+    margin-top: 190px;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  #what_for {
+    margin-top: 150px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #what_for {
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  #title {
+    font-size: smaller;
+  }
+
+  #what_for {
+    margin-top: 230px;
+    font-size: smaller;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  #title {
+    font-size: x-small;
+  }
+
+  #what_for {
+    margin-top: 190px;
+    font-size: smaller;
+  }
 }

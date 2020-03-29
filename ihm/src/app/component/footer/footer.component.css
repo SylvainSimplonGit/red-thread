@@ -18,8 +18,37 @@ div {
 
 #logo_renault {
   height: 40px;
+  /*height: 2.4vw;*/
+  /*min-height: 1.8vw;*/
+  /*min-width: 8.44vw;*/
 }
 
 #logo_simplon {
   height: 40px;
+  /*height: 2.4vw;*/
+  /*min-height: 1.8vw;*/
+  /*min-width: 8.44vw;*/
+}
+
+/*---------------------------------------------*/
+/*---------------------------------------------*/
+
+@media screen and (max-width: 425px) {
+  #logo_renault {
+    height: 30px;
+  }
+
+  #logo_simplon {
+    height: 30px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  #logo_renault {
+    height: 20px;
+  }
+
+  #logo_simplon {
+    height: 20px;
+  }
 }

@@ -6,8 +6,8 @@ app-add-amovie-page {
 
 #buttonBack {
   padding-right: 95%;
-  height: 63px;
-  width: 63px;
+  height: 4vw;
+  width: 4vw;
   margin: 5px 0;
   position: absolute;
 }
@@ -19,7 +19,8 @@ section {
 }
 
 mat-table {
-  width: 1400px;
+  /*width: 1400px;*/
+  width: 83vw;
 }
 
 mat-header-cell, mat-cell:not(#mat_cell_title) {
@@ -37,8 +38,10 @@ mat-header-cell, mat-cell:not(#mat_cell_title) {
 }
 
 mat-header-cell:first-of-type, mat-cell:first-of-type {
-  flex: 0 0 40px !important;
-  min-width: 40px !important;
+  /*flex: 0 0 40px !important;*/
+  /*min-width: 40px !important;*/
+  flex: 0 0 2.38vw !important;
+  min-width: 2.38vw !important;
 }
 
 .mat_header {
@@ -53,18 +56,22 @@ mat-header-cell:first-of-type, mat-cell:first-of-type {
 }
 
 #add_movie_icon {
-  padding: 0 20px;
+  /*padding: 0 20px;*/
+  padding: 0 1.2vw;
   cursor: pointer;
 }
 
 .poster {
-  width: 63px;
-  padding: 5px 0;
+  /*width: 63px;*/
+  /*padding: 5px 0;*/
+  width: 3.75vw;
+  padding: 0.3vw 0;
 }
 
 #scrollable_table {
   scroll-behavior: smooth;
-  height: 605px;
+  /*height: 605px;*/
+  height: 36vw;
   overflow: auto;
 }
 
@@ -72,7 +79,8 @@ mat-header-cell:first-of-type, mat-cell:first-of-type {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 25px;
+  /*margin-bottom: 25px;*/
+  margin-bottom: 1.5vw;
 }
 
 .addMovieForm form {
@@ -84,8 +92,10 @@ mat-header-cell:first-of-type, mat-cell:first-of-type {
 section h1 {
   background-color: grey;
   color: white;
-  width: 650px;
+  /*width: 650px;*/
+  width: 38.7vw;
   height: 30px;
+
 }
 
 .addMovieForm form div div {
@@ -96,37 +106,44 @@ section h1 {
 }
 
 .addMovieForm label {
-  width: 400px;
-  padding: 0 25px;
+  /*width: 400px;*/
+  /*padding: 0 25px;*/
+  width: 23.8vw;
+  padding: 0 1.5vw;
 }
 
 .addMovieForm .title h2 {
   background-color: grey;
   color: white;
   height: 30px;
-  margin: 5px 0;
+  /*margin: 5px 0;*/
+  margin: 0.3vw 0;
 }
 
 .addMovieForm .released h2 {
   background-color: grey;
   color: white;
-  margin: 5px 0;
+  margin: 0.3vw 0;
 }
 
 .addMovieForm input {
-  width: 300px;
+  /*width: 300px;*/
+  width: 17.9vw;
   height: 28px;
-  margin: 0 25px 0 0;
+  /*margin: 0 25px 0 0;*/
+  margin: 0 1.5vw 0 0;
   border-radius: 5px;
 }
 
 .addMovieForm input[type=text] {
-  padding: 0 0 0 15px;
+  /*padding: 0 0 0 15px;*/
+  padding: 0 0 0 0.9vw;
 }
 
 .addMovieForm a button {
   height: 40px;
-  width: 140px;
+  /*width: 140px;*/
+  width: 8.33vw;
   font-size: larger;
   font-weight: bolder;
   color: white;
