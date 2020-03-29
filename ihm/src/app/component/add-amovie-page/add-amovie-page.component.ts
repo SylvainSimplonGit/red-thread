@@ -50,16 +50,15 @@ export class AddAMoviePageComponent implements OnInit {
   onSubmit(addAMovieForm) {
     if (addAMovieForm.movie_title === '') {
       alert('Veuillez entrer un titre de film');
-    } else {
-      this.searchLaunch = 'inProgress';
-      this.movieService.getMoviesByKeyword(addAMovieForm.movie_title).subscribe(movieSearch => {
-        this.dataSource.data = movieSearch;
-        this.hasData = (movieSearch.length > 0);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.searchLaunch = 'finished';
-      });
     }
+    this.searchLaunch = 'inProgress';
+    this.movieService.getMoviesByKeyword(addAMovieForm.movie_title).subscribe(movieSearch => {
+      this.dataSource.data = movieSearch;
+      this.hasData = (movieSearch.length > 0);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.searchLaunch = 'finished';
+    });
   }
 
   addAmovie(movie: Movie) {
