@@ -72,9 +72,10 @@ export class MovieBuffService {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     // Si l'opinion existe
-    if (this.getOpinionById(opinion.idOpinion) != null) {
+    if (typeof(opinion.idOpinion) !== 'undefined' && opinion.idOpinion !== null) {
       // alors faire un PUT
       try {
+        console.log("PUT");
         return this.httpClient.put<Opinion>(urlApi, opinion, {headers});
       } catch (e) {
         return e.message;
@@ -82,6 +83,7 @@ export class MovieBuffService {
     } else {
       // Sinon faire un POST de l'opinion
       try {
+        console.log("POST");
         return this.httpClient.post<Opinion>(urlApi, opinion, {headers});
       } catch (e) {
         return e.message;
