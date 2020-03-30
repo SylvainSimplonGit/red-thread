@@ -25,10 +25,10 @@ INSERT INTO public.mv_movie (id_imdb,director,imdb_rating,imdb_vote,plot,poster_
 
 -- INSERT Movie Buffs
 INSERT INTO public.mv_moviebuff (id_movie_buff,first_name,last_name) VALUES 
-(1,'Tête','Denoeud')
-,(2,'Gérard','Menltant')
-,(3,'Al','Kollyck')
-,(4,'Corine','Titgoute')
+(nextval('movie_buff_seq_id'),'Tête','Denoeud')
+,(nextval('movie_buff_seq_id'),'Gérard','Menltant')
+,(nextval('movie_buff_seq_id'),'Al','Kollyck')
+,(nextval('movie_buff_seq_id'),'Corine','Titgoute')
 ;
 
 -- INSERT relations Movie / Movie Buff
@@ -56,10 +56,10 @@ INSERT INTO public.mv_movie_movie_buff (movie_buffs_id_movie_buff,movies_seen_id
 
 -- INSERT Opinions
 INSERT INTO public.mv_opinion (id_opinion,"comment",rating,movie_id_imdb,movie_buff_id_movie_buff) VALUES 
-(1,'Surpris !',0.5,'tt0137523',1)
-,(2,'Film culte !',10,'tt0078907',1)
-,(3,'A mourir de rire !',7.3,'tt0078907',2)
-,(4,'Les Nuls géniaux !',8,'tt0109440',1)
+(nextval('opinion_seq_id'),'Surpris !',0.5,'tt0137523',1)
+,(nextval('opinion_seq_id'),'Film culte !',10,'tt0078907',1)
+,(nextval('opinion_seq_id'),'A mourir de rire !',7.3,'tt0078907',2)
+,(nextval('opinion_seq_id'),'Les Nuls géniaux !',8,'tt0109440',1)
 ;
 
 -- INSERT Actors
