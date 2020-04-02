@@ -40,6 +40,8 @@ git checkout tags/v1.0.2
 
 #### Création d'une base de données PostgreSQL
 
+Voir la documentation de [création de la base de données](documentation/create-db.md)
+
 Créer votre base de données PostgreSQL sur votre serveur en gardant de côté les informations suivantes qui vous serviront plus tard :
 
 - Nom de la base de données : <*nom_de_ma_base*>
